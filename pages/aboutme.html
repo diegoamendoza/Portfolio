@@ -1,0 +1,240 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/windows/window_common.css">
+    <link rel="stylesheet" href="../css/windows/window_xp.css">
+    <title>ReadMe</title>
+    <style>
+        /* Aseguramos que todo el árbol ocupe el 100% del iframe */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #fff;
+            color: #111;
+        }
+
+        /* contenedor principal */
+        .window-content {
+            height: 100%;
+            overflow: auto
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stack-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .stack-category {
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background: #fafafa;
+        }
+
+        .stack-category h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: #222;
+        }
+
+        .logo-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 8px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .logo-card img {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .logo-card span {
+            font-size: 0.9rem;
+            text-align: center;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .stack-empty {
+            margin: 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/language.js"></script>
+    <div class="window-content">
+        <div class="window-body">
+            <div class="panelform">
+                <menu role="tablist" aria-label="Tabs">
+                    <button role="tab" aria-selected="true" aria-controls="Proyecto" data-translate="sobre-mi-btn">Sobre mí</button>
+                    <button role="tab" aria-controls="Imagenes" data-translate="stack-btn">Stack</button>
+                </menu>
+
+                <article role="tabpanel" id="Proyecto">
+                    <p data-translate="sobre-mi-p1">
+                        Hola, soy Diego Mendoza, un apasionado desarrollador y programador de videojuegos de 22 años. Desde temprana edad, he tenido una gran fascinación por la tecnología y los videojuegos, lo que me llevó a especializarme en esta emocionante industria. Mi experiencia abarca tanto la programación como el diseño, permitiéndome crear experiencias inmersivas y atractivas para los jugadores.
+                    </p>
+                    <p data-translate="sobre-mi-p2">
+                        <br><br>Mi amor por la programación se refleja en cada proyecto que emprendo, donde combino creatividad y habilidades técnicas para desarrollar juegos que no solo entretienen, sino que también desafían y emocionan a los jugadores. Estoy siempre en busca de nuevas oportunidades para aprender, crecer y contribuir al mundo de los videojuegos.
+                    </p>
+                </article>
+
+                <article role="tabpanel" hidden id="Imagenes">
+                    <div class="stack-container" id="stack-container"></div>
+                </article>
+
+
+            </div>
+
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const tabs = document.querySelectorAll('[role="tab"]');
+                const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+                const stackContainer = document.getElementById('stack-container');
+
+                const categories = [
+                    { key: 'lenguajes', label: 'Lenguajes' },
+                    { key: 'motores', label: 'Motores' },
+                    { key: 'herramientas', label: 'Herramientas' },
+                ];
+
+                const basePath = '../img/logos/';
+
+                const createLogoCard = (fileName, url) => {
+                    const card = document.createElement('div');
+                    card.className = 'logo-card';
+
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = fileName;
+                    img.loading = 'lazy';
+
+                    const caption = document.createElement('span');
+                    const cleanName = decodeURIComponent(fileName)
+                        .replace(/\.[^.]+$/, '')
+                        .replace(/[-_]+/g, ' ');
+                    caption.textContent = cleanName;
+
+                    card.appendChild(img);
+                    card.appendChild(caption);
+
+                    return card;
+                };
+
+                const parseDirectoryListing = (htmlText) => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    return Array.from(doc.querySelectorAll('a'))
+                        .map(a => a.getAttribute('href'))
+                        .filter(href => href && !href.startsWith('..'))
+                        .filter(href => /\.(png|jpe?g|svg|webp)$/i.test(href));
+                };
+
+                const loadCategory = async (category) => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'stack-category';
+
+                    const title = document.createElement('h3');
+                    title.textContent = category.label;
+                    categoryDiv.appendChild(title);
+
+                    const grid = document.createElement('div');
+                    grid.className = 'stack-grid';
+                    categoryDiv.appendChild(grid);
+
+                    try {
+                        const response = await fetch(`${basePath}${category.key}/`);
+                        if (!response.ok) {
+                            throw new Error('No se pudo cargar el directorio');
+                        }
+
+                        const text = await response.text();
+                        const files = parseDirectoryListing(text);
+
+                        if (files.length === 0) {
+                            const emptyMsg = document.createElement('p');
+                            emptyMsg.className = 'stack-empty';
+                            emptyMsg.textContent = 'No hay logos disponibles.';
+                            categoryDiv.appendChild(emptyMsg);
+                        } else {
+                            files.forEach(file => {
+                                const card = createLogoCard(file, `${basePath}${category.key}/${file}`);
+                                grid.appendChild(card);
+                            });
+                        }
+                    } catch (error) {
+                        const errorMsg = document.createElement('p');
+                        errorMsg.className = 'stack-empty';
+                        errorMsg.textContent = 'No fue posible cargar esta categoría.';
+                        categoryDiv.appendChild(errorMsg);
+                    }
+
+                    stackContainer.appendChild(categoryDiv);
+                };
+
+                (async () => {
+                    for (const category of categories) {
+                        await loadCategory(category);
+                    }
+                })();
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function () {
+                        // Deactivate all tabs
+                        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+
+                        // Hide all tab panels
+                        tabPanels.forEach(panel => panel.hidden = true);
+
+                        // Activate clicked tab
+                        tab.setAttribute('aria-selected', 'true');
+
+                        // Show associated tab panel
+                        const tabPanel = document.getElementById(tab.getAttribute('aria-controls'));
+                        tabPanel.hidden = false;
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <script>
+        // Opcional: si quieres que el contenido se adapte si tu WindowManager cambia tamaño dinámicamente,
+        // forzamos que el textarea haga focus/resice correctamente.
+        (function () {
+            const ta = document.getElementById('readme-textarea');
+            // Si quieres que sea read-only, descomenta:
+            // ta.setAttribute('readonly','');
+            // Opcional: seleccionar todo cuando se abre
+            // ta.addEventListener('focus', () => ta.select());
+        })();
+    </script>
+</body>
+</html>

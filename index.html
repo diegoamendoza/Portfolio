@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/windows/window_common.css">
+    <link rel="stylesheet" href="css/windows/window_xp.css">
+    <title>Document</title>
+</head>
+<body>
+   
+    
+    <div id="cssportal-grid">
+        <div id="div1">
+            <div class="icon proyectos">
+                <img src="img/documents.png">
+                <div class="icon-name mis proyectos" data-translate="mis-proyectos">Mis proyectos</div>
+            </div>
+        </div>
+        <div id="div2">
+            <div class="icon sobremi">
+                <img src="img/Information.png">
+                <div class="icon-name sobremi" data-translate="sobre-mi">Sobre mí</div>
+            </div>
+        </div>
+        <div id="div3">
+            <div class="icon cv">
+                <img src="img/Generic Text Document.png">
+                <div class="icon-name mis proyectos" data-translate="cv">CV</div>
+            </div>
+        </div>
+        <div id="div4">
+            <div class="icon contacto">
+                <img src="img/Windows Messenger.png">
+                <div class="icon-name mis proyectos" data-translate="contacto">Contacto</div>
+            </div>
+        </div>
+        <div id="div5">
+            <div class="icon note-pad">
+                <img src="img/Notepad.png">
+                <div class="icon-name mis proyectos" data-translate="readme">ReadMe.txt</div>
+            </div>
+        </div>
+        <div id="div6">
+            <div class="icon paint">
+                <img src="img/Paint.png">
+                <div class="icon-name mis proyectos" data-translate="paint">Paint</div>
+            </div>
+        </div>
+        <div id="div7">
+            <div class="icon meowjump">
+                <img src="img/LOGOMEOWJUMP.png">
+                <div class="icon-name mis proyectos" data-translate="meow-jump">Meow Jump!</div>
+            </div>
+        </div>
+        <div id="window_container"></div>
+
+        <!-- Template obligatorio -->
+        <template id="window_template">
+            <div class="win">
+                <nav class="win-titlebar win-drag-handle">
+                    <span class="win-icon">🗔</span>
+                    <span class="win-title win-drag-handle">Unnamed window</span>
+                    <button class="win-btn win-btn-minimize" onclick="wm.minimize_window(this.closest('.win'))" title="Minimize">▁</button>
+                    <button class="win-btn win-btn-restore hidden" onclick="wm.restore_window(this.closest('.win'))" title="Restore">🗗</button>
+                    <button class="win-btn win-btn-maximize" onclick="wm.maximize_window(this.closest('.win'))" title="Maximize">🗖</button>
+                    <button class="win-btn win-btn-close" onclick="wm.remove_window(this.closest('.win'))" title="Close">🞮</button>
+                </nav>
+                <iframe class="win-iframe"></iframe>
+                <div class="win-resize-handle"></div>
+            </div>
+        </template>
+    </div>
+
+    <!-- Contenedor donde las ventanas aparecerán -->
+
+
+
+    <div class="taskbar">
+        <div class="start-button" data-translate="inicio">
+            <img src="img/logo.svg">
+            Inicio
+        </div>
+        <div class="opened-tabs">
+            <div class="open-tab readme">
+                <img src="img/Notepad.png" alt="">
+                " ReadMe.txt"
+            </div>
+        </div>
+        <div id="language-switcher" class="language-switcher"></div>
+        <div class="time" title=""></div>
+        <div class="translation-bubble">
+            <button class="translation-bubble__close" aria-label="Cerrar aviso">×</button>
+            <strong class="translation-bubble__title">Traducción</strong><br>
+            <span class="translation-bubble__message">Presionando este botón puedes traducir la página.</span>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/language.js"></script>
+    <script src="desktop.js"></script>
+    <script src="WindowManager.js"></script>
+    <script>
+        /* ---------- Inicialización WM ---------- */
+        const window_container = document.getElementById("window_container");
+        const window_template = document.getElementById("window_template");
+
+        let wm = new WindowManager(window_container, window_template, true);
+        wm.register_mouse_events(window);
+        wm.register_message_events();
+
+
+        /*Abrir ventana readme al cargar la pagina */
+
+        
+        openWithSize("pages/readme.html", {
+            title: "ReadMe.txt",
+            width: 550,
+            height: 540,
+            x: 700,
+            y: 60,
+            icon: "img/notepad.png"
+        });
+
+
+        /* ---------- Helpers para abrir windows con tamaño explícito ---------- */
+        function openWithSize(url, opts = {}) {
+            const taskbarHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--taskbar-height')) || 0;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = Math.max(window.innerHeight - taskbarHeight, 320);
+            const isMobile = viewportWidth <= 768;
+
+            const maxWidth = viewportWidth * 0.95;
+            const maxHeight = viewportHeight * 0.9;
+
+            const width = Math.min(opts.width || maxWidth, maxWidth);
+            const height = Math.min(opts.height || maxHeight, maxHeight);
+
+            const x = Math.max(8, Math.min(opts.x ?? (viewportWidth - width) / 2, viewportWidth - width - 8));
+            const y = Math.max(8, Math.min(opts.y ?? (viewportHeight - height) / 2, viewportHeight - height - 8));
+
+            // opts: { title, width, height, x, y, ... }
+            const win = wm.add_window(url, { ...opts, width, height, x, y });
+
+            if (isMobile && win && !win.classList.contains("fixed-size")) {
+                wm.maximize_window(win);
+            }
+        }
+
+        /* ---------- Mapear iconos (como tenías) ---------- */
+        const proyEl = document.querySelector(".proyectos");
+        if (proyEl) proyEl.addEventListener("dblclick", () => {
+            openWithSize("pages/misproyectos.html", { title: "Mis Proyectos", width: 1024, height: 612, x: 276, y: 15, icon: "img/documents.png" });
+        });
+
+        const cvEl = document.querySelector(".cv");
+        if (cvEl) cvEl.addEventListener("dblclick", () => {
+            openWithSize("pages/cv.html", { title: "CV", width: 800, height: 600, icon: "img/Generic Text Document.png" });
+        });
+
+        const sobreEl = document.querySelector(".sobremi") || document.querySelector("#div2 .icon");
+        if (sobreEl) sobreEl.addEventListener("dblclick", () => {
+            openWithSize("pages/aboutme.html", { title: "Sobre mí", width: 700, height: 480, icon: "img/Information.png" });
+        });
+
+        const contactoEl = document.querySelector(".contacto");
+        if (contactoEl) contactoEl.addEventListener("dblclick", () => {
+            openWithSize("pages/contacto.html", { title: "Contacto", width: 520, height: 520, icon: "img/Windows Messenger.png" });
+        });
+
+        const readEl = document.querySelector(".note-pad");
+        if (readEl) readEl.addEventListener("dblclick", () => {
+            openWithSize("pages/readme.html", { title: "ReadMe.txt", width: 550, height: 540, x: 500, y: 60, icon: "img/notepad.png" });
+        });
+
+        const paintEl = document.querySelector(".paint");
+        if (paintEl) paintEl.addEventListener("dblclick", () => {
+            openWithSize("09-paint-win-95/paint.html", { title: "Paint", width: 550, height: 540, x: 500, y: 60, icon: "img/Paint.png" });
+        });
+
+        const meowjumpEl = document.querySelector(".meowjump");
+        if (meowjumpEl) meowjumpEl.addEventListener("dblclick", () => {
+            openWithSize("meow-jump/index.html", { title: "Meow Jump!", width: 313, height: 692, x: 255, y: 9, icon: "img/LOGOMEOWJUMP.png", resizable: false });
+        });
+
+        /* ---------- DEBUG: atajo para inspeccionar window_list ---------- */
+        window.__wm_inspect = () => {
+            console.log("wm.window_list:", wm.window_list);
+            console.log("wm.callbacks:", wm.callbacks);
+        };
+    </script>
+
+
+
+
+
+</body>
+</html>

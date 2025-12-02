@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- Ruta al CSS (subimos un nivel desde pages/) -->
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Contacto — Diego Mendoza</title>
+
+    <style>
+        /* Layout para que el contenido ocupe todo el iframe */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* importante para que el flex funcione dentro del iframe */
+        }
+
+        .titlebar {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ddd;
+            background: #f3f3f3;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .titlebar h1 {
+                margin: 0;
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+        .content {
+            flex: 1;
+            min-height: 0; /* crucial para evitar overflow en flex children */
+            overflow: auto;
+            background: #fafafa;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 6px;
+            background: #fff;
+            max-width: 760px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        }
+
+        legend {
+            padding: 0 8px;
+        }
+
+        .field-row-stacked {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 13px;
+            color: #333;
+        }
+
+
+
+
+        /* Responsive */
+        @media (max-width:520px) {
+            fieldset {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/language.js"></script>
+    <div class="container">
+        <div class="content">
+            <div class="window-body">
+                <div class="panelform">
+                    <fieldset>
+                        <legend data-translate="contact-form-legend">Formulario de contacto</legend>
+
+                        <!-- Si procesas en el servidor, mantén action="procesar_formulario.php" -->
+                        <form id="contactForm" action="#" method="GET">
+                            <div class="field-row-stacked">
+                                <label for="nombre" data-translate="contact-form-name">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+
+                            <div class="field-row-stacked">
+                                <label for="asunto" data-translate="contact-form-subject">Asunto:</label>
+                                <input type="text" id="asunto" name="asunto" required>
+                            </div>
+
+                            <div class="field-row-stacked">
+                                <label for="mensaje" data-translate="contact-form-message">Mensaje:</label>
+                                <textarea id="mensaje" name="mensaje" rows="6" required style="outline: 1px solid;"></textarea>
+                            </div>
+
+                            <div class="field-row-stacked">
+                                <input type="submit" value="Enviar" data-translate="contact-form-submit">
+                            </div>
+                        </form>
+
+                        <div id="formStatus" style="margin-top:8px;font-size:13px;color:#444"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        status.textContent = 'Abriendo tu cliente de correo...';
+        const nombre = form.nombre.value.trim();
+        const asunto = form.asunto.value.trim();
+        const mensaje = form.mensaje.value.trim();
+
+        const cuerpo = `Nombre: ${nombre}\n\nMensaje:\n${mensaje}`;
+        const mailto = `mailto:diegomendozadev@gmail.com?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+
+        window.location.href = mailto;
+        form.reset();
+        status.style.color = 'green';
+        status.textContent = 'Cliente de correo abierto. ¡Gracias!';
+      });
+    })();
+    </script>
+</body>
+</html>

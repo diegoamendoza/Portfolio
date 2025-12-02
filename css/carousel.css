@@ -1,0 +1,76 @@
+.carousel-wrapper {
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background: #000;
+    border-radius: 6px;
+    /* Fallback for browsers without aspect-ratio support (e.g., legacy Edge) */
+    height: 0;
+    padding-top: 56.25%;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+    flex: 0 0 100%;
+    object-fit: contain;
+    background: #000;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.carousel-control img {
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.carousel-control:hover img {
+    opacity: 1;
+}
+
+.carousel-control .icon-prev {
+    transform: scaleX(-1);
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+@supports (aspect-ratio: 16 / 9) {
+    .carousel-wrapper {
+        height: auto;
+        padding-top: 0;
+    }
+
+    .carousel-inner {
+        position: relative;
+    }
+}

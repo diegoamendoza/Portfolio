@@ -1,0 +1,81 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ReadMe</title>
+
+    <style>
+        /* Aseguramos que todo el árbol ocupe el 100% del iframe */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #fff;
+            color: #111;
+        }
+
+        /* contenedor principal */
+        .window-content {
+            height: 100%;
+            padding: 8px; /* espacio interior opcional */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* textarea ocupa todo el contenedor */
+        textarea {
+            width: 100%;
+            height: 100%;
+            min-height: 0; /* para que flex funcione correctamente */
+            resize: none; /* evita que el usuario lo redimensione manualmente */
+            box-sizing: border-box;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fafafa;
+            color: #111;
+            overflow: auto;
+        }
+
+        /* si quieres que el textarea sea solo lectura, descomenta: */
+        /* textarea[readonly] { background:#f5f5f5; } */
+    </style>
+</head>
+<body>
+    <script src="../js/language.js"></script>
+    <div class="window-content">
+        <textarea id="readme-textarea" data-translate="readme-text">
+¡Hola!
+
+Me complace darte la bienvenida a este espacio donde podrás explorar algunos de los proyectos en los que he estado trabajando. Soy Diego Mendoza, un apasionado desarrollador de videojuegos.
+
+En este portafolio, encontrarás una selección de proyectos que reflejan mi dedicación, creatividad y habilidades técnicas. Desde aplicaciones web y móviles hasta diseños gráficos y desarrollo de software, cada proyecto representa un desafío único que he abordado con entusiasmo y compromiso.
+
+Te invito a explorar cada proyecto y descubrir el proceso detrás de su creación, desde la concepción de la idea hasta su implementación final. Si tienes alguna pregunta o estás interesado en colaborar en futuros proyectos, no dudes en ponerte en contacto conmigo.
+
+¡Espero que disfrutes navegando por mi portafolio y que encuentres inspiración en los proyectos presentados aquí!
+
+¡Gracias por visitar!
+    </textarea>
+    </div>
+
+    <script>
+    // Opcional: si quieres que el contenido se adapte si tu WindowManager cambia tamaño dinámicamente,
+    // forzamos que el textarea haga focus/resice correctamente.
+    (function(){
+      const ta = document.getElementById('readme-textarea');
+      // Si quieres que sea read-only, descomenta:
+      // ta.setAttribute('readonly','');
+      // Opcional: seleccionar todo cuando se abre
+      // ta.addEventListener('focus', () => ta.select());
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuden Studios</title>
+    <link rel="stylesheet" href="css/first-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script src="js/language.js"></script>
+    <div id="cssportal-grid">
+        <div id="div1">
+            <ul id="links">
+                <li><a href="#" onclick="animateAndChange('desktop.html')" data-translate="portfolio">Portafolio</a></li>
+                <li><a href="https://www.linkedin.com/in/diego-mendoza-207538263/" target="_blank" data-translate="linkedin">Linkedin</a></li>
+                <li><a href="https://www.youtube.com/channel/UC7EQ0B187oybJOL8qTFvggg" target="_blank">Youtube</a></li>
+                <li><a href="https://play.google.com/store/apps/developer?id=DiegoMendoza&hl=es_CL" target="_blank">Google Play</a></li>
+            </ul>
+        </div>
+        <div id="div3">
+            <img src="img/LogoKuden.png" id="logo">
+        </div>
+        <div id="div4">
+            <div class="columns" id="text">
+                <p data-translate="estudio">
+                 Estudio de Diego Mendoza<br>
+                 Desarrollador de videojuegos
+                </p>
+                <p data-translate="contacto-info">
+                 contacto@devmendoza.com<br>
+                 +56 972973085   
+                </p>
+                
+            </div>
+        </div>
+    </div> 
+
+    <script>
+        function animateAndChange(url) {
+            var iframe = parent.document.getElementById('iframe-principal');
+            var div1 = document.getElementById('links');
+            var div3 = document.getElementById('logo');
+            var div4 = document.getElementById('text');
+            var animationDuration = 500; // Duración de la animación en milisegundos
+
+            // Aplica la animación
+            div1.style.animation = 'slide-out-top ' + animationDuration / 500 + 's ease';
+            div3.style.animation = 'slide-out-top ' + animationDuration / 500 + 's ease';
+            div4.style.animation = 'slide-out-top ' + animationDuration / 500 + 's ease';
+            
+            // Cambia la URL del iframe después de que termine la animación
+            setTimeout(function() {
+                iframe.src = url;
+            }, animationDuration);
+            
+            // Prevención del comportamiento predeterminado del enlace
+            event.preventDefault();
+        }
+    </script>
+</body>
+</html>
