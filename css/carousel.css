@@ -75,3 +75,17 @@
         position: relative;
     }
 }
+
+.project-panel .carousel-wrapper {
+    flex: 0 0 65%;
+    width: 65%;
+    max-width: 65%;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-panel article {
+    flex: 1 1 35%;
+    max-height: 100%;
+}

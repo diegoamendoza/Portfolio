@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/windows/window_common.css">
     <link rel="stylesheet" href="css/windows/window_xp.css">
-    <title>Diego Mendoza - Portfolio</title>
+    <title>Document</title>
 </head>
 <body>
    
@@ -60,12 +60,35 @@
         <template id="window_template">
             <div class="win">
                 <nav class="win-titlebar win-drag-handle">
-                    <span class="win-icon">🗔</span>
+                    <span class="win-icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false" class="win-btn-icon">
+                            <rect x="2.5" y="3" width="11" height="10" rx="1.5" ry="1.5" />
+                            <rect x="4" y="5.5" width="8" height="7" fill="#111" />
+                        </svg>
+                    </span>
                     <span class="win-title win-drag-handle">Unnamed window</span>
-                    <button class="win-btn win-btn-minimize" onclick="wm.minimize_window(this.closest('.win'))" title="Minimize">▁</button>
-                    <button class="win-btn win-btn-restore hidden" onclick="wm.restore_window(this.closest('.win'))" title="Restore">🗗</button>
-                    <button class="win-btn win-btn-maximize" onclick="wm.maximize_window(this.closest('.win'))" title="Maximize">🗖</button>
-                    <button class="win-btn win-btn-close" onclick="wm.remove_window(this.closest('.win'))" title="Close">🞮</button>
+                    <button class="win-btn win-btn-minimize" onclick="wm.minimize_window(this.closest('.win'))" title="Minimize" aria-label="Minimize">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                            <rect x="2" y="8" width="8" height="1.5" rx="0.75" ry="0.75" />
+                        </svg>
+                    </button>
+                    <button class="win-btn win-btn-restore hidden" onclick="wm.restore_window(this.closest('.win'))" title="Restore" aria-label="Restore">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                            <rect x="3" y="3" width="6" height="6" rx="0.75" ry="0.75" fill="none" stroke="currentColor" stroke-width="1.25" />
+                            <rect x="5" y="1" width="6" height="6" rx="0.75" ry="0.75" fill="none" stroke="currentColor" stroke-width="1.25" />
+                        </svg>
+                    </button>
+                    <button class="win-btn win-btn-maximize" onclick="wm.maximize_window(this.closest('.win'))" title="Maximize" aria-label="Maximize">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                            <rect x="2" y="2" width="8" height="8" rx="0.75" ry="0.75" fill="none" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                    </button>
+                    <button class="win-btn win-btn-close" onclick="wm.remove_window(this.closest('.win'))" title="Close" aria-label="Close">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                            <line x1="3" y1="3" x2="9" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <line x1="9" y1="3" x2="3" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                    </button>
                 </nav>
                 <iframe class="win-iframe"></iframe>
                 <div class="win-resize-handle"></div>
@@ -123,7 +146,7 @@
             height: 540,
             x: 700,
             y: 60,
-            icon: "img/Notepad.png"
+            icon: "img/notepad.png"
         });
 
 
@@ -174,7 +197,7 @@
 
         const readEl = document.querySelector(".note-pad");
         if (readEl) readEl.addEventListener("dblclick", () => {
-            openWithSize("pages/readme.html", { title: "ReadMe.txt", width: 550, height: 540, x: 500, y: 60, icon: "img/Notepad.png" });
+            openWithSize("pages/readme.html", { title: "ReadMe.txt", width: 550, height: 540, x: 500, y: 60, icon: "img/notepad.png" });
         });
 
         const paintEl = document.querySelector(".paint");

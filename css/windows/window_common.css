@@ -1,33 +1,56 @@
 /* Windows are always fixed to the viewport, and the code assumes this */
-.win {
-	position: fixed;
+.win { 
+        position: fixed;
 }
 /* Disable pointer events on disabled windows */
 .win.disabled .win-iframe {
 	pointer-events: none;
 }
+/* Favicon-sized window icon */
+.win .win-icon {
+        width: 16px;
+        height: 16px;
+}
+
+/* Shared controls layout and icons */
+.win .win-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.win .win-btn-icon {
+        width: 12px;
+        height: 12px;
+        display: block;
+        fill: currentColor;
+        pointer-events: none;
+}
+
 /* Hide maximize button on fixed-size windows */
 .win.fixed-size .win-btn-maximize {
-	display: none;
+        display: none;
 }
 /* Hide resize indicator on fixed-size windows */
 .win.fixed-size .win-resize-handle {
-	display: none;
+        display: none;
 }
 /* Hide maximize button on maximized windows */
 .win.maximized .win-btn-maximize {
-	display: none;
+        display: none;
 }
 /* Hide restore indicator on non-maximized windows */
-.win .win-btn-restore {
-	display: none;
+.win:not(.maximized) .win-btn-restore {
+        display: none;
 }
 /* Show restore indicator on maximized windows */
 .win.maximized .win-btn-restore {
-	display: unset;
+        display: inline-flex;
 }
-/* Favicon-sized window icon */
-.win .win-icon {
-	width: 16px;
-	height: 16px;
+
+.win .win-icon svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+        fill: currentColor;
 }
