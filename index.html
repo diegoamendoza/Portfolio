@@ -174,39 +174,41 @@
             }
         }
 
-        /* ---------- Mapear iconos (como tenías) ---------- */
-        const proyEl = document.querySelector(".proyectos");
-        if (proyEl) proyEl.addEventListener("dblclick", () => {
+        /* ---------- Abrir iconos: doble clic en desktop, un toque en móvil ---------- */
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const openEvent = isTouchDevice ? 'click' : 'dblclick';
+
+        function addOpenListener(el, callback) {
+            if (!el) return;
+            el.addEventListener(openEvent, callback);
+        }
+
+        /* ---------- Mapear iconos ---------- */
+        addOpenListener(document.querySelector(".proyectos"), () => {
             openWithSize("pages/misproyectos.html", { title: "Mis Proyectos", width: 1024, height: 612, x: 276, y: 15, icon: "img/documents.png" });
         });
 
-        const cvEl = document.querySelector(".cv");
-        if (cvEl) cvEl.addEventListener("dblclick", () => {
+        addOpenListener(document.querySelector(".cv"), () => {
             openWithSize("pages/cv.html", { title: "CV", width: 800, height: 600, icon: "img/Generic Text Document.png" });
         });
 
-        const sobreEl = document.querySelector(".sobremi") || document.querySelector("#div2 .icon");
-        if (sobreEl) sobreEl.addEventListener("dblclick", () => {
+        addOpenListener(document.querySelector(".sobremi") || document.querySelector("#div2 .icon"), () => {
             openWithSize("pages/aboutme.html", { title: "Sobre mí", width: 700, height: 480, icon: "img/Information.png" });
         });
 
-        const contactoEl = document.querySelector(".contacto");
-        if (contactoEl) contactoEl.addEventListener("dblclick", () => {
+        addOpenListener(document.querySelector(".contacto"), () => {
             openWithSize("pages/contacto.html", { title: "Contacto", width: 520, height: 520, icon: "img/Windows Messenger.png" });
         });
 
-        const readEl = document.querySelector(".note-pad");
-        if (readEl) readEl.addEventListener("dblclick", () => {
+        addOpenListener(document.querySelector(".note-pad"), () => {
             openWithSize("pages/readme.html", { title: "ReadMe.txt", width: 550, height: 540, x: 500, y: 60, icon: "img/Notepad.png" });
         });
 
-        const paintEl = document.querySelector(".paint");
-        if (paintEl) paintEl.addEventListener("dblclick", () => {
+        addOpenListener(document.querySelector(".paint"), () => {
             openWithSize("09-paint-win-95/paint.html", { title: "Paint", width: 550, height: 540, x: 500, y: 60, icon: "img/Paint.png" });
         });
 
-        const meowjumpEl = document.querySelector(".meowjump");
-        if (meowjumpEl) meowjumpEl.addEventListener("dblclick", () => {
+        addOpenListener(document.querySelector(".meowjump"), () => {
             openWithSize("meow-jump/index.html", { title: "Meow Jump!", width: 313, height: 692, x: 255, y: 9, icon: "img/LOGOMEOWJUMP.png", resizable: false });
         });
 
