@@ -359,7 +359,7 @@ textarea {
 
 @media (max-width: 640px) {
     :root {
-        --taskbar-height: 56px;
+        --taskbar-height: 48px;
     }
 
     body {
@@ -367,19 +367,19 @@ textarea {
     }
 
     .taskbar {
-        padding: 4px 8px;
+        padding: 4px 6px;
         min-height: var(--taskbar-height);
+        height: var(--taskbar-height);
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
-        gap: 6px;
-        overflow-x: auto;
-        scrollbar-width: thin;
+        gap: 4px;
+        overflow: hidden;
     }
 
     .start-button {
-        font-size: 16px;
-        padding: 4px 10px;
+        font-size: 15px;
+        padding: 4px 8px;
         flex: 0 0 auto;
         line-height: 16px;
     }
@@ -389,28 +389,36 @@ textarea {
         width: auto;
         min-width: 0;
         flex: 1 1 auto;
-        gap: 4px;
+        gap: 3px;
+        overflow: hidden;
     }
 
     .open-tab {
-        height: 24px;
-        font-size: 12px;
+        width: auto;
+        max-width: 130px;
+        min-width: 60px;
+        height: 28px;
+        font-size: 11px;
         line-height: 12px;
         padding: 4px 6px;
-        margin: 2px 0;
+        margin: 0;
+        flex: 1 1 auto;
+        max-width: 140px;
     }
 
         .open-tab img {
-            height: 16px;
-            margin-right: 4px;
+            height: 14px;
+            margin-right: 3px;
+            transform: none;
         }
 
     .language-switcher,
     .time {
         order: 2;
         padding: 4px 8px;
-        font-size: 12px;
+        font-size: 11px;
         line-height: 12px;
+        flex: 0 0 auto;
     }
 
     .translation-bubble {
@@ -420,13 +428,13 @@ textarea {
 
     #cssportal-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
-        grid-auto-rows: minmax(112px, auto);
+        grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+        grid-auto-rows: minmax(100px, auto);
         justify-items: center;
         align-items: start;
         align-content: start;
-        gap: 14px;
-        padding: 12px 14px;
+        gap: 10px;
+        padding: 12px 10px;
     }
 
         #cssportal-grid > div {
@@ -438,6 +446,7 @@ textarea {
     .icon {
         width: 84px;
         padding: 4px;
+        margin: 0;
     }
 
         .icon img {

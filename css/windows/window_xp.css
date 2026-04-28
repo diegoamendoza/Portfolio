@@ -75,7 +75,7 @@
 		background-image: linear-gradient( 0deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1) 12%, rgba(255,255,255,0) 20% ), linear-gradient( 90deg, rgba(0,0,0,0.3), rgba(0,0,0,0.15) 12%, rgba(0,0,0,0) 20% );
 	}
 
-	/* BOTÓN DE CERRAR */
+	/* BOTï¿½N DE CERRAR */
 	.win .win-btn.win-btn-close {
 		background-color: #AA2B2B;
 	}
@@ -125,3 +125,26 @@
 		bottom: 0;
 		right: 0;
 	}
+
+@media (max-width: 768px) {
+	.win .win-titlebar {
+		height: 36px;
+		min-height: 36px;
+	}
+
+	.win .win-btn {
+		width: 30px;
+		height: 30px;
+		min-width: 30px;
+		min-height: 30px;
+	}
+
+	.win .win-btn-icon {
+		width: 14px;
+		height: 14px;
+	}
+
+	.win .win-resize-handle {
+		display: none;
+	}
+}
