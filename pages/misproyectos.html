@@ -3,63 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyectos</title>
+    <title>Mis Proyectos</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body class="projects-layout" style="background-color: #333; color: white; margin: 0; height: 100vh;">
+<body class="explorer-body-wrap" style="margin:0; overflow:hidden; height:100vh; background:#ECE9D8; font-family:'ms',sans-serif; font-size:12px;">
 
-    <div class="carousel-container">
-        <h5 data-translate="work-projects">Proyectos en desarrollo</h5>
-        <div class="carousel">
-            <div class="carpeta-item" data-url="projects/paranoide.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="paranoide-folder">Paranoide</div>
-            </div>
-            <div class="carpeta-item" data-url="projects/meowjump.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="meowjump-folder">Meow Jump!</div>
-            </div>
-        </div>
-        <h5 data-translate="personal-projects">Proyectos Laborales</h5>
-        <div class="carousel">
-            <div class="carpeta-item" data-url="projects/missus.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="missus-folder">MISSUS</div>
-            </div>
-            <div class="carpeta-item" data-url="projects/profesormapu.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="profesor-mapu-folder">Profesor Mapu</div>
-            </div>
-        </div>
-        <h5 data-translate="other-projects">Prototipos y conceptos</h5>
-        <div class="carousel">
-            <div class="carpeta-item" data-url="projects/moira.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="moira-folder">Moira</div>
-            </div>
-            <div class="carpeta-item" data-url="projects/modelado3d.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="modelado3d-folder">Modelado 3D</div>
-            </div>
-            <div class="carpeta-item" data-url="projects/dancevr.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="dance-vr-folder">Dance VR</div>
-            </div>
-            <div class="carpeta-item" data-url="projects/hospitalvr.html">
-                <img src="../img/documents.png">
-                <div class="carpeta-name" data-translate="hospital-vr-folder">Hospital VR</div>
-            </div>
-
+    <!-- Navigation toolbar -->
+    <div class="xp-navbar">
+        <button class="xp-nav-btn" id="btn-back" title="Atrás" disabled>
+            <span class="nav-arrow">&#8592;</span> <span data-translate="nav-back">Atrás</span>
+        </button>
+        <button class="xp-nav-btn" id="btn-forward" title="Adelante" disabled>
+            <span data-translate="nav-forward">Adelante</span> <span class="nav-arrow">&#8594;</span>
+        </button>
+        <button class="xp-nav-btn" id="btn-up" title="Subir">
+            <span class="nav-arrow">&#8593;</span> <span data-translate="nav-up">Subir</span>
+        </button>
+        <div class="xp-address-bar">
+            <img src="../img/documents.png" alt="" class="address-icon">
+            <input type="text" readonly value="C:\Usuarios\Diego\Mis Proyectos" class="address-input">
+            <button class="xp-go-btn" data-translate="nav-go">Ir</button>
         </div>
     </div>
 
-    <div class="content-area">
-        <iframe id="project-iframe"></iframe>
+    <!-- Main explorer layout -->
+    <div class="xp-explorer">
+
+        <!-- Left sidebar -->
+        <div class="xp-sidebar">
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon">&#128196;</span>
+                    <span data-translate="sidebar-tasks">Tareas de archivos</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <a class="xp-sidebar-link" id="link-all" href="#">
+                        <img src="../img/documents.png" alt=""> <span data-translate="sidebar-all-projects">Todos los proyectos</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon">&#128205;</span>
+                    <span data-translate="sidebar-places">Lugares</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <a class="xp-sidebar-link" id="link-desktop" href="#">
+                        <span class="sidebar-link-icon">&#128187;</span> <span data-translate="sidebar-desktop">Escritorio</span>
+                    </a>
+                    <a class="xp-sidebar-link" id="link-mydocs" href="#">
+                        <span class="sidebar-link-icon">&#128193;</span> <span data-translate="sidebar-mydocs">Mis documentos</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon">&#127991;</span>
+                    <span data-translate="sidebar-categories">Categorías</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <a class="xp-sidebar-link" id="link-desarrollo" href="#">
+                        <span class="sidebar-link-icon">&#127918;</span> <span data-translate="sidebar-en-desarrollo">En desarrollo</span>
+                    </a>
+                    <a class="xp-sidebar-link" id="link-laborales" href="#">
+                        <span class="sidebar-link-icon">&#128188;</span> <span data-translate="sidebar-laborales">Laborales</span>
+                    </a>
+                    <a class="xp-sidebar-link" id="link-prototipos" href="#">
+                        <span class="sidebar-link-icon">&#9999;&#65039;</span> <span data-translate="sidebar-prototipos">Prototipos</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main content -->
+        <div class="xp-content" id="xp-content">
+
+            <div class="xp-category-section" id="section-desarrollo">
+                <div class="xp-category-header">
+                    <span class="category-icon">&#127918;</span>
+                    <h5 data-translate="work-projects">Proyectos en desarrollo</h5>
+                    <div class="category-line"></div>
+                </div>
+                <div class="xp-folders-grid">
+                    <div class="carpeta-item"
+                         data-url="projects/paranoide.html"
+                         data-title="Paranoide"
+                         data-category-key="work-projects"
+                         data-tags="Unity,C#,Horror,First Person,3D"
+                         data-preview-type="image"
+                         data-preview-src="https://i.gyazo.com/d10d32dcf3f371ea268552708d44f48f.png"
+                         data-desc-key="paranoide-description">
+                        <img src="../img/documents.png" alt="Paranoide">
+                        <div class="carpeta-name" data-translate="paranoide-folder">Paranoide</div>
+                    </div>
+                    <div class="carpeta-item"
+                         data-url="projects/meowjump.html"
+                         data-title="Meow Jump!"
+                         data-category-key="work-projects"
+                         data-tags="Unity,C#,Android,Casual,2D"
+                         data-preview-type="image"
+                         data-preview-src="https://i.gyazo.com/2dd3adf353d47b060dac59c743874f84.png"
+                         data-desc-key="meowjump-description">
+                        <img src="../img/documents.png" alt="Meow Jump!">
+                        <div class="carpeta-name" data-translate="meowjump-folder">Meow Jump!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xp-category-section" id="section-laborales">
+                <div class="xp-category-header">
+                    <span class="category-icon">&#128188;</span>
+                    <h5 data-translate="personal-projects">Proyectos laborales</h5>
+                    <div class="category-line"></div>
+                </div>
+                <div class="xp-folders-grid">
+                    <div class="carpeta-item"
+                         data-url="projects/missus.html"
+                         data-title="MISSUS"
+                         data-category-key="personal-projects"
+                         data-tags="Unity,C#,VR,Metaverse"
+                         data-preview-type="image"
+                         data-preview-src="https://i.gyazo.com/c1045dd8285fabd72c815de60795c0f6.jpg"
+                         data-desc-key="missus-description">
+                        <img src="../img/documents.png" alt="MISSUS">
+                        <div class="carpeta-name" data-translate="missus-folder">MISSUS</div>
+                    </div>
+                    <div class="carpeta-item"
+                         data-url="projects/profesormapu.html"
+                         data-title="Profesor Mapu"
+                         data-category-key="personal-projects"
+                         data-tags="Unity,C#,VR,Education"
+                         data-preview-type="image"
+                         data-preview-src="../img/Profesor Mapu/1.jpg"
+                         data-desc-key="profesor-mapu-description">
+                        <img src="../img/documents.png" alt="Profesor Mapu">
+                        <div class="carpeta-name" data-translate="profesor-mapu-folder">Profesor Mapu</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xp-category-section" id="section-prototipos">
+                <div class="xp-category-header">
+                    <span class="category-icon">&#9999;&#65039;</span>
+                    <h5 data-translate="other-projects">Prototipos y conceptos</h5>
+                    <div class="category-line"></div>
+                </div>
+                <div class="xp-folders-grid">
+                    <div class="carpeta-item"
+                         data-url="projects/moira.html"
+                         data-title="Moira"
+                         data-category-key="other-projects"
+                         data-tags="Unity,C#,Snow,Cinematic"
+                         data-preview-type="video"
+                         data-preview-src="../video/Gameplay Moira(1).mp4"
+                         data-desc-key="moira-description">
+                        <img src="../img/documents.png" alt="Moira">
+                        <div class="carpeta-name" data-translate="moira-folder">Moira</div>
+                    </div>
+                    <div class="carpeta-item"
+                         data-url="projects/modelado3d.html"
+                         data-title="Modelado 3D"
+                         data-category-key="other-projects"
+                         data-tags="Blender,3D Modeling,Concept Art"
+                         data-preview-type="image"
+                         data-preview-src="https://i.gyazo.com/2781309a47b4ed95ced3e5c54a37acc1.png"
+                         data-desc-key="modelado3d-description">
+                        <img src="../img/documents.png" alt="Modelado 3D">
+                        <div class="carpeta-name" data-translate="modelado3d-folder">Modelado 3D</div>
+                    </div>
+                    <div class="carpeta-item"
+                         data-url="projects/dancevr.html"
+                         data-title="Dance VR"
+                         data-category-key="other-projects"
+                         data-tags="Unity,C#,VR,Rhythm"
+                         data-preview-type="video"
+                         data-preview-src="../video/lukaluka.mp4"
+                         data-desc-key="dance-vr-description">
+                        <img src="../img/documents.png" alt="Dance VR">
+                        <div class="carpeta-name" data-translate="dance-vr-folder">Dance VR</div>
+                    </div>
+                    <div class="carpeta-item"
+                         data-url="projects/hospitalvr.html"
+                         data-title="Hospital VR"
+                         data-category-key="other-projects"
+                         data-tags="Unity,C#,VR,Horror"
+                         data-preview-type="video"
+                         data-preview-src="../video/horrorVR.mp4"
+                         data-desc-key="hospital-vr-description">
+                        <img src="../img/documents.png" alt="Hospital VR">
+                        <div class="carpeta-name" data-translate="hospital-vr-folder">Hospital VR</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right preview panel -->
+        <div class="xp-preview" id="xp-preview">
+            <div class="preview-empty" id="preview-empty">
+                <img src="../img/documents.png" alt="" style="width:48px;opacity:0.3;">
+                <p data-translate="preview-select">Selecciona un proyecto para ver los detalles</p>
+            </div>
+            <div class="preview-filled" id="preview-filled" style="display:none;">
+                <div class="preview-media-wrap" id="preview-media-wrap"></div>
+                <div class="preview-details">
+                    <h3 id="preview-title"></h3>
+                    <div class="preview-category-label" id="preview-category"></div>
+                    <div class="preview-tags" id="preview-tags"></div>
+                    <p class="preview-description" id="preview-description"></p>
+                    <button class="xp-view-btn" id="preview-open-btn">
+                        &#128279; <span data-translate="preview-view-project">Ver proyecto</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="../js/folders.js"></script>
-    <script src="../js/carousel.js"></script>
     <script src="../js/language.js"></script>
 </body>
 </html>
