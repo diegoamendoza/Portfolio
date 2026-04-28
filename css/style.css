@@ -140,14 +140,14 @@ textarea {
     bottom: 0;
     left: 0;
     width: 100vw;
-    min-height: var(--taskbar-height);
-    height: auto;
+    height: var(--taskbar-height);
     padding: 4px 8px;
     z-index: 1001;
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -300,21 +300,22 @@ textarea {
 .translation-bubble::before {
     content: "";
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 0;
+    height: 0;
     left: calc(var(--bubble-arrow-offset) + 12px);
-    transform: translateX(-50%) rotate(45deg);
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
 }
 
 .translation-bubble::after {
-    top: calc(100% - 6px);
-    background: #c5c5c5;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    top: 100%;
+    border-top: 10px solid #c5c5c5;
 }
 
 .translation-bubble::before {
-    top: calc(100% - 5px);
-    background: #fffef0;
+    top: calc(100% - 1px);
+    border-top: 10px solid #fffef0;
     z-index: 1;
 }
 
