@@ -120,9 +120,21 @@
                 const stackContainer = document.getElementById('stack-container');
 
                 const categories = [
-                    { key: 'lenguajes', label: 'Lenguajes' },
-                    { key: 'motores', label: 'Motores' },
-                    { key: 'herramientas', label: 'Herramientas' },
+                    {
+                        label: 'Lenguajes',
+                        files: ['C#.png', 'C++.png', 'CSS.png', 'HTML5.png', 'Java.png', 'Javascript.png', 'Kotlin.png', 'PHP.svg', 'Python.png', 'SQL.png'],
+                        key: 'lenguajes'
+                    },
+                    {
+                        label: 'Motores',
+                        files: ['Unity.png', 'Unreal.png'],
+                        key: 'motores'
+                    },
+                    {
+                        label: 'Herramientas',
+                        files: ['Blender.png', 'GitHub.png', 'Jira.png', 'Photoshop.png', 'Premiere.png'],
+                        key: 'herramientas'
+                    },
                 ];
 
                 const basePath = '../img/logos/';
@@ -148,16 +160,7 @@
                     return card;
                 };
 
-                const parseDirectoryListing = (htmlText) => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    return Array.from(doc.querySelectorAll('a'))
-                        .map(a => a.getAttribute('href'))
-                        .filter(href => href && !href.startsWith('..'))
-                        .filter(href => /\.(png|jpe?g|svg|webp)$/i.test(href));
-                };
-
-                const loadCategory = async (category) => {
+                const loadCategory = (category) => {
                     const categoryDiv = document.createElement('div');
                     categoryDiv.className = 'stack-category';
 
@@ -169,41 +172,15 @@
                     grid.className = 'stack-grid';
                     categoryDiv.appendChild(grid);
 
-                    try {
-                        const response = await fetch(`${basePath}${category.key}/`);
-                        if (!response.ok) {
-                            throw new Error('No se pudo cargar el directorio');
-                        }
-
-                        const text = await response.text();
-                        const files = parseDirectoryListing(text);
-
-                        if (files.length === 0) {
-                            const emptyMsg = document.createElement('p');
-                            emptyMsg.className = 'stack-empty';
-                            emptyMsg.textContent = 'No hay logos disponibles.';
-                            categoryDiv.appendChild(emptyMsg);
-                        } else {
-                            files.forEach(file => {
-                                const card = createLogoCard(file, `${basePath}${category.key}/${file}`);
-                                grid.appendChild(card);
-                            });
-                        }
-                    } catch (error) {
-                        const errorMsg = document.createElement('p');
-                        errorMsg.className = 'stack-empty';
-                        errorMsg.textContent = 'No fue posible cargar esta categoría.';
-                        categoryDiv.appendChild(errorMsg);
-                    }
+                    category.files.forEach(file => {
+                        const card = createLogoCard(file, `${basePath}${category.key}/${file}`);
+                        grid.appendChild(card);
+                    });
 
                     stackContainer.appendChild(categoryDiv);
                 };
 
-                (async () => {
-                    for (const category of categories) {
-                        await loadCategory(category);
-                    }
-                })();
+                categories.forEach(loadCategory);
 
                 tabs.forEach(tab => {
                     tab.addEventListener('click', function () {
