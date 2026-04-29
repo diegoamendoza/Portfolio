@@ -1533,15 +1533,159 @@ h3 {
     flex-shrink: 0;
     background: #111;
     overflow: hidden;
+    position: relative;
 }
 
-.preview-media-wrap img,
-.preview-media-wrap video {
+.preview-media-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
+
+.preview-media-wrap video.preview-media-img {
+    object-fit: cover;
+}
+
+/* --- Mini carousel inside preview --- */
+.preview-carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.35s ease;
+}
+
+.preview-carousel-track .preview-media-img {
+    flex: 0 0 100%;
+}
+
+.preview-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.45);
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 7px 4px;
+    z-index: 3;
+    opacity: 0.75;
+    transition: opacity 0.15s;
+}
+
+.preview-carousel-btn:hover { opacity: 1; }
+.preview-carousel-btn.prev  { left: 0; }
+.preview-carousel-btn.next  { right: 0; }
+
+.preview-carousel-dots {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 3;
+}
+
+.preview-carousel-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.preview-carousel-dot.active { background: #fff; }
+
+/* --- Expand button --- */
+.preview-expand-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 4;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 3px 5px;
+    line-height: 1;
+    transition: background 0.15s;
+}
+
+.preview-expand-btn:hover { background: rgba(0,0,0,0.65); }
+
+/* --- Lightbox for preview panel --- */
+#preview-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview-lightbox.active { display: flex; }
+
+#preview-lightbox-inner {
+    position: relative;
+    max-width: 92vw;
+    max-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview-lb-img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.8);
+    display: block;
+}
+
+#preview-lb-close {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    opacity: 0.8;
+}
+
+#preview-lb-close:hover { opacity: 1; }
+
+#preview-lb-prev,
+#preview-lb-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+}
+
+#preview-lb-prev { left: -52px; }
+#preview-lb-next { right: -52px; }
+
+#preview-lb-prev:hover,
+#preview-lb-next:hover { opacity: 1; }
 
 .preview-details {
     padding: 10px 12px;
