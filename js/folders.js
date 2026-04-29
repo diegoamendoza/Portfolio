@@ -10,6 +10,164 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let selectedUrl = null;
 
+    // --- Lightbox ---
+    const lightbox = document.createElement("div");
+    lightbox.id = "preview-lightbox";
+    lightbox.innerHTML = `
+        <div id="preview-lightbox-inner">
+            <button id="preview-lb-close" title="Cerrar">&times;</button>
+            <button id="preview-lb-prev" title="Anterior">&#8592;</button>
+            <img id="preview-lb-img" src="" alt="">
+            <button id="preview-lb-next" title="Siguiente">&#8594;</button>
+        </div>`;
+    document.body.appendChild(lightbox);
+
+    const lbImg   = document.getElementById("preview-lb-img");
+    const lbClose = document.getElementById("preview-lb-close");
+    const lbPrev  = document.getElementById("preview-lb-prev");
+    const lbNext  = document.getElementById("preview-lb-next");
+
+    let lbImages = [];
+    let lbIndex  = 0;
+
+    function openLightbox(images, index) {
+        lbImages = images;
+        lbIndex  = index;
+        lbImg.src = lbImages[lbIndex];
+        lightbox.classList.add("active");
+        lbPrev.style.display = lbImages.length > 1 ? "" : "none";
+        lbNext.style.display = lbImages.length > 1 ? "" : "none";
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+        lbImg.src = "";
+    }
+
+    lbClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", function(e) { if (e.target === lightbox) closeLightbox(); });
+
+    lbPrev.addEventListener("click", function(e) {
+        e.stopPropagation();
+        lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+        lbImg.src = lbImages[lbIndex];
+    });
+
+    lbNext.addEventListener("click", function(e) {
+        e.stopPropagation();
+        lbIndex = (lbIndex + 1) % lbImages.length;
+        lbImg.src = lbImages[lbIndex];
+    });
+
+    document.addEventListener("keydown", function(e) {
+        if (!lightbox.classList.contains("active")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft")  { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; lbImg.src = lbImages[lbIndex]; }
+        if (e.key === "ArrowRight") { lbIndex = (lbIndex + 1) % lbImages.length; lbImg.src = lbImages[lbIndex]; }
+    });
+
+    // --- Mini-carousel state ---
+    let currentCarouselImages = [];
+    let currentCarouselIndex  = 0;
+
+    function buildImagePreview(srcs) {
+        currentCarouselImages = srcs;
+        currentCarouselIndex  = 0;
+
+        previewMediaWrap.innerHTML = "";
+
+        if (srcs.length === 0) return;
+
+        if (srcs.length === 1) {
+            // Single image + expand button
+            const img = document.createElement("img");
+            img.src = srcs[0];
+            img.className = "preview-media-img";
+            previewMediaWrap.appendChild(img);
+            appendExpandBtn(srcs, 0);
+            return;
+        }
+
+        // Multiple images → mini carousel
+        const track = document.createElement("div");
+        track.className = "preview-carousel-track";
+
+        srcs.forEach(function(src) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.className = "preview-media-img";
+            track.appendChild(img);
+        });
+
+        previewMediaWrap.appendChild(track);
+
+        // Arrows
+        const btnPrev = document.createElement("button");
+        btnPrev.className = "preview-carousel-btn prev";
+        btnPrev.innerHTML = "&#8249;";
+        btnPrev.title = "Anterior";
+
+        const btnNext = document.createElement("button");
+        btnNext.className = "preview-carousel-btn next";
+        btnNext.innerHTML = "&#8250;";
+        btnNext.title = "Siguiente";
+
+        previewMediaWrap.appendChild(btnPrev);
+        previewMediaWrap.appendChild(btnNext);
+
+        // Dots indicator
+        const dots = document.createElement("div");
+        dots.className = "preview-carousel-dots";
+        srcs.forEach(function(_, i) {
+            const dot = document.createElement("span");
+            dot.className = "preview-carousel-dot" + (i === 0 ? " active" : "");
+            dot.addEventListener("click", function() { goTo(i); });
+            dots.appendChild(dot);
+        });
+        previewMediaWrap.appendChild(dots);
+
+        function goTo(index) {
+            currentCarouselIndex = index;
+            track.style.transform = "translateX(-" + (index * 100) + "%)";
+            dots.querySelectorAll(".preview-carousel-dot").forEach(function(d, i) {
+                d.classList.toggle("active", i === index);
+            });
+        }
+
+        btnPrev.addEventListener("click", function() {
+            goTo((currentCarouselIndex - 1 + srcs.length) % srcs.length);
+        });
+
+        btnNext.addEventListener("click", function() {
+            goTo((currentCarouselIndex + 1) % srcs.length);
+        });
+
+        appendExpandBtn(srcs, null);
+
+        function appendExpandBtn(images, fixedIndex) {
+            const btn = document.createElement("button");
+            btn.className = "preview-expand-btn";
+            btn.title = "Ver imagen ampliada";
+            btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
+            btn.addEventListener("click", function() {
+                openLightbox(images, fixedIndex !== null ? fixedIndex : currentCarouselIndex);
+            });
+            previewMediaWrap.appendChild(btn);
+        }
+    }
+
+    function appendExpandBtn(images, fixedIndex) {
+        const btn = document.createElement("button");
+        btn.className = "preview-expand-btn";
+        btn.title = "Ver imagen ampliada";
+        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
+        btn.addEventListener("click", function() {
+            openLightbox(images, fixedIndex !== null ? fixedIndex : currentCarouselIndex);
+        });
+        previewMediaWrap.appendChild(btn);
+    }
+
+    // --- Language helpers ---
     function getCurrentLang() {
         return localStorage.getItem("language") || "es";
     }
@@ -34,14 +192,16 @@ document.addEventListener("DOMContentLoaded", function () {
         previewCategory.textContent = cat.toUpperCase();
     }
 
+    // --- Show preview ---
     function showPreview(item) {
-        const title = item.getAttribute("data-title");
+        const title       = item.getAttribute("data-title");
         const categoryKey = item.getAttribute("data-category-key");
-        const tags = (item.getAttribute("data-tags") || "").split(",").filter(Boolean);
+        const tags        = (item.getAttribute("data-tags") || "").split(",").filter(Boolean);
         const previewType = item.getAttribute("data-preview-type");
-        const previewSrc = item.getAttribute("data-preview-src");
-        const descKey = item.getAttribute("data-desc-key");
-        const url = item.getAttribute("data-url");
+        const previewSrc  = item.getAttribute("data-preview-src");
+        const previewSrcs = item.getAttribute("data-preview-srcs");
+        const descKey     = item.getAttribute("data-desc-key");
+        const url         = item.getAttribute("data-url");
 
         selectedUrl = url;
 
@@ -50,38 +210,32 @@ document.addEventListener("DOMContentLoaded", function () {
         previewCategory.dataset.categoryKey = categoryKey;
         updatePreviewCategory();
 
-        previewTags.innerHTML = tags.map(t =>
-            `<span class="preview-tag">${t}</span>`
-        ).join("");
+        previewTags.innerHTML = tags.map(function(t) {
+            return '<span class="preview-tag">' + t + '</span>';
+        }).join("");
 
         previewDescription.dataset.descKey = descKey;
         updatePreviewDescription();
 
         previewMediaWrap.innerHTML = "";
-        if (previewSrc) {
-            if (previewType === "video") {
-                const video = document.createElement("video");
-                video.src = previewSrc;
-                video.controls = false;
-                video.muted = true;
-                video.autoplay = true;
-                video.loop = true;
-                video.style.width = "100%";
-                video.style.height = "100%";
-                video.style.objectFit = "cover";
-                previewMediaWrap.appendChild(video);
-            } else {
-                const img = document.createElement("img");
-                img.src = previewSrc;
-                img.alt = title;
-                img.style.width = "100%";
-                img.style.height = "100%";
-                img.style.objectFit = "cover";
-                previewMediaWrap.appendChild(img);
-            }
+
+        if (previewType === "video" && previewSrc) {
+            const video = document.createElement("video");
+            video.src = previewSrc;
+            video.controls = false;
+            video.muted = true;
+            video.autoplay = true;
+            video.loop = true;
+            video.className = "preview-media-img";
+            previewMediaWrap.appendChild(video);
+        } else if (previewType === "image") {
+            const srcs = previewSrcs
+                ? previewSrcs.split("|").map(function(s) { return s.trim(); }).filter(Boolean)
+                : (previewSrc ? [previewSrc] : []);
+            buildImagePreview(srcs);
         }
 
-        previewEmpty.style.display = "none";
+        previewEmpty.style.display  = "none";
         previewFilled.style.display = "flex";
     }
 
@@ -94,9 +248,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }, "*");
     }
 
-    document.querySelectorAll(".carpeta-item").forEach((item) => {
+    document.querySelectorAll(".carpeta-item").forEach(function(item) {
         item.addEventListener("click", function () {
-            document.querySelectorAll(".carpeta-item").forEach(e => e.classList.remove("selected"));
+            document.querySelectorAll(".carpeta-item").forEach(function(e) { e.classList.remove("selected"); });
             this.classList.add("selected");
             showPreview(this);
         });
@@ -110,12 +264,12 @@ document.addEventListener("DOMContentLoaded", function () {
         previewOpenBtn.addEventListener("click", openProject);
     }
 
-    // Sidebar category links → scroll to section
+    // Sidebar links
     const linkDesarrollo = document.getElementById("link-desarrollo");
-    const linkLaborales = document.getElementById("link-laborales");
+    const linkLaborales  = document.getElementById("link-laborales");
     const linkPrototipos = document.getElementById("link-prototipos");
-    const linkAll = document.getElementById("link-all");
-    const xpContent = document.getElementById("xp-content");
+    const linkAll        = document.getElementById("link-all");
+    const xpContent      = document.getElementById("xp-content");
 
     function scrollToSection(id) {
         const el = document.getElementById(id);
@@ -124,18 +278,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    if (linkDesarrollo) linkDesarrollo.addEventListener("click", e => { e.preventDefault(); scrollToSection("section-desarrollo"); });
-    if (linkLaborales) linkLaborales.addEventListener("click", e => { e.preventDefault(); scrollToSection("section-laborales"); });
-    if (linkPrototipos) linkPrototipos.addEventListener("click", e => { e.preventDefault(); scrollToSection("section-prototipos"); });
-    if (linkAll) linkAll.addEventListener("click", e => { e.preventDefault(); if (xpContent) xpContent.scrollTo({ top: 0, behavior: "smooth" }); });
+    if (linkDesarrollo) linkDesarrollo.addEventListener("click", function(e) { e.preventDefault(); scrollToSection("section-desarrollo"); });
+    if (linkLaborales)  linkLaborales.addEventListener("click",  function(e) { e.preventDefault(); scrollToSection("section-laborales"); });
+    if (linkPrototipos) linkPrototipos.addEventListener("click", function(e) { e.preventDefault(); scrollToSection("section-prototipos"); });
+    if (linkAll)        linkAll.addEventListener("click",        function(e) { e.preventDefault(); if (xpContent) xpContent.scrollTo({ top: 0, behavior: "smooth" }); });
 
-    // Desktop/MyDocs links close the window or focus parent
     const linkDesktop = document.getElementById("link-desktop");
-    const linkMyDocs = document.getElementById("link-mydocs");
-    if (linkDesktop) linkDesktop.addEventListener("click", e => { e.preventDefault(); window.parent.postMessage({ command: "minimize" }, "*"); });
-    if (linkMyDocs) linkMyDocs.addEventListener("click", e => { e.preventDefault(); });
+    const linkMyDocs  = document.getElementById("link-mydocs");
+    if (linkDesktop) linkDesktop.addEventListener("click", function(e) { e.preventDefault(); window.parent.postMessage({ command: "minimize" }, "*"); });
+    if (linkMyDocs)  linkMyDocs.addEventListener("click",  function(e) { e.preventDefault(); });
 
-    // Re-translate preview when language changes
     window.addEventListener("languageChanged", function () {
         updatePreviewDescription();
         updatePreviewCategory();
