@@ -228,6 +228,16 @@ document.addEventListener("DOMContentLoaded", function () {
             video.loop = true;
             video.className = "preview-media-img";
             previewMediaWrap.appendChild(video);
+
+            const fsBtn = document.createElement("button");
+            fsBtn.className = "preview-expand-btn";
+            fsBtn.title = "Pantalla completa";
+            fsBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
+            fsBtn.addEventListener("click", function() {
+                if (video.requestFullscreen) video.requestFullscreen();
+                else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+            });
+            previewMediaWrap.appendChild(fsBtn);
         } else if (previewType === "image") {
             const srcs = previewSrcs
                 ? previewSrcs.split("|").map(function(s) { return s.trim(); }).filter(Boolean)
