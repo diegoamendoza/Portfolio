@@ -139,8 +139,36 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("languageChanged", function () {
         updatePreviewDescription();
         updatePreviewCategory();
-
-        // Update category name in sidebar labels via data-translate (handled by language.js)
-        // Update folder names via data-translate (handled by language.js)
     });
+
+    // Resizable preview panel
+    const resizeHandle = document.getElementById("xp-resize-handle");
+    const previewPanel = document.getElementById("xp-preview");
+
+    if (resizeHandle && previewPanel) {
+        let startX = 0;
+        let startWidth = 0;
+
+        resizeHandle.addEventListener("mousedown", function (e) {
+            startX = e.clientX;
+            startWidth = previewPanel.offsetWidth;
+            resizeHandle.classList.add("dragging");
+
+            function onMouseMove(e) {
+                const delta = startX - e.clientX;
+                const newWidth = Math.min(520, Math.max(160, startWidth + delta));
+                previewPanel.style.width = newWidth + "px";
+            }
+
+            function onMouseUp() {
+                resizeHandle.classList.remove("dragging");
+                document.removeEventListener("mousemove", onMouseMove);
+                document.removeEventListener("mouseup", onMouseUp);
+            }
+
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+            e.preventDefault();
+        });
+    }
 });
