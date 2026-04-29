@@ -1241,7 +1241,8 @@ h3 {
 }
 
 .nav-arrow {
-    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .xp-address-bar {
@@ -1340,7 +1341,9 @@ h3 {
 }
 
 .sidebar-header-icon {
-    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .xp-sidebar-links {
@@ -1373,7 +1376,8 @@ h3 {
 }
 
 .sidebar-link-icon {
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
 }
 
@@ -1413,7 +1417,8 @@ h3 {
 }
 
 .xp-category-header .category-icon {
-    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
 }
 
