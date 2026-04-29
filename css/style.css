@@ -513,20 +513,26 @@ textarea {
 }
 
 
-    .project-panel .carousel-wrapper,
-    .project-panel .video-wrapper {
-        align-self: stretch;
+    .project-panel .carousel-wrapper {
         flex: 0 0 65%;
         width: 65%;
         max-width: 65%;
+        align-self: flex-start;
         min-width: 0;
-        max-height: none;
         box-sizing: border-box;
         margin-left: auto;
         margin-right: auto;
     }
 
     .project-panel .video-wrapper {
+        align-self: stretch;
+        flex: 0 0 65%;
+        width: 65%;
+        max-width: 65%;
+        min-width: 0;
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -560,7 +566,12 @@ textarea {
         flex-direction: column;
     }
 
-        .project-panel .carousel-wrapper,
+        .project-panel .carousel-wrapper {
+            flex: none;
+            width: 100%;
+            max-width: 100%;
+        }
+
         .project-panel .video-wrapper,
         .project-panel article {
             flex: 1 1 100%;
@@ -1198,7 +1209,7 @@ h3 {
     align-items: center;
     gap: 2px;
     padding: 3px 6px;
-    background: linear-gradient(180deg, #EAE9E0 0%, #DDDCD0 100%);
+    background: linear-gradient(180deg, #404040 0%, #333333 100%);
     border-bottom: 1px solid #ACA899;
     flex-shrink: 0;
     height: 32px;
@@ -1288,7 +1299,7 @@ h3 {
 .xp-sidebar {
     width: 185px;
     flex-shrink: 0;
-    background: linear-gradient(180deg, #444 0%, #333 50%, #2E2E2E 100%);
+    background: linear-gradient(180deg, #444 0%, #636363 50%, #808080 100%);
     border-right: 1px solid #222;
     overflow-y: auto;
     overflow-x: hidden;
