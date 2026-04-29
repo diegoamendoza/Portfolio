@@ -1177,3 +1177,429 @@ h3 {
         min-height: 70vh;
     }
 }
+
+/* ============================================
+   Windows XP Explorer - Projects Page
+   ============================================ */
+
+.explorer-body-wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background: #ECE9D8;
+    font-family: 'ms', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 12px;
+}
+
+/* --- Navbar --- */
+.xp-navbar {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px 6px;
+    background: linear-gradient(180deg, #EAE9E0 0%, #DDDCD0 100%);
+    border-bottom: 1px solid #ACA899;
+    flex-shrink: 0;
+    height: 32px;
+}
+
+.xp-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-family: inherit;
+    background: linear-gradient(180deg, #fff 0%, #ECE9E0 86%, #D8D0C4 100%);
+    border: 1px solid #8E8279;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #222;
+    height: 24px;
+    white-space: nowrap;
+}
+
+.xp-nav-btn:hover:not(:disabled) {
+    box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+}
+
+.xp-nav-btn:disabled {
+    color: #888;
+    cursor: default;
+}
+
+.nav-arrow {
+    font-size: 13px;
+}
+
+.xp-address-bar {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin-left: 6px;
+    gap: 3px;
+}
+
+.address-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.address-input {
+    flex: 1;
+    height: 20px;
+    border: 1px solid #7F9DB9;
+    background: #fff;
+    padding: 1px 4px;
+    font-size: 11px;
+    font-family: inherit;
+    color: #222;
+    outline: none;
+}
+
+.xp-go-btn {
+    padding: 1px 10px;
+    height: 22px;
+    font-size: 11px;
+    font-family: inherit;
+    background: linear-gradient(180deg, #fff 0%, #ECE9E0 86%, #D8D0C4 100%);
+    border: 1px solid #8E8279;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #222;
+}
+
+.xp-go-btn:hover {
+    box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+}
+
+/* --- Explorer body (sidebar + content + preview) --- */
+.xp-explorer {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* --- Sidebar --- */
+.xp-sidebar {
+    width: 185px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #C4D5EC 0%, #AACBF0 60%, #93B8E8 100%);
+    border-right: 1px solid #6E8FC4;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.xp-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.xp-sidebar::-webkit-scrollbar-track {
+    background: #B8D0EC;
+}
+
+.xp-sidebar::-webkit-scrollbar-thumb {
+    background: #7A9CCC;
+    border-radius: 2px;
+}
+
+.xp-sidebar-section {
+    margin: 6px 5px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+.xp-sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 7px;
+    background: linear-gradient(180deg, #2580D0 0%, #0F59BB 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: default;
+    user-select: none;
+}
+
+.sidebar-header-icon {
+    font-size: 13px;
+}
+
+.xp-sidebar-links {
+    background: linear-gradient(180deg, #DAE8F8 0%, #C8DBF4 100%);
+    padding: 4px 0;
+}
+
+.xp-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px 3px 10px;
+    color: #003C74;
+    text-decoration: underline;
+    font-size: 11px;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.xp-sidebar-link:hover {
+    color: #0055CC;
+    background: rgba(0, 60, 116, 0.08);
+}
+
+.xp-sidebar-link img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sidebar-link-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* --- Main content --- */
+.xp-content {
+    flex: 1;
+    background: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px 14px;
+    min-width: 0;
+}
+
+.xp-content::-webkit-scrollbar {
+    width: 16px;
+}
+
+.xp-content::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, #fff 0px, #EEEAD6 1px, #fff);
+}
+
+.xp-content::-webkit-scrollbar-thumb {
+    background-color: #c8d6fb;
+    border: 1px solid #fff;
+    border-radius: 2px;
+}
+
+.xp-category-section {
+    margin-bottom: 18px;
+}
+
+.xp-category-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.xp-category-header .category-icon {
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.xp-category-header h5 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003C74;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.category-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #003C74 0%, #9FB8D8 100%);
+    margin-left: 4px;
+}
+
+.xp-folders-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-left: 4px;
+}
+
+.xp-folders-grid .carpeta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    width: 80px;
+    text-align: center;
+    user-select: none;
+}
+
+.xp-folders-grid .carpeta-item:hover {
+    background: #EEF4FF;
+    border-color: #9DB8D2;
+}
+
+.xp-folders-grid .carpeta-item.selected {
+    background: #C5D8F7;
+    border-color: #6B8FCF;
+}
+
+.xp-folders-grid .carpeta-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 4px;
+}
+
+.xp-folders-grid .carpeta-name {
+    font-size: 11px;
+    color: #222;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+/* --- Right preview panel --- */
+.xp-preview {
+    width: 240px;
+    flex-shrink: 0;
+    background: #fff;
+    border-left: 1px solid #ACA899;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.preview-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #888;
+    font-size: 11px;
+    text-align: center;
+    padding: 16px;
+    gap: 10px;
+}
+
+.preview-filled {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.preview-media-wrap {
+    width: 100%;
+    height: 160px;
+    flex-shrink: 0;
+    background: #111;
+    overflow: hidden;
+}
+
+.preview-media-wrap img,
+.preview-media-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.preview-details {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.preview-details h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    color: #111;
+}
+
+.preview-category-label {
+    font-size: 9px;
+    font-weight: bold;
+    color: #5A7AAA;
+    letter-spacing: 0.5px;
+}
+
+.preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.preview-tag {
+    font-size: 10px;
+    padding: 1px 7px;
+    border: 1px solid #9DB8D2;
+    border-radius: 10px;
+    color: #334;
+    background: #F0F5FC;
+}
+
+.preview-description {
+    font-size: 11px;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.xp-view-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-family: inherit;
+    background: linear-gradient(180deg, #2F8EE0 0%, #1469C4 100%);
+    color: #fff;
+    border: 1px solid #0A4DAA;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 4px;
+    align-self: flex-start;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.xp-view-btn:hover {
+    background: linear-gradient(180deg, #3D9BEE 0%, #1F77D4 100%);
+}
+
+.xp-view-btn:active {
+    background: linear-gradient(180deg, #1469C4 0%, #2F8EE0 100%);
+}
+
+/* --- Responsive --- */
+@media (max-width: 720px) {
+    .xp-sidebar {
+        display: none;
+    }
+
+    .xp-preview {
+        width: 200px;
+    }
+}
+
+@media (max-width: 560px) {
+    .xp-preview {
+        display: none;
+    }
+
+    .xp-folders-grid .carpeta-item {
+        width: 70px;
+    }
+}
