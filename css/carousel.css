@@ -1,36 +1,31 @@
 .carousel-wrapper {
     width: 100%;
-    max-width: 900px;
-    flex: 0 0 auto;
-    aspect-ratio: 16 / 9;
     position: relative;
-    margin: auto;
     overflow: hidden;
-    margin-bottom: 15px;
     background: #000;
     border-radius: 6px;
-    /* Fallback for browsers without aspect-ratio support (e.g., legacy Edge) */
-    height: 0;
-    padding-top: 56.25%;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 15px;
+    flex-shrink: 0;
 }
 
 .carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s ease;
 }
 
-    .carousel-inner img {
-        width: 100%;
-        height: 100%;
-        flex: 0 0 100%;
-        object-fit: contain;
-        background: #000;
-    }
+.carousel-inner img {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+}
 
 .carousel-control {
     position: absolute;
@@ -40,49 +35,135 @@
     border: none;
     cursor: pointer;
     padding: 0;
+    z-index: 2;
 }
 
-    .carousel-control img {
-        width: 32px;
-        height: 32px;
-        opacity: 0.7;
-        transition: opacity 0.2s ease;
-    }
-
-    .carousel-control:hover img {
-        opacity: 1;
-    }
-
-    .carousel-control .icon-prev {
-        transform: scaleX(-1);
-    }
-
-    .carousel-control.prev {
-        left: 10px;
-    }
-
-    .carousel-control.next {
-        right: 10px;
-    }
-
-@supports (aspect-ratio: 16 / 9) {
-    .carousel-wrapper {
-        height: auto;
-        padding-top: 0;
-    }
-
-    .carousel-inner {
-        position: relative;
-    }
+.carousel-control img {
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
 }
 
+.carousel-control:hover img {
+    opacity: 1;
+}
+
+.carousel-control .icon-prev {
+    transform: scaleX(-1);
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+/* --- Preview button (lightbox trigger) --- */
+.carousel-preview-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px 6px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    transition: background 0.15s ease;
+}
+
+.carousel-preview-btn:hover {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+/* --- Lightbox overlay --- */
+.carousel-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-lightbox.active {
+    display: flex;
+}
+
+.carousel-lightbox-inner {
+    position: relative;
+    max-width: 92vw;
+    max-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-lightbox-inner img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-lightbox-close {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    opacity: 0.8;
+}
+
+.carousel-lightbox-close:hover {
+    opacity: 1;
+}
+
+.carousel-lightbox-prev,
+.carousel-lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+}
+
+.carousel-lightbox-prev { left: -52px; }
+.carousel-lightbox-next { right: -52px; }
+
+.carousel-lightbox-prev:hover,
+.carousel-lightbox-next:hover {
+    opacity: 1;
+}
+
+/* --- Project panel overrides --- */
 .project-panel .carousel-wrapper {
     flex: 0 0 65%;
     width: 65%;
     max-width: 65%;
+    align-self: flex-start;
     margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .project-panel article {
