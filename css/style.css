@@ -562,21 +562,56 @@ textarea {
     }
 
 @media (max-width: 900px) {
+    .project-panel .carousel-wrapper {
+        flex: 0 0 55%;
+        width: 55%;
+        max-width: 55%;
+    }
+
+    .project-panel .video-wrapper {
+        flex: 0 0 55%;
+        width: 55%;
+        max-width: 55%;
+    }
+
+    .project-panel article {
+        flex: 1 1 0;
+        max-width: 45%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 560px) {
     .project-panel {
         flex-direction: column;
     }
 
-        .project-panel .carousel-wrapper {
-            flex: none;
-            width: 100%;
-            max-width: 100%;
-        }
+    .project-panel .carousel-wrapper {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: unset;
+        height: clamp(150px, 50vw, 220px);
+    }
 
-        .project-panel .video-wrapper,
-        .project-panel article {
-            flex: 1 1 100%;
-            max-width: 100%;
-        }
+    .project-panel .video-wrapper {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        height: clamp(150px, 50vw, 220px);
+    }
+
+    .project-panel .video-wrapper video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .project-panel article {
+        flex: 1 1 auto;
+        max-width: 100%;
+        min-height: 80px;
+    }
 }
 
 .project-panel article p {
