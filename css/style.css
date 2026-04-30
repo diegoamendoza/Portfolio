@@ -1751,6 +1751,14 @@ h3 {
     font-weight: bold;
     color: #5A7AAA;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.project-panel article h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    color: #111;
 }
 
 .preview-tags {
