@@ -9,6 +9,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const previewOpenBtn = document.getElementById("preview-open-btn");
 
     let selectedUrl = null;
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    // --- Mobile action bar ---
+    const mobileBar     = document.getElementById("mobile-project-bar");
+    const mobileBarName = document.getElementById("mobile-project-bar-name");
+    const mobileBarBtn  = document.getElementById("mobile-project-bar-btn");
+
+    function updateMobileBar(title) {
+        if (!mobileBar) return;
+        if (title) {
+            if (mobileBarName) mobileBarName.textContent = title;
+            if (mobileBarBtn)  mobileBarBtn.disabled = false;
+        } else {
+            if (mobileBarName) mobileBarName.textContent = getTranslation("preview-select");
+            if (mobileBarBtn)  mobileBarBtn.disabled = true;
+        }
+    }
+
+    if (mobileBarBtn) {
+        mobileBarBtn.addEventListener("click", openProject);
+    }
 
     // --- Lightbox ---
     const lightbox = document.createElement("div");
@@ -247,6 +268,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         previewEmpty.style.display  = "none";
         previewFilled.style.display = "flex";
+
+        updateMobileBar(title);
     }
 
     function openProject() {
@@ -260,6 +283,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".carpeta-item").forEach(function(item) {
         item.addEventListener("click", function () {
+            if (isTouchDevice && this.classList.contains("selected")) {
+                openProject();
+                return;
+            }
             document.querySelectorAll(".carpeta-item").forEach(function(e) { e.classList.remove("selected"); });
             this.classList.add("selected");
             showPreview(this);

@@ -42,16 +42,23 @@
             background: #fafafa;
             color: #111;
             overflow: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* si quieres que el textarea sea solo lectura, descomenta: */
-        /* textarea[readonly] { background:#f5f5f5; } */
+        @media (max-width: 640px) {
+            textarea {
+                font-size: 15px;
+                line-height: 1.6;
+                padding: 14px;
+                cursor: default;
+            }
+        }
     </style>
 </head>
 <body>
     <script src="../js/language.js"></script>
     <div class="window-content">
-        <textarea id="readme-textarea" data-translate="readme-text">
+        <textarea id="readme-textarea" data-translate="readme-text" readonly>
 ¡Hola!
 
 Me complace darte la bienvenida a este espacio donde podrás explorar algunos de los proyectos en los que he estado trabajando. Soy Diego Mendoza, un apasionado desarrollador de videojuegos.
