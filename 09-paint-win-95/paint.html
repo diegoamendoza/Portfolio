@@ -202,6 +202,31 @@
     $canvas.addEventListener('mouseup', stopDrawing)
     $canvas.addEventListener('mouseleave', stopDrawing)
 
+    function getTouchOffset(touch) {
+      const rect = $canvas.getBoundingClientRect()
+      const scaleX = $canvas.width / rect.width
+      const scaleY = $canvas.height / rect.height
+      return {
+        offsetX: (touch.clientX - rect.left) * scaleX,
+        offsetY: (touch.clientY - rect.top) * scaleY
+      }
+    }
+
+    $canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault()
+      startDrawing(getTouchOffset(e.touches[0]))
+    }, { passive: false })
+
+    $canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault()
+      draw(getTouchOffset(e.touches[0]))
+    }, { passive: false })
+
+    $canvas.addEventListener('touchend', (e) => {
+      e.preventDefault()
+      stopDrawing({})
+    }, { passive: false })
+
     $colorPicker.addEventListener('change', handleChangeColor)
     $clearBtn.addEventListener('click', clearCanvas)
 
