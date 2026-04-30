@@ -173,3 +173,10 @@
     flex: 1 1 35%;
     max-height: 100%;
 }
+
+/* Mobile: fill without black bars */
+@media (max-width: 900px) {
+    .project-panel .carousel-inner img {
+        object-fit: cover;
+    }
+}
