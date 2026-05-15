@@ -68,6 +68,11 @@ body {
     background-color: rgba(130,44,104, 0);
 }
 
+#div8 {
+    grid-area: 2 / 2 / 2 / 2;
+    background-color: rgba(130,44,104, 0);
+}
+
 .icon {
     width: 100px;
     cursor: pointer;
