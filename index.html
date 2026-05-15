@@ -54,6 +54,12 @@
                 <div class="icon-name mis proyectos" data-translate="meow-jump">Meow Jump!</div>
             </div>
         </div>
+        <div id="div8">
+            <div class="icon colorsort">
+                <img src="img/color_sort_icon_light_512.png">
+                <div class="icon-name mis proyectos">Color Sort</div>
+            </div>
+        </div>
         <div id="window_container"></div>
 
         <!-- Template obligatorio -->
@@ -210,6 +216,10 @@
 
         addOpenListener(document.querySelector(".meowjump"), () => {
             openWithSize("meow-jump/index.html", { title: "Meow Jump!", width: 313, height: 692, x: 255, y: 9, icon: "img/LOGOMEOWJUMP.png", resizable: false });
+        });
+
+        addOpenListener(document.querySelector(".colorsort"), () => {
+            openWithSize("ColorSortWeb/index.html", { title: "Color Sort", width: 400, height: 720, x: 300, y: 9, icon: "img/color_sort_icon_light_512.png", resizable: false });
         });
 
         /* ---------- DEBUG: atajo para inspeccionar window_list ---------- */
