@@ -41,24 +41,9 @@
 
         document.body.style.textAlign = "left";
       } else {
-        var BASE_WIDTH = 308;
-        var BASE_HEIGHT = 658;
         var canvas = document.querySelector("#unity-canvas");
-
-        function resizeCanvas() {
-          var availableWidth = window.innerWidth;
-          var availableHeight = window.innerHeight;
-          var scale = Math.min(availableWidth / BASE_WIDTH, availableHeight / BASE_HEIGHT);
-
-          var targetWidth = Math.floor(BASE_WIDTH * scale);
-          var targetHeight = Math.floor(BASE_HEIGHT * scale);
-
-          canvas.style.width = targetWidth + "px";
-          canvas.style.height = targetHeight + "px";
-        }
-
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
