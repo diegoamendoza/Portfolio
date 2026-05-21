@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Color Sort</title>
+<meta name="description" content="Privacy Policy for Color Sort. Information about data collection and usage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #fce4f3;
+    --surface: #ffffff;
+    --accent:  #ff4da6;
+    --accent2: #cc44ff;
+    --text:    #3a1a2e;
+    --muted:   #7a3a5a;
+    --border:  #f5c0dc;
+    --dot:     rgba(255, 77, 166, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--dot) 2px, transparent 2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 24px 40px;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    margin-bottom: 32px;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ffeaf5, #ffc8e0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 4px 16px rgba(255,77,166,0.25);
+  }
+
+  .logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .header-sub span {
+    display: inline-block;
+    background: rgba(255,77,166,0.10);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-top: 8px;
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 40px rgba(255,77,166,0.10);
+    overflow: hidden;
+  }
+
+  .summary-banner {
+    background: linear-gradient(135deg, rgba(255,77,166,0.08), rgba(204,68,255,0.08));
+    border-bottom: 1px solid var(--border);
+    padding: 28px 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+  }
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .summary-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(255,77,166,0.10);
+  }
+
+  .summary-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .summary-label small {
+    display: block;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .content { padding: 40px 36px; }
+
+  section { margin-bottom: 40px; }
+  section:last-child { margin-bottom: 0; }
+
+  h2 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h2::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  p {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  ul { list-style: none; margin: 10px 0 14px; }
+
+  ul li {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    padding: 6px 0 6px 24px;
+    position: relative;
+    border-bottom: 1px solid rgba(245,192,220,0.4);
+  }
+
+  ul li:last-child { border-bottom: none; }
+
+  ul li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 8px;
+    top: 12px;
+  }
+
+  .highlight-box {
+    background: rgba(255,77,166,0.06);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+
+  .highlight-box p { font-size: 14px; margin: 0; }
+
+  .tag {
+    display: inline-block;
+    background: rgba(255,77,166,0.10);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 2px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .tag.green {
+    background: rgba(46,196,64,0.10);
+    border-color: rgba(46,196,64,0.30);
+    color: #007a1a;
+  }
+
+  .tag.red {
+    background: rgba(255,51,51,0.10);
+    border-color: rgba(255,51,51,0.30);
+    color: #cc0000;
+  }
+
+  a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,77,166,0.3);
+    transition: border-color .2s;
+  }
+
+  a:hover { border-bottom-color: var(--accent); }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 24px 48px;
+    margin-top: 32px;
+  }
+
+  footer p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  footer a { font-size: 13px; }
+
+  @media (max-width: 600px) {
+    .content { padding: 28px 22px; }
+    .summary-banner { padding: 22px; }
+    header { padding: 40px 20px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">
+    <div class="logo-icon">🎨</div>
+    <span class="logo-text">Color Sort</span>
+  </a>
+  <h1>Privacy Policy</h1>
+  <p class="header-sub">
+    <span>Last updated: May 2026</span>
+  </p>
+</header>
+
+<main>
+  <div class="card">
+
+    <div class="summary-banner">
+      <div class="summary-item">
+        <div class="summary-icon">🔒</div>
+        <div class="summary-label">No personal data<small>No name, email or location collected</small></div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-icon">📵</div>
+        <div class="summary-label">No account needed<small>Play without registration</small></div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-icon">📶</div>
+        <div class="summary-label">Works offline<small>No internet required to play</small></div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-icon">📢</div>
+        <div class="summary-label">Unity Ads<small>Family-safe, child-directed ads</small></div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <section>
+        <h2>Introduction</h2>
+        <p>This Privacy Policy describes how <strong>Color Sort</strong> ("we", "the app", "us") handles user information. We are committed to protecting the privacy of all our players, including children.</p>
+        <p>By downloading and using Color Sort, you agree to the practices described in this policy. If you do not agree with this policy, please do not use the app.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Information We Collect</h2>
+        <p>Color Sort <strong>does not directly collect</strong> any personally identifiable information. We do not ask for your name, email address, phone number, or any other personal information.</p>
+        <p>Game progress data (completed levels, earned stars, coins, unlocked items) is saved <strong>only on your device</strong> using local storage and is never transmitted to any external server.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Advertising — Unity Ads</h2>
+        <p>Color Sort uses <strong>Unity Ads</strong> (by Unity Technologies) to display advertisements. Unity Ads may automatically collect certain technical information from your device in order to serve ads. This information may include:</p>
+        <ul>
+          <li>Device advertising identifier (Advertising ID / IDFA)</li>
+          <li>Technical device information (model, operating system version)</li>
+          <li>Ad interaction data (which ads were shown and whether they were clicked)</li>
+          <li>App diagnostic and performance data (crash reports)</li>
+        </ul>
+        <div class="highlight-box">
+          <p><strong>Child-Directed Setting:</strong> Because Color Sort is designed for users of all ages, including children, we have configured Unity Ads in <em>child-directed mode</em>. This means Unity Ads only serves age-appropriate advertisements and does not use behavioral tracking or personalized advertising identifiers for users under 13.</p>
+        </div>
+        <p>For more information about Unity's data practices, please review the <a href="https://unity.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Unity Technologies Privacy Policy</a>.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Data Stored on Your Device</h2>
+        <p>The app saves the following data locally on your device only:</p>
+        <ul>
+          <li>Game progress (unlocked levels, stars earned per level)</li>
+          <li>Settings preferences (sound, music, dark mode)</li>
+          <li>In-game currency, hints, and unlocked shop items</li>
+          <li>Daily reward streak and last login date</li>
+        </ul>
+        <p>This data <strong>never leaves your device</strong> and can be deleted at any time by uninstalling the app or using the "Reset Progress" option in the game settings.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Children's Privacy</h2>
+        <p>Color Sort is suitable for users of all ages. We comply with the <strong>Google Play Families Policy</strong>, the <strong>Children's Online Privacy Protection Act (COPPA)</strong>, and applicable child data protection regulations.</p>
+        <ul>
+          <li>We do not knowingly collect personal information from any user, regardless of age</li>
+          <li>No account registration or login is required</li>
+          <li>Ads shown to children are filtered to be age-appropriate</li>
+          <li>There is no chat, forum, or any form of user-to-user communication in the app</li>
+          <li>No third-party social SDKs or analytics tools that track children are integrated</li>
+        </ul>
+        <p>If you are a parent or guardian and have questions or concerns about your child's use of this app, please contact us at the address provided at the end of this policy.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Third-Party Services</h2>
+        <p>The only third-party service integrated in Color Sort is <strong>Unity Ads</strong> for advertising purposes. We do not use any analytics platforms, social login SDKs, crash reporting services beyond Unity Ads' built-in diagnostics, or any other third-party tools.</p>
+        <p>We are not responsible for the privacy practices of Unity Technologies. We encourage you to review their privacy policy for more details.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>What We Do NOT Do</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+          <span class="tag red">✗ Sell user data to third parties</span>
+          <span class="tag red">✗ Track your location</span>
+          <span class="tag red">✗ Access your contacts</span>
+          <span class="tag red">✗ Access your camera or microphone</span>
+          <span class="tag red">✗ Require account registration</span>
+          <span class="tag red">✗ Collect email addresses</span>
+          <span class="tag red">✗ Use behavioral ads for children</span>
+          <span class="tag red">✗ Share data with ad networks for child profiling</span>
+        </div>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>What We DO</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+          <span class="tag green">✓ Save progress locally on your device</span>
+          <span class="tag green">✓ Show family-safe ads via Unity</span>
+          <span class="tag green">✓ Work fully offline</span>
+          <span class="tag green">✓ Comply with Google Play Families Policy</span>
+          <span class="tag green">✓ Comply with COPPA</span>
+          <span class="tag green">✓ Allow full data deletion by uninstalling</span>
+        </div>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Data Retention</h2>
+        <p>Game progress data is stored locally on your device for as long as the app is installed. Uninstalling the app permanently deletes all local data.</p>
+        <p>Advertising-related data collected by Unity Ads is retained by Unity Technologies according to their own data retention policies, typically no longer than 90 days for non-personalized ad data.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Your Rights</h2>
+        <p>Depending on your region, you may have rights regarding your personal data, including the right to access, correct, or delete it. Since Color Sort does not collect personal data directly, most of these rights apply to Unity Ads data — you can exercise them by contacting Unity Technologies directly or by resetting your device's Advertising ID in your phone settings.</p>
+        <p>You can reset or opt out of personalized advertising on Android via: <strong>Settings → Google → Ads → Reset Advertising ID</strong> or by enabling "Opt out of Ads Personalization".</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Any significant changes will be communicated through an update notice on the Google Play Store listing. We encourage you to review this page periodically.</p>
+        <p>Continued use of the app after any modification constitutes acceptance of the updated policy.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>Contact Us</h2>
+        <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at:</p>
+        <div class="highlight-box">
+          <p>📧 <strong><a href="mailto:kudenstudios@gmail.com">kudenstudios@gmail.com</a></strong><br>
+          We will respond within 30 business days.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Color Sort · Kuden Studios · All rights reserved</p>
+</footer>
+
+</body>
+</html>
