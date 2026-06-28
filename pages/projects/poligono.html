@@ -5,12 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polígono de Tiro</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* Galería de dos videos apilados: ambos siempre visibles por completo */
+        .project-panel .video-wrapper.video-gallery {
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .project-panel .video-gallery video {
+            width: 100%;
+            flex: 1 1 0;
+            min-height: 0;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+            background: #000;
+            border-radius: 4px;
+            display: block;
+        }
+
+        @media (max-width: 560px) {
+            .project-panel .video-wrapper.video-gallery {
+                height: auto;
+            }
+
+            .project-panel .video-gallery video {
+                flex: none;
+                height: clamp(150px, 45vw, 220px);
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="window-body">
         <div class="panelform project-panel">
-            <div class="video-wrapper">
-                <video controls width="100%" src="../../video/Presentacion_Poligono.mp4"></video>
+            <div class="video-wrapper video-gallery">
+                <video controls src="../../video/Presentacion_Poligono.mp4"></video>
+                <video controls src="../../video/Poligono_Demo.mp4"></video>
             </div>
             <article>
                 <h3>Polígono de Tiro</h3>
