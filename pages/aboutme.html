@@ -1,57 +1,61 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/windows/window_common.css">
-    <link rel="stylesheet" href="../css/windows/window_xp.css">
-    <title>ReadMe</title>
+    <title>Sobre mí — Diego Mendoza</title>
     <style>
-        /* Aseguramos que todo el árbol ocupe el 100% del iframe */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* ---- Tarjetas de contenido (reutiliza el lenguaje visual del explorador) ---- */
+        .info-card {
             background: #fff;
-            color: #111;
+            border: 1px solid #D4D0C8;
+            border-radius: 6px;
+            padding: 14px 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
         }
 
-        /* contenedor principal */
-        .window-content {
-            height: 100%;
-            overflow: auto;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
+        .about-bio p {
+            margin: 0 0 10px;
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #2a2a2a;
         }
 
+        .about-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ---- Stack ---- */
         .stack-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .stack-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
             gap: 12px;
         }
 
         .stack-category {
-            border: 1px solid #d0d0d0;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            background: #fafafa;
+            border: 1px solid #D4D0C8;
+            border-radius: 6px;
+            padding: 10px 12px;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
         }
 
         .stack-category h3 {
-            margin: 0 0 8px;
-            font-size: 1rem;
-            color: #222;
+            margin: 0 0 10px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #003C74;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #E3E0D6;
+            padding-bottom: 6px;
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+            gap: 8px;
         }
 
         .logo-card {
@@ -59,159 +63,240 @@
             flex-direction: column;
             align-items: center;
             gap: 6px;
-            padding: 8px;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            padding: 8px 4px;
+            background: linear-gradient(180deg, #fbfbfb 0%, #f1f1ec 100%);
+            border: 1px solid #E3E0D6;
+            border-radius: 5px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .logo-card:hover {
+            border-color: #7F9DB9;
+            box-shadow: 0 1px 4px rgba(0, 60, 116, 0.15);
         }
 
         .logo-card img {
-            width: 72px;
-            height: 72px;
+            width: 44px;
+            height: 44px;
             object-fit: contain;
-            background: #fff;
+            background: transparent;
         }
 
         .logo-card span {
-            font-size: 0.9rem;
+            font-size: 10.5px;
             text-align: center;
-            color: #333;
+            color: #444;
             word-break: break-word;
+            line-height: 1.2;
         }
 
-        .stack-empty {
-            margin: 0;
-            color: #555;
+        /* ---- Detalles del panel lateral ---- */
+        .sidebar-detail {
+            padding: 7px 10px;
+            color: #C9D4E2;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .sidebar-detail strong {
+            color: #fff;
+        }
+
+        .xp-sidebar-link.active {
+            color: #FFE9A8;
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body>
-    <script src="../js/language.js"></script>
-    <div class="window-content">
-        <div class="window-body">
-            <div class="panelform">
-                <menu role="tablist" aria-label="Tabs">
-                    <button role="tab" aria-selected="true" aria-controls="Proyecto" data-translate="sobre-mi-btn">Sobre mí</button>
-                    <button role="tab" aria-controls="Imagenes" data-translate="stack-btn">Stack</button>
-                </menu>
 
-                <article role="tabpanel" id="Proyecto">
+<body class="explorer-body-wrap" style="margin:0; overflow:hidden; height:100vh; background:#ECE9D8; font-family:'ms',sans-serif; font-size:12px;">
+
+    <!-- Navigation toolbar -->
+    <div class="xp-navbar">
+        <button class="xp-nav-btn" title="Atrás" disabled>
+            <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></span> <span data-translate="nav-back">Atrás</span>
+        </button>
+        <button class="xp-nav-btn" title="Adelante" disabled>
+            <span data-translate="nav-forward">Adelante</span> <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </button>
+        <button class="xp-nav-btn" title="Subir" disabled>
+            <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span> <span data-translate="nav-up">Subir</span>
+        </button>
+        <div class="xp-address-bar">
+            <img src="../img/Information.png" alt="" class="address-icon">
+            <input type="text" readonly value="C:\Usuarios\Diego\Sobre mí" class="address-input">
+            <button class="xp-go-btn" data-translate="nav-go">Ir</button>
+        </div>
+    </div>
+
+    <!-- Main explorer layout -->
+    <div class="xp-explorer">
+
+        <!-- Left sidebar -->
+        <div class="xp-sidebar">
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                    <span data-translate="sidebar-sections">Secciones</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <a class="xp-sidebar-link active" href="#section-bio" data-section="section-bio">
+                        <span class="sidebar-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> <span data-translate="sobre-mi-btn">Sobre mí</span>
+                    </a>
+                    <a class="xp-sidebar-link" href="#section-stack" data-section="section-stack">
+                        <span class="sidebar-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span> <span data-translate="stack-btn">Stack</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                    <span data-translate="sidebar-details">Detalles</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <div class="sidebar-detail" data-translate="about-details">
+                        <strong>Diego Mendoza</strong><br>Desarrollador y programador de videojuegos
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main content -->
+        <div class="xp-content" id="xp-content">
+
+            <div class="xp-category-section" id="section-bio">
+                <div class="xp-category-header">
+                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                    <h5 data-translate="sobre-mi-btn">Sobre mí</h5>
+                    <div class="category-line"></div>
+                </div>
+                <div class="info-card about-bio">
                     <p data-translate="sobre-mi-p1">
                         Hola, soy Diego Mendoza, un apasionado desarrollador y programador de videojuegos de 22 años. Desde temprana edad, he tenido una gran fascinación por la tecnología y los videojuegos, lo que me llevó a especializarme en esta emocionante industria. Mi experiencia abarca tanto la programación como el diseño, permitiéndome crear experiencias inmersivas y atractivas para los jugadores.
                     </p>
                     <p data-translate="sobre-mi-p2">
-                        <br><br>Mi amor por la programación se refleja en cada proyecto que emprendo, donde combino creatividad y habilidades técnicas para desarrollar juegos que no solo entretienen, sino que también desafían y emocionan a los jugadores. Estoy siempre en busca de nuevas oportunidades para aprender, crecer y contribuir al mundo de los videojuegos.
+                        Mi amor por la programación se refleja en cada proyecto que emprendo, donde combino creatividad y habilidades técnicas para desarrollar juegos que no solo entretienen, sino que también desafían y emocionan a los jugadores. Estoy siempre en busca de nuevas oportunidades para aprender, crecer y contribuir al mundo de los videojuegos.
                     </p>
-                </article>
+                </div>
+            </div>
 
-                <article role="tabpanel" hidden id="Imagenes">
-                    <div class="stack-container" id="stack-container"></div>
-                </article>
-
-
+            <div class="xp-category-section" id="section-stack">
+                <div class="xp-category-header">
+                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+                    <h5 data-translate="stack-btn">Stack</h5>
+                    <div class="category-line"></div>
+                </div>
+                <div class="stack-container" id="stack-container"></div>
             </div>
 
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const tabs = document.querySelectorAll('[role="tab"]');
-                const tabPanels = document.querySelectorAll('[role="tabpanel"]');
-                const stackContainer = document.getElementById('stack-container');
-
-                const categories = [
-                    {
-                        label: 'Lenguajes',
-                        files: ['C#.png', 'C++.png', 'CSS.png', 'HTML5.png', 'Java.png', 'Javascript.png', 'Kotlin.png', 'PHP.svg', 'Python.png', 'SQL.png'],
-                        key: 'lenguajes'
-                    },
-                    {
-                        label: 'Motores',
-                        files: ['Unity.png', 'Unreal.png'],
-                        key: 'motores'
-                    },
-                    {
-                        label: 'Herramientas',
-                        files: ['Blender.png', 'GitHub.png', 'Jira.png', 'Photoshop.png', 'Premiere.png'],
-                        key: 'herramientas'
-                    },
-                ];
-
-                const basePath = '../img/logos/';
-
-                const createLogoCard = (fileName, url) => {
-                    const card = document.createElement('div');
-                    card.className = 'logo-card';
-
-                    const img = document.createElement('img');
-                    img.src = url;
-                    img.alt = fileName;
-                    img.loading = 'lazy';
-
-                    const caption = document.createElement('span');
-                    const cleanName = decodeURIComponent(fileName)
-                        .replace(/\.[^.]+$/, '')
-                        .replace(/[-_]+/g, ' ');
-                    caption.textContent = cleanName;
-
-                    card.appendChild(img);
-                    card.appendChild(caption);
-
-                    return card;
-                };
-
-                const loadCategory = (category) => {
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'stack-category';
-
-                    const title = document.createElement('h3');
-                    title.textContent = category.label;
-                    categoryDiv.appendChild(title);
-
-                    const grid = document.createElement('div');
-                    grid.className = 'stack-grid';
-                    categoryDiv.appendChild(grid);
-
-                    category.files.forEach(file => {
-                        const card = createLogoCard(file, `${basePath}${category.key}/${file}`);
-                        grid.appendChild(card);
-                    });
-
-                    stackContainer.appendChild(categoryDiv);
-                };
-
-                categories.forEach(loadCategory);
-
-                tabs.forEach(tab => {
-                    tab.addEventListener('click', function () {
-                        // Deactivate all tabs
-                        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-
-                        // Hide all tab panels
-                        tabPanels.forEach(panel => panel.hidden = true);
-
-                        // Activate clicked tab
-                        tab.setAttribute('aria-selected', 'true');
-
-                        // Show associated tab panel
-                        const tabPanel = document.getElementById(tab.getAttribute('aria-controls'));
-                        tabPanel.hidden = false;
-                    });
-                });
-            });
-        </script>
     </div>
 
+    <script src="../js/language.js"></script>
     <script>
-        // Opcional: si quieres que el contenido se adapte si tu WindowManager cambia tamaño dinámicamente,
-        // forzamos que el textarea haga focus/resice correctamente.
-        (function () {
-            const ta = document.getElementById('readme-textarea');
-            // Si quieres que sea read-only, descomenta:
-            // ta.setAttribute('readonly','');
-            // Opcional: seleccionar todo cuando se abre
-            // ta.addEventListener('focus', () => ta.select());
-        })();
+        document.addEventListener('DOMContentLoaded', function () {
+            const stackContainer = document.getElementById('stack-container');
+
+            const categories = [
+                {
+                    label: 'Lenguajes',
+                    tkey: 'stack-languages',
+                    files: ['C#.png', 'C++.png', 'CSS.png', 'HTML5.png', 'Java.png', 'Javascript.png', 'Kotlin.png', 'PHP.svg', 'Python.png', 'SQL.png'],
+                    key: 'lenguajes'
+                },
+                {
+                    label: 'Motores',
+                    tkey: 'stack-engines',
+                    files: ['Unity.png', 'Unreal.png'],
+                    key: 'motores'
+                },
+                {
+                    label: 'Herramientas',
+                    tkey: 'stack-tools',
+                    files: ['Blender.png', 'GitHub.png', 'Jira.png', 'Photoshop.png', 'Premiere.png'],
+                    key: 'herramientas'
+                },
+            ];
+
+            const basePath = '../img/logos/';
+
+            const createLogoCard = (fileName, url) => {
+                const card = document.createElement('div');
+                card.className = 'logo-card';
+
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = fileName;
+                img.loading = 'lazy';
+
+                const caption = document.createElement('span');
+                const cleanName = decodeURIComponent(fileName)
+                    .replace(/\.[^.]+$/, '')
+                    .replace(/[-_]+/g, ' ');
+                caption.textContent = cleanName;
+
+                card.appendChild(img);
+                card.appendChild(caption);
+
+                return card;
+            };
+
+            const loadCategory = (category) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'stack-category';
+
+                const title = document.createElement('h3');
+                if (category.tkey) title.setAttribute('data-translate', category.tkey);
+                const translated = (typeof translations !== 'undefined' && translations[currentLanguage] && translations[currentLanguage][category.tkey]);
+                title.textContent = translated || category.label;
+                categoryDiv.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'stack-grid';
+                categoryDiv.appendChild(grid);
+
+                category.files.forEach(file => {
+                    const card = createLogoCard(file, `${basePath}${category.key}/${encodeURIComponent(file)}`);
+                    grid.appendChild(card);
+                });
+
+                stackContainer.appendChild(categoryDiv);
+            };
+
+            categories.forEach(loadCategory);
+
+            // Sidebar navigation: scroll to section and highlight active link
+            const links = document.querySelectorAll('.xp-sidebar-link[data-section]');
+            const content = document.getElementById('xp-content');
+
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.getElementById(link.getAttribute('data-section'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    links.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+            // Highlight the section currently in view while scrolling
+            content.addEventListener('scroll', function () {
+                let current = links[0];
+                links.forEach(link => {
+                    const target = document.getElementById(link.getAttribute('data-section'));
+                    if (target && target.offsetTop - content.scrollTop <= 40) {
+                        current = link;
+                    }
+                });
+                links.forEach(l => l.classList.remove('active'));
+                if (current) current.classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
