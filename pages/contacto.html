@@ -1,128 +1,222 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <!-- Ruta al CSS (subimos un nivel desde pages/) -->
     <link rel="stylesheet" href="../css/style.css">
     <title>Contacto — Diego Mendoza</title>
-
     <style>
-        /* Layout para que el contenido ocupe todo el iframe */
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            box-sizing: border-box;
-        }
-
-        .container {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            min-height: 0; /* importante para que el flex funcione dentro del iframe */
-        }
-
-        .titlebar {
-            padding: 8px 12px;
-            border-bottom: 1px solid #ddd;
-            background: #f3f3f3;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-            .titlebar h1 {
-                margin: 0;
-                font-size: 14px;
-                font-weight: 700;
-            }
-
-        .content {
-            flex: 1;
-            min-height: 0; /* crucial para evitar overflow en flex children */
-            overflow: auto;
-            background: #fafafa;
-        }
-
-        fieldset {
-            border: 1px solid #ccc;
-            padding: 12px;
-            border-radius: 6px;
+        .info-card {
             background: #fff;
-            max-width: 760px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            border: 1px solid #D4D0C8;
+            border-radius: 6px;
+            padding: 16px 18px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+            max-width: 620px;
         }
 
-        legend {
-            padding: 0 8px;
+        .contact-intro {
+            margin: 0 0 14px;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #444;
         }
 
         .field-row-stacked {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 10px;
+            gap: 5px;
+            margin-bottom: 12px;
         }
 
-        label {
-            font-size: 13px;
-            color: #333;
+        .field-row-stacked label {
+            font-size: 11.5px;
+            font-weight: bold;
+            color: #003C74;
         }
 
+        .field-row-stacked input[type="text"],
+        .field-row-stacked textarea {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 12.5px;
+            color: #222;
+            padding: 6px 8px;
+            border: 1px solid #7F9DB9;
+            border-radius: 3px;
+            background: #fff;
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.06);
+            outline: none;
+            box-sizing: border-box;
+            width: 100%;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
 
+        .field-row-stacked input[type="text"]:focus,
+        .field-row-stacked textarea:focus {
+            border-color: #3C7FB1;
+            box-shadow: 0 0 0 2px rgba(60, 127, 177, 0.2);
+        }
 
+        .field-row-stacked textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
 
-        /* Responsive */
-        @media (max-width:520px) {
-            fieldset {
-                margin: 0;
-                border-radius: 0;
-                box-shadow: none;
-            }
+        .contact-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .contact-submit {
+            padding: 6px 22px;
+            font-size: 12px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(180deg, #fff 0%, #ECE9E0 86%, #D8D0C4 100%);
+            border: 1px solid #8E8279;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #222;
+            font-weight: bold;
+        }
+
+        .contact-submit:hover {
+            box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+        }
+
+        #formStatus {
+            font-size: 12px;
+            color: #444;
+        }
+
+        /* ---- Datos de contacto en el panel lateral ---- */
+        .sidebar-detail {
+            padding: 5px 10px;
+        }
+
+        .sidebar-contact-link {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 4px 10px;
+            color: #C9D4E2;
+            text-decoration: none;
+            font-size: 11px;
+            line-height: 1.4;
+            word-break: break-all;
+        }
+
+        .sidebar-contact-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-contact-link svg {
+            flex-shrink: 0;
         }
     </style>
 </head>
-<body>
-    <script src="../js/language.js"></script>
-    <div class="container">
-        <div class="content">
-            <div class="window-body">
-                <div class="panelform">
-                    <fieldset>
-                        <legend data-translate="contact-form-legend">Formulario de contacto</legend>
 
-                        <!-- Si procesas en el servidor, mantén action="procesar_formulario.php" -->
-                        <form id="contactForm" action="#" method="GET">
-                            <div class="field-row-stacked">
-                                <label for="nombre" data-translate="contact-form-name">Nombre:</label>
-                                <input type="text" id="nombre" name="nombre" required>
-                            </div>
+<body class="explorer-body-wrap" style="margin:0; overflow:hidden; height:100vh; background:#ECE9D8; font-family:'ms',sans-serif; font-size:12px;">
 
-                            <div class="field-row-stacked">
-                                <label for="asunto" data-translate="contact-form-subject">Asunto:</label>
-                                <input type="text" id="asunto" name="asunto" required>
-                            </div>
-
-                            <div class="field-row-stacked">
-                                <label for="mensaje" data-translate="contact-form-message">Mensaje:</label>
-                                <textarea id="mensaje" name="mensaje" rows="6" required style="outline: 1px solid;"></textarea>
-                            </div>
-
-                            <div class="field-row-stacked">
-                                <input type="submit" value="Enviar" data-translate="contact-form-submit">
-                            </div>
-                        </form>
-
-                        <div id="formStatus" style="margin-top:8px;font-size:13px;color:#444"></div>
-                    </fieldset>
-                </div>
-            </div>
+    <!-- Navigation toolbar -->
+    <div class="xp-navbar">
+        <button class="xp-nav-btn" title="Atrás" disabled>
+            <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></span> <span data-translate="nav-back">Atrás</span>
+        </button>
+        <button class="xp-nav-btn" title="Adelante" disabled>
+            <span data-translate="nav-forward">Adelante</span> <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </button>
+        <button class="xp-nav-btn" title="Subir" disabled>
+            <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span> <span data-translate="nav-up">Subir</span>
+        </button>
+        <div class="xp-address-bar">
+            <img src="../img/Windows Messenger.png" alt="" class="address-icon">
+            <input type="text" readonly value="C:\Usuarios\Diego\Contacto" class="address-input">
+            <button class="xp-go-btn" data-translate="nav-go">Ir</button>
         </div>
     </div>
 
+    <!-- Main explorer layout -->
+    <div class="xp-explorer">
+
+        <!-- Left sidebar -->
+        <div class="xp-sidebar">
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                    <span data-translate="sidebar-contact-details">Datos de contacto</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <a class="sidebar-contact-link" href="mailto:diegomendozadev@gmail.com">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        diegomendozadev@gmail.com
+                    </a>
+                    <a class="sidebar-contact-link" href="https://www.linkedin.com/in/diego-mendoza-207538263/" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        <span data-translate="linkedin">Linkedin</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="xp-sidebar-section">
+                <div class="xp-sidebar-header">
+                    <span class="sidebar-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                    <span data-translate="sidebar-details">Detalles</span>
+                </div>
+                <div class="xp-sidebar-links">
+                    <div class="sidebar-detail xp-sidebar-link" style="cursor:default; text-decoration:none;" data-translate="contact-detail">
+                        Respondo normalmente en 1–2 días hábiles.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main content -->
+        <div class="xp-content" id="xp-content">
+
+            <div class="xp-category-section">
+                <div class="xp-category-header">
+                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                    <h5 data-translate="contact-form-legend">Formulario de contacto</h5>
+                    <div class="category-line"></div>
+                </div>
+
+                <div class="info-card">
+                    <p class="contact-intro" data-translate="contact-intro">
+                        ¿Tienes una idea, propuesta o quieres colaborar? Escríbeme y te responderé pronto.
+                    </p>
+                    <form id="contactForm" action="#" method="GET">
+                        <div class="field-row-stacked">
+                            <label for="nombre" data-translate="contact-form-name">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="field-row-stacked">
+                            <label for="asunto" data-translate="contact-form-subject">Asunto:</label>
+                            <input type="text" id="asunto" name="asunto" required>
+                        </div>
+
+                        <div class="field-row-stacked">
+                            <label for="mensaje" data-translate="contact-form-message">Mensaje:</label>
+                            <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+                        </div>
+
+                        <div class="contact-actions">
+                            <button type="submit" class="contact-submit" data-translate="contact-form-submit">Enviar</button>
+                            <div id="formStatus"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/language.js"></script>
     <script>
     (function(){
       const form = document.getElementById('contactForm');
@@ -130,6 +224,7 @@
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        status.style.color = '#444';
         status.textContent = 'Abriendo tu cliente de correo...';
         const nombre = form.nombre.value.trim();
         const asunto = form.asunto.value.trim();
@@ -141,7 +236,7 @@
         window.location.href = mailto;
         form.reset();
         status.style.color = 'green';
-        status.textContent = 'Cliente de correo abierto. ¡Gracias!';
+        status.textContent = '¡Cliente de correo abierto. Gracias!';
       });
     })();
     </script>
