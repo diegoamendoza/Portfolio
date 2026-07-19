@@ -272,8 +272,20 @@ document.addEventListener("DOMContentLoaded", function () {
         updateMobileBar(title);
     }
 
+    // Whether the side preview panel is currently visible (it's hidden on
+    // narrow/mobile viewports via CSS).
+    function isPreviewVisible() {
+        const panel = document.getElementById("xp-preview");
+        return panel && getComputedStyle(panel).display !== "none";
+    }
+
     function openProject() {
         if (!selectedUrl) return;
+        // On desktop the project is already shown in the side preview panel,
+        // so there is no need to open a second (floating) window.
+        if (isPreviewVisible()) return;
+        // On narrow/mobile screens the preview panel is hidden, so open the
+        // project in a window (it gets maximized to fill the screen).
         window.parent.postMessage({
             command: "add_window",
             url: selectedUrl,
