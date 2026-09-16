@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex, follow">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="../css/style.css">
     <title>Contacto — Diego Mendoza</title>
@@ -115,6 +116,53 @@
         .sidebar-contact-link svg {
             flex-shrink: 0;
         }
+
+        /* ---- Contacto directo (un clic) ---- */
+        .contact-direct-title {
+            margin: 0 0 8px;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #003C74;
+        }
+
+        .contact-direct-list {
+            list-style: none;
+            margin: 0 0 16px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-direct-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 6px 8px;
+            font-size: 13px;
+            color: #0f5288;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            word-break: break-word;
+        }
+
+        .contact-direct-link:hover {
+            background: #eef4fb;
+            border-color: #c3d6e8;
+            text-decoration: underline;
+        }
+
+        .contact-direct-link:focus-visible {
+            outline: 3px solid #f0a500;
+            outline-offset: 1px;
+        }
+
+        .contact-direct-link svg {
+            flex-shrink: 0;
+        }
     </style>
 </head>
 
@@ -132,7 +180,7 @@
             <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span> <span data-translate="nav-up">Subir</span>
         </button>
         <div class="xp-address-bar">
-            <img src="../img/Windows Messenger.png" alt="" class="address-icon">
+            <img src="../img/windows-messenger.png" alt="" class="address-icon">
             <input type="text" readonly value="C:\Usuarios\Diego\Contacto" class="address-input">
             <button class="xp-go-btn" data-translate="nav-go">Ir</button>
         </div>
@@ -157,6 +205,11 @@
                     <a class="sidebar-contact-link" href="https://www.linkedin.com/in/diego-mendoza-207538263/" target="_blank" rel="noopener">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                         <span data-translate="linkedin">Linkedin</span>
+                    </a>
+                    <!-- TODO (Diego): confirmar el usuario de GitHub (se dedujo del remoto del repositorio). -->
+                    <a class="sidebar-contact-link" href="https://github.com/diegoamendoza" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        <span data-translate="github">GitHub</span>
                     </a>
                 </div>
             </div>
@@ -189,6 +242,31 @@
                     <p class="contact-intro" data-translate="contact-intro">
                         ¿Tienes una idea, propuesta o quieres colaborar? Escríbeme y te responderé pronto.
                     </p>
+
+                    <!-- Contacto directo: un clic, sin formulario -->
+                    <h6 class="contact-direct-title" data-translate="contact-direct">Contacto directo</h6>
+                    <ul class="contact-direct-list">
+                        <li>
+                            <a class="contact-direct-link" href="mailto:diegomendozadev@gmail.com">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                diegomendozadev@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a class="contact-direct-link" href="https://www.linkedin.com/in/diego-mendoza-207538263/" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                                linkedin.com/in/diego-mendoza-207538263
+                            </a>
+                        </li>
+                        <li>
+                            <!-- TODO (Diego): confirmar el usuario de GitHub (se dedujo del remoto del repositorio). -->
+                            <a class="contact-direct-link" href="https://github.com/diegoamendoza" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                github.com/diegoamendoza
+                            </a>
+                        </li>
+                    </ul>
+
                     <form id="contactForm" action="#" method="GET">
                         <div class="field-row-stacked">
                             <label for="nombre" data-translate="contact-form-name">Nombre:</label>
@@ -217,15 +295,21 @@
     </div>
 
     <script src="../js/language.js"></script>
+    <script src="../js/window-frame.js"></script>
     <script>
     (function(){
       const form = document.getElementById('contactForm');
       const status = document.getElementById('formStatus');
 
+      const t = (key, fallback) => {
+        const value = (typeof window.getTranslation === 'function') ? window.getTranslation(key) : null;
+        return (value === null || value === undefined) ? fallback : value;
+      };
+
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         status.style.color = '#444';
-        status.textContent = 'Abriendo tu cliente de correo...';
+        status.textContent = t('contact-status-opening', 'Abriendo tu cliente de correo...');
         const nombre = form.nombre.value.trim();
         const asunto = form.asunto.value.trim();
         const mensaje = form.mensaje.value.trim();
@@ -235,8 +319,8 @@
 
         window.location.href = mailto;
         form.reset();
-        status.style.color = 'green';
-        status.textContent = '¡Cliente de correo abierto. Gracias!';
+        status.style.color = '#1a6b2a';
+        status.textContent = t('contact-status-done', '¡Cliente de correo abierto. Gracias!');
       });
     })();
     </script>

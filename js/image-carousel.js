@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.className = 'carousel-lightbox';
     lightbox.innerHTML = `
         <div class="carousel-lightbox-inner">
-            <button class="carousel-lightbox-close" title="Cerrar">&times;</button>
-            <button class="carousel-lightbox-prev" title="Anterior"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+            <button type="button" class="carousel-lightbox-close" title="Cerrar" aria-label="Cerrar">&times;</button>
+            <button type="button" class="carousel-lightbox-prev" title="Anterior" aria-label="Anterior"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
             <img src="" alt="">
-            <button class="carousel-lightbox-next" title="Siguiente"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+            <button type="button" class="carousel-lightbox-next" title="Siguiente" aria-label="Siguiente"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         </div>`;
     document.body.appendChild(lightbox);
 
@@ -85,12 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Preview button
         const previewBtn = document.createElement('button');
         previewBtn.className = 'carousel-preview-btn';
-        previewBtn.title = 'Ver imagen ampliada';
+        previewBtn.type = 'button';
+        previewBtn.title = (typeof window.getTranslation === 'function' && window.getTranslation('preview-expand')) || 'Ver imagen ampliada';
+        previewBtn.setAttribute('aria-label', previewBtn.title);
         previewBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
         wrapper.appendChild(previewBtn);
 
         previewBtn.addEventListener('click', () => {
-            const srcs = images.map(img => img.src);
+                const srcs = images.map(img => img.currentSrc || img.src);
             openLightbox(srcs, currentIndex);
         });
 

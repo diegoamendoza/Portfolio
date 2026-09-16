@@ -32,6 +32,13 @@ function WindowManager(window_container, window_template, log_enable) {
 		max_h: window.innerHeight*0.8,
 	}
 
+	// en móvil las ventanas ocupan toda la pantalla y no se arrastran ni se redimensionan
+	this.mobile_query = window.matchMedia("(max-width: 767px)")
+	let is_mobile = () => this.mobile_query.matches
+
+	// contador para generar ids únicos (aria-labelledby)
+	let win_id_counter = 0
+
 	// trigger a callback function if present
 	let trigger_callback = (name, arg) => {
 		if (!this.callbacks[name]) { return; }
@@ -59,6 +66,7 @@ function WindowManager(window_container, window_template, log_enable) {
 		if (!win) { return; } // only continue if clicked on a window-related object
 		if (e.button !== 0) { return; } // only LMB is relevant here
 		this.focus_window(win) // always focus a clicked window
+		if (is_mobile()) { return; } // en móvil las ventanas no se mueven ni se redimensionan
 		if (e.target.classList.contains("win-drag-handle")) {
 			// mouse down on a maximized window means start a unmaximize_drag_state
 			if (win.classList.contains("maximized")) {
@@ -191,19 +199,29 @@ function WindowManager(window_container, window_template, log_enable) {
 		e.preventDefault()
 	}
 
-	// set CSS classes and call callbacks if the status of having a maximized window changes
+	// redibuja las pestañas de la barra de tareas
 	this.update_taskbar = () => {
         const taskbar_tabs = document.querySelector(".opened-tabs");
+        if (!taskbar_tabs) { return; }
         taskbar_tabs.innerHTML = "";
         this.taskbar_order.forEach(win_elem => {
-            const tab = document.createElement("div");
+            const tab = document.createElement("button");
+            tab.type = "button";
             tab.className = "open-tab";
+            tab.setAttribute("role", "listitem");
             if (win_elem.classList.contains("focused")) {
                 tab.classList.add("focused");
             }
             const icon = win_elem.querySelector('.win-icon img');
             const title = win_elem.querySelector('.win-title').innerText;
-            tab.innerHTML = `<img src="${icon ? icon.src : 'img/Notepad.png'}" alt=""> ${title}`;
+            const img = document.createElement("img");
+            img.src = icon ? icon.src : "img/notepad.png";
+            img.alt = "";
+            img.width = 18;
+            img.height = 18;
+            tab.appendChild(img);
+            tab.appendChild(document.createTextNode(" " + title));
+            tab.setAttribute("aria-label", title);
             tab.onclick = () => {
                 if (win_elem.classList.contains("focused") && !win_elem.classList.contains("minimized")) {
                     this.minimize_window(win_elem);
@@ -269,9 +287,12 @@ function WindowManager(window_container, window_template, log_enable) {
 	// called when window manager gets a message from a window client
 	// can be overridden by the win_message callback function
 	this.onmessage = (e) => {
+		// los mensajes que no traen un comando (por ejemplo los de los builds de
+		// Unity o los de extensiones del navegador) no son para el gestor de ventanas
+		if (!e.data || typeof e.data !== "object" || !e.data.command) { return; }
 		let matching_win = this.window_list.find((w) => w.iframe.contentWindow == e.source)
-		if (!matching_win) { console.error("Message from unknown iframe:", e); return; }
-		
+		if (!matching_win) { this.log("mensaje de un iframe desconocido:", e.data); return; }
+
 		// if the callback returns truethy, the message has been handled
 		if (trigger_callback("win_message", {win: matching_win, data: e.data})) { return; }
 
@@ -314,7 +335,9 @@ function WindowManager(window_container, window_template, log_enable) {
 		} else if (e.data.command == "set_icon") {
 			// TODO
 		} else {
-			console.warn("wm got unhandled message: ", e)
+			// otros mensajes (por ejemplo los del escritorio, como open_desktop_window)
+			// los atiende desktop.js: aquí no son un error.
+			this.log("wm: mensaje no manejado por el gestor de ventanas", e.data)
 		}
 	}
 
@@ -369,6 +392,27 @@ function WindowManager(window_container, window_template, log_enable) {
 		win_elem.title_text = win_elem.querySelector(".win-title")
 		win_elem.icon_elem = win_elem.querySelector(".win-icon")
 
+		// accesibilidad: cada ventana es un diálogo con nombre accesible
+		win_id_counter += 1
+		let title_id = "win-title-" + win_id_counter
+		win_elem.title_text.id = title_id
+		win_elem.setAttribute("aria-labelledby", title_id)
+		if (window_arg && window_arg.titleKey) {
+			win_elem.title_text.setAttribute("data-translate", window_arg.titleKey)
+			win_elem.__title_key = window_arg.titleKey
+		}
+
+		// los botones de la barra de título se enlazan aquí (sin onclick en el HTML)
+		win_elem.querySelector(".win-btn-minimize").addEventListener("click", () => this.minimize_window(win_elem))
+		win_elem.querySelector(".win-btn-restore").addEventListener("click", () => this.restore_window(win_elem))
+		win_elem.querySelector(".win-btn-maximize").addEventListener("click", () => this.maximize_window(win_elem))
+		win_elem.querySelector(".win-btn-close").addEventListener("click", () => this.remove_window(win_elem))
+
+		// Escape cierra la ventana enfocada (también desde su contenido, ver js/window-frame.js)
+		win_elem.addEventListener("keydown", (e) => {
+			if (e.key === "Escape") { this.remove_window(win_elem) }
+		})
+
 		if (window_arg) {
             if (window_arg.title) {
                 win_elem.title_text.innerText = window_arg.title;
@@ -379,7 +423,9 @@ function WindowManager(window_container, window_template, log_enable) {
                     iconEl.innerHTML = '';
                     const img = document.createElement('img');
                     img.src = window_arg.icon;
-                    img.alt = window_arg.title || 'icon';
+                    img.alt = '';
+                    img.width = 16;
+                    img.height = 16;
                     img.style.width = '16px';
                     img.style.height = '16px';
                     img.style.objectFit = 'cover';
@@ -392,10 +438,16 @@ function WindowManager(window_container, window_template, log_enable) {
         }
 		// add the central iframe to this window
 		win_elem.iframe = win_elem.querySelector(".win-iframe")
+		win_elem.iframe.setAttribute("title", (window_arg && window_arg.title) || "Ventana")
 		win_elem.iframe.onload = (e) => {
-			
+
 			// post the received window args to the iframe
 			e.target.contentWindow.postMessage({ command: "set_window_arg", arg: window_arg })
+
+			// el contenido de la ventana hereda el idioma actual del escritorio
+			if (typeof window.getCurrentLanguage === "function") {
+				e.target.contentWindow.postMessage({ command: "set_language", language: window.getCurrentLanguage() }, "*")
+			}
 
 			// try to get access to the iframe's document, to get info like the title, and ideal size
 			let iframe_doc = undefined
@@ -477,11 +529,14 @@ function WindowManager(window_container, window_template, log_enable) {
 	}
 
 	// maximize a window(store size/position in restore state, and make window fill entire window_container)
-	this.maximize_window = (win_elem) => {
-		if (win_elem.classList.contains("fixed-size") || win_elem.classList.contains("fixed-position")) { return; }
+	// force=true lo usa el modo móvil: ahí incluso las ventanas de tamaño fijo
+	// (los juegos) se abren a pantalla completa.
+	this.maximize_window = (win_elem, force) => {
+		if (!force && (win_elem.classList.contains("fixed-size") || win_elem.classList.contains("fixed-position"))) { return; }
 		if (win_elem.classList.contains("maximized")) { return; }
 		this.log("maximize", win_elem)
 		win_elem.classList.add("maximized")
+		if (force) { win_elem.classList.add("mobile-maximized") }
 		win_elem.restore_state = {
 			w: win_elem.style.width,
 			h: win_elem.style.height,
@@ -503,6 +558,7 @@ function WindowManager(window_container, window_template, log_enable) {
 		if (!win_elem.classList.contains("maximized")) { return; }
 		this.log("restore", win_elem)
 		win_elem.classList.remove("maximized")
+		win_elem.classList.remove("mobile-maximized")
 		win_elem.classList.remove("snapped-left")
 		win_elem.classList.remove("snapped-right")
 		win_elem.style.width = win_elem.restore_state.w

@@ -1,70 +1,206 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js" data-translate-title-tag>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Diego Mendoza | Desarrollador de videojuegos y XR (Unreal, Unity) | Kuden Studios</title>
+    <meta name="description" content="Diego Mendoza, desarrollador de videojuegos y XR en Santiago de Chile: realidad virtual y mixta, simulación y juegos con Unreal Engine 5, Unity y Meta Quest.">
+    <meta name="author" content="Diego Mendoza">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://mendoza.games/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Diego Mendoza — Portafolio">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:url" content="https://mendoza.games/">
+    <meta property="og:title" content="Diego Mendoza | Desarrollador de videojuegos y XR (Unreal, Unity)">
+    <meta property="og:description" content="Videojuegos, realidad virtual y mixta y simulación con Unreal Engine 5, Unity y Meta Quest. Portafolio con proyectos profesionales y prototipos.">
+    <!-- TODO (Diego): img/og-preview.png es una imagen generada a partir del wallpaper.
+         Reemplázala por un diseño propio de 1200x630 si quieres otra presentación al compartir el enlace. -->
+    <meta property="og:image" content="https://mendoza.games/img/og-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Diego Mendoza, desarrollador de videojuegos y XR">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diego Mendoza | Desarrollador de videojuegos y XR (Unreal, Unity)">
+    <meta name="twitter:description" content="Videojuegos, realidad virtual y mixta y simulación con Unreal Engine 5, Unity y Meta Quest. Portafolio con proyectos profesionales y prototipos.">
+    <meta name="twitter:image" content="https://mendoza.games/img/og-preview.png">
+    <meta name="twitter:image:alt" content="Diego Mendoza, desarrollador de videojuegos y XR">
+    <!-- TODO (Diego): si tienes cuenta de X/Twitter, añade <meta name="twitter:site" content="@tu_usuario"> -->
+
+    <meta name="theme-color" content="#0b2a4a">
+
+    <link rel="icon" href="favicon_window.ico" sizes="any">
+    <link rel="apple-touch-icon" href="img/logo-meow-jump.png">
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/windows/window_common.css">
     <link rel="stylesheet" href="css/windows/window_xp.css">
-    <title>Diego Mendoza - Portfolio</title>
+
+    <script>
+        // Marca que hay JS antes del primer pintado: evita el parpadeo entre la
+        // versión simple (que es lo que ve un navegador sin JS) y el escritorio.
+        document.documentElement.classList.remove("no-js");
+        document.documentElement.classList.add("js");
+        if (new URLSearchParams(location.search).get("view") === "simple") {
+            document.documentElement.classList.add("simple-mode");
+        }
+    </script>
+
+    <!-- Datos estructurados. TODO (Diego): confirma los perfiles de sameAs;
+         github.com/diegoamendoza se dedujo del remoto git de este repositorio. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Diego Mendoza",
+      "jobTitle": "Desarrollador de videojuegos y XR",
+      "description": "Desarrollador de videojuegos y experiencias XR especializado en Unreal Engine 5 y Unity.",
+      "url": "https://mendoza.games/",
+      "image": "https://mendoza.games/img/og-preview.png",
+      "email": "mailto:diegomendozadev@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Santiago",
+        "addressRegion": "Región Metropolitana",
+        "addressCountry": "CL"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Kuden Studios"
+      },
+      "knowsAbout": [
+        "Desarrollo de videojuegos",
+        "Realidad virtual",
+        "Realidad mixta",
+        "Simulación",
+        "Unreal Engine 5",
+        "Unity",
+        "Meta Quest",
+        "C++",
+        "C#"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/diego-mendoza-207538263/",
+        "https://github.com/diegoamendoza",
+        "https://www.youtube.com/channel/UC7EQ0B187oybJOL8qTFvggg",
+        "https://play.google.com/store/apps/developer?id=DiegoMendoza"
+      ]
+    }
+    </script>
 </head>
 <body>
-   
-    
-    <div id="cssportal-grid">
-        <div id="div1">
-            <div class="icon proyectos">
-                <img src="img/documents.png">
-                <div class="icon-name mis proyectos" data-translate="mis-proyectos">Mis proyectos</div>
+
+    <a class="skip-link" href="#content" data-translate="simple-skip-link">Saltar al contenido</a>
+
+    <div id="desktop" class="desktop">
+
+        <header class="desktop-hero" id="site-header">
+            <p class="hero-eyebrow">Kuden Studios</p>
+            <h1>
+                <span class="hero-name" data-translate="hero-name">Diego Mendoza</span>
+                <span class="hero-role" data-translate="hero-role">Desarrollador de videojuegos y XR</span>
+            </h1>
+            <p class="hero-tagline" data-translate="hero-tagline">Unreal Engine 5 · Unity · Realidad virtual y mixta · Santiago de Chile</p>
+            <p class="hero-hint desktop-only" data-translate="hero-hint">Doble clic en los iconos para abrir cada ventana.</p>
+            <div class="hero-actions">
+                <button type="button" class="hero-btn" id="btn-simple-view" data-translate="version-simple">Versión simple</button>
+                <button type="button" class="hero-btn hero-btn--ghost simple-only" id="btn-desktop-view" data-translate="simple-back-to-desktop">Volver al escritorio</button>
             </div>
-        </div>
-        <div id="div2">
-            <div class="icon sobremi">
-                <img src="img/Information.png">
-                <div class="icon-name sobremi" data-translate="sobre-mi">Sobre mí</div>
-            </div>
-        </div>
-        <div id="div3">
-            <div class="icon cv">
-                <img src="img/Generic Text Document.png">
-                <div class="icon-name mis proyectos" data-translate="cv">CV</div>
-            </div>
-        </div>
-        <div id="div4">
-            <div class="icon contacto">
-                <img src="img/Windows Messenger.png">
-                <div class="icon-name mis proyectos" data-translate="contacto">Contacto</div>
-            </div>
-        </div>
-        <div id="div5">
-            <div class="icon note-pad">
-                <img src="img/Notepad.png">
-                <div class="icon-name mis proyectos" data-translate="readme">ReadMe.txt</div>
-            </div>
-        </div>
-        <div id="div6">
-            <div class="icon paint">
-                <img src="img/Paint.png">
-                <div class="icon-name mis proyectos" data-translate="paint">Paint</div>
-            </div>
-        </div>
-        <div id="div7">
-            <div class="icon meowjump">
-                <img src="img/LOGOMEOWJUMP.png">
-                <div class="icon-name mis proyectos" data-translate="meow-jump">Meow Jump!</div>
-            </div>
-        </div>
-        <div id="div8">
-            <div class="icon colorsort">
-                <img src="img/color_sort_icon_light_512.png">
-                <div class="icon-name mis proyectos">Color Sort</div>
-            </div>
-        </div>
+        </header>
+
+        <ul class="desktop-icons" id="desktop-icons">
+            <li>
+                <button type="button" class="icon proyectos" data-window="proyectos">
+                    <picture>
+                        <source type="image/webp" srcset="img/documents.webp">
+                        <img src="img/documents.png" data-icon="projects" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="mis-proyectos">Mis proyectos</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon sobremi" data-window="sobremi">
+                    <picture>
+                        <source type="image/webp" srcset="img/information.webp">
+                        <img src="img/information.png" data-icon="about" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="sobre-mi">Sobre mí</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon cv" data-window="cv">
+                    <picture>
+                        <source type="image/webp" srcset="img/generic-text-document.webp">
+                        <img src="img/generic-text-document.png" data-icon="cv" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="cv">CV</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon contacto" data-window="contacto">
+                    <picture>
+                        <source type="image/webp" srcset="img/windows-messenger.webp">
+                        <img src="img/windows-messenger.png" data-icon="contact" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="contacto">Contacto</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon note-pad" data-window="readme">
+                    <picture>
+                        <source type="image/webp" srcset="img/notepad.webp">
+                        <img src="img/notepad.png" data-icon="readme" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="readme">ReadMe.txt</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon simple-view" data-window="simple">
+                    <img src="img/icons/simple-view.svg" data-icon="simple" width="64" height="64" alt="" decoding="async">
+                    <span class="icon-name" data-translate="version-simple">Versión simple</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon meowjump" data-window="meowjump">
+                    <picture>
+                        <source type="image/webp" srcset="img/logo-meow-jump.webp">
+                        <img src="img/logo-meow-jump.png" data-icon="meowjump" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="meow-jump">Meow Jump!</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon colorsort" data-window="colorsort">
+                    <picture>
+                        <source type="image/webp" srcset="img/color-sort.webp">
+                        <img src="img/color-sort.png" data-icon="colorsort" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="color-sort">Color Sort</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="icon paint" data-window="paint">
+                    <picture>
+                        <source type="image/webp" srcset="img/paint.webp">
+                        <img src="img/paint.png" data-icon="paint" width="192" height="192" alt="" decoding="async">
+                    </picture>
+                    <span class="icon-name" data-translate="paint">Paint</span>
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenedor donde las ventanas aparecerán -->
         <div id="window_container"></div>
 
-        <!-- Template obligatorio -->
+        <!-- Template obligatorio de ventana -->
         <template id="window_template">
-            <div class="win">
+            <section class="win" role="dialog" aria-modal="false" tabindex="-1">
                 <nav class="win-titlebar win-drag-handle">
                     <span class="win-icon" aria-hidden="true">
                         <svg viewBox="0 0 16 16" focusable="false" class="win-btn-icon">
@@ -73,165 +209,200 @@
                         </svg>
                     </span>
                     <span class="win-title win-drag-handle">Unnamed window</span>
-                    <button class="win-btn win-btn-minimize" onclick="wm.minimize_window(this.closest('.win'))" title="Minimize" aria-label="Minimize">
-                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                    <button type="button" class="win-btn win-btn-minimize" data-translate-title="window-minimize" title="Minimizar" aria-label="Minimizar">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon" aria-hidden="true">
                             <rect x="2" y="8" width="8" height="1.5" rx="0.75" ry="0.75" />
                         </svg>
                     </button>
-                    <button class="win-btn win-btn-restore hidden" onclick="wm.restore_window(this.closest('.win'))" title="Restore" aria-label="Restore">
-                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                    <button type="button" class="win-btn win-btn-restore hidden" data-translate-title="window-restore" title="Restaurar" aria-label="Restaurar">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon" aria-hidden="true">
                             <rect x="3" y="3" width="6" height="6" rx="0.75" ry="0.75" fill="none" stroke="currentColor" stroke-width="1.25" />
                             <rect x="5" y="1" width="6" height="6" rx="0.75" ry="0.75" fill="none" stroke="currentColor" stroke-width="1.25" />
                         </svg>
                     </button>
-                    <button class="win-btn win-btn-maximize" onclick="wm.maximize_window(this.closest('.win'))" title="Maximize" aria-label="Maximize">
-                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                    <button type="button" class="win-btn win-btn-maximize" data-translate-title="window-maximize" title="Maximizar" aria-label="Maximizar">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon" aria-hidden="true">
                             <rect x="2" y="2" width="8" height="8" rx="0.75" ry="0.75" fill="none" stroke="currentColor" stroke-width="1.5" />
                         </svg>
                     </button>
-                    <button class="win-btn win-btn-close" onclick="wm.remove_window(this.closest('.win'))" title="Close" aria-label="Close">
-                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon">
+                    <button type="button" class="win-btn win-btn-close" data-translate-title="window-close" title="Cerrar" aria-label="Cerrar">
+                        <svg viewBox="0 0 12 12" focusable="false" class="win-btn-icon" aria-hidden="true">
                             <line x1="3" y1="3" x2="9" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                             <line x1="9" y1="3" x2="3" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                         </svg>
                     </button>
                 </nav>
-                <iframe class="win-iframe"></iframe>
+                <iframe class="win-iframe" title="Contenido de la ventana"></iframe>
                 <div class="win-resize-handle"></div>
-            </div>
+            </section>
         </template>
     </div>
 
-    <!-- Contenedor donde las ventanas aparecerán -->
+    <!--
+        CONTENIDO ESTÁTICO DEL SITIO
+        ============================
+        Esto es lo que ven los buscadores y los navegadores sin JavaScript, y es
+        también la "Versión simple" (una sola página con scroll). El escritorio lo
+        oculta con CSS cuando el JS arranca; el botón "Versión simple" lo vuelve a
+        mostrar. El texto es EXACTAMENTE el mismo que aparece dentro de las ventanas
+        (fuente única: i18n/es.json).
+    -->
+    <main id="content" class="simple-view">
 
+        <p class="simple-intro" data-translate="simple-intro">Todo el contenido del escritorio en una sola página, sin ventanas.</p>
 
+        <nav class="simple-toc" aria-label="Secciones">
+            <a href="#sobre-mi"><span data-translate="simple-about-title">Sobre mí</span></a>
+            <a href="#proyectos"><span data-translate="simple-projects-title">Proyectos</span></a>
+            <a href="#curriculum"><span data-translate="simple-cv-title">Curriculum</span></a>
+            <a href="#contacto"><span data-translate="simple-contact-title">Contacto</span></a>
+        </nav>
+
+        <section id="sobre-mi" class="simple-section" aria-labelledby="sobre-mi-title">
+            <h2 id="sobre-mi-title" data-translate="simple-about-title">Sobre mí</h2>
+            <p data-translate="sobre-mi-p1">Hola, soy Diego Mendoza, un apasionado desarrollador y programador de videojuegos de 22 años. Desde temprana edad, he tenido una gran fascinación por la tecnología y los videojuegos, lo que me llevó a especializarme en esta emocionante industria. Mi experiencia abarca tanto la programación como el diseño, permitiéndome crear experiencias inmersivas y atractivas para los jugadores.</p>
+            <p data-translate="sobre-mi-p2">Mi amor por la programación se refleja en cada proyecto que emprendo, donde combino creatividad y habilidades técnicas para desarrollar juegos que no solo entretienen, sino que también desafían y emocionan a los jugadores. Estoy siempre en busca de nuevas oportunidades para aprender, crecer y contribuir al mundo de los videojuegos.</p>
+
+            <h3 data-translate="simple-stack-title">Stack</h3>
+            <dl class="simple-stack">
+                <dt data-translate="stack-languages">Lenguajes</dt>
+                <dd>C#, C++, Python, Java, Kotlin, PHP, SQL, JavaScript, HTML5, CSS</dd>
+                <dt data-translate="stack-engines">Motores</dt>
+                <dd>Unreal Engine 5, Unity</dd>
+                <dt data-translate="stack-tools">Herramientas</dt>
+                <dd>Blender, Photoshop, Premiere, GitHub, Jira</dd>
+            </dl>
+        </section>
+
+        <section id="proyectos" class="simple-section" aria-labelledby="proyectos-title">
+            <h2 id="proyectos-title" data-translate="simple-projects-title">Proyectos</h2>
+
+            <h3 data-translate="personal-projects">Proyectos laborales</h3>
+
+            <article class="simple-project" aria-labelledby="p-poligono">
+                <h4 id="p-poligono" data-translate="poligono-folder">Polígono de Tiro</h4>
+                <p class="simple-tags">Unreal Engine 5 · C++ · Python · OpenCV · Simulación</p>
+                <p data-translate="poligono-description">Simulador de entrenamiento de tiro con pistola desarrollado en colaboración entre la Universidad Bernardo O'Higgins y la industria de defensa nacional, presentado en la FIDAE 2026. El sistema permite entrenar a uno o dos tiradores simultáneamente en pantalla dividida, integrando detección de impactos láser reales mediante visión computacional, tres entornos de simulación distintos y una interfaz de control en tiempo real para el instructor.<br><br>Lideré el desarrollo técnico del proyecto, diseñando la arquitectura completa del sistema y programando los módulos principales en Unreal Engine 5 y Python. Mi trabajo incluyó la implementación del pipeline de detección de disparos con OpenCV, la comunicación UDP entre sistemas, la lógica de sesión multijugador en C++ y el desarrollo de la interfaz del instructor embebida en el motor.</p>
+                <p><a class="simple-link" href="pages/projects/poligono.html" data-open-window="pages/projects/poligono.html" data-window-title="Polígono de Tiro"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <article class="simple-project" aria-labelledby="p-missus">
+                <h4 id="p-missus" data-translate="missus-folder">MISSUS</h4>
+                <p class="simple-tags">Unity · C# · VR · Metaverse</p>
+                <p data-translate="missus-description">Missus es una colaboración entre Telefónica y el Museo de Artes Contemporáneas, que crea una experiencia inmersiva en el metaverso. Este museo virtual permite a los usuarios explorar la historia de las telecomunicaciones en Chile mediante un recorrido interactivo que destaca hitos tecnológicos clave, utilizando tecnologías avanzadas de realidad virtual y renderizado 3D.<br><br>Participé en la mayor parte del desarrollo y programación del museo virtual, colaborando estrechamente con diseñadores y otros desarrolladores. Mi trabajo incluyó la creación de entornos virtuales, la integración de elementos interactivos y la optimización de la experiencia del usuario.</p>
+                <p><a class="simple-link" href="pages/projects/missus.html" data-open-window="pages/projects/missus.html" data-window-title="MISSUS"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <article class="simple-project" aria-labelledby="p-mapu">
+                <h4 id="p-mapu" data-translate="profesor-mapu-folder">Profesor Mapu</h4>
+                <p class="simple-tags">Unity · C# · VR · Educación</p>
+                <p data-translate="profesor-mapu-description">Prototipo creado como encargo para desarrollar una experiencia educativa interactiva en Spatial, orientada a la enseñanza básica de Mapudungun. Construí el entorno, integré el SDK de Spatial y añadí NPCs y objetos interactivos que permiten al usuario explorar el espacio y aprender vocabulario de manera sencilla y visual.</p>
+                <p><a class="simple-link" href="pages/projects/profesormapu.html" data-open-window="pages/projects/profesormapu.html" data-window-title="Profesor Mapu"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <h3 data-translate="work-projects">Proyectos en desarrollo</h3>
+
+            <article class="simple-project" aria-labelledby="p-paranoide">
+                <h4 id="p-paranoide" data-translate="paranoide-folder">Paranoide</h4>
+                <p class="simple-tags">Unity · C# · Horror · First Person · 3D</p>
+                <p data-translate="paranoide-description">Paranoide sumerge a los jugadores en una experiencia intensa de terror y supervivencia en primera persona. En este juego, nos adentramos en la mente de un paciente de esquizofrenia, quien se despierta en un lugar desconocido y amenazante, sin recordar cómo llegó allí. Nuestro objetivo es escapar de este entorno surrealista, enfrentando desafíos y cumpliendo objetivos en cada nivel, mientras evitamos las alucinaciones generadas por la enfermedad del protagonista.<br><br>Este proyecto se encuentra en desarrollo, sin una fecha de lanzamiento establecida. Explora de manera única la experiencia del protagonista, desafiando las convenciones del género de terror y sumergiendo a los jugadores en un mundo que desafía la realidad. Paranoide trasciende la pantalla para adentrarse en la mente del jugador, ofreciendo una experiencia inmersiva que desafía los límites entre lo que es real y lo que no lo es.</p>
+                <p><a class="simple-link" href="pages/projects/paranoide.html" data-open-window="pages/projects/paranoide.html" data-window-title="Paranoide"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <article class="simple-project" aria-labelledby="p-meowjump">
+                <h4 id="p-meowjump" data-translate="meowjump-folder">Meow Jump!</h4>
+                <p class="simple-tags">Unity · C# · Android · Casual · 2D</p>
+                <p data-translate="meowjump-description">Meow Jump! es un juego casual originalmente publicado en Google Play donde los jugadores guían a un gato para saltar entre plataformas, esquivar obstáculos y recolectar monedas para desbloquear nuevos aspectos. Aunque la versión original ya no está disponible, actualmente estoy trabajando en un relanzamiento con contenido actualizado, optimizaciones y nuevas características para renovar la experiencia.</p>
+                <p><a class="simple-link" href="pages/projects/meowjump.html" data-open-window="pages/projects/meowjump.html" data-window-title="Meow Jump!"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <h3 data-translate="other-projects">Prototipos y conceptos</h3>
+
+            <article class="simple-project" aria-labelledby="p-moira">
+                <h4 id="p-moira" data-translate="moira-folder">Moira</h4>
+                <p class="simple-tags">Unity · C# · Snow · Cinematic</p>
+                <p data-translate="moira-description">Moira es una experiencia interactiva desarrollada como prototipo para explorar dos elementos principales: la simulación de nieve reactiva al movimiento del jugador y la implementación de cinemáticas dentro de un entorno invernal. El proyecto se centra en experimentar con técnicas de interacción ambiental y en la creación de una atmósfera narrativa, utilizando iluminación, efectos climáticos y composición visual para reforzar el tono y la inmersión de la escena.</p>
+                <p><a class="simple-link" href="pages/projects/moira.html" data-open-window="pages/projects/moira.html" data-window-title="Moira"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <article class="simple-project" aria-labelledby="p-modelado">
+                <h4 id="p-modelado" data-translate="modelado3d-folder">Modelado 3D</h4>
+                <p class="simple-tags">Blender · 3D Modeling · Concept Art</p>
+                <p data-translate="modelado3d-description">Este proyecto fusiona el arte conceptual y la modelización 3D para dar vida a una criatura fantástica inspirada en el Pokémon Torterra. Inicialmente, se desarrolló un concept art detallado que capturaba la esencia y el estilo visual de esta criatura imaginaria. El proceso creativo involucró la exploración de diferentes diseños y características, así como la integración de elementos característicos de Torterra para garantizar una representación fiel.<br><br>Posteriormente, se utilizó Blender, una potente herramienta de modelado 3D, para transformar el concept art en una representación tridimensional. Este paso implicó la creación de la estructura básica, el modelado de detalles y la aplicación de texturas para darle profundidad y realismo al modelo. El resultado final es una interpretación única de la icónica criatura, que fusiona la creatividad del diseño conceptual con la precisión técnica del modelado 3D.</p>
+                <p><a class="simple-link" href="pages/projects/modelado3d.html" data-open-window="pages/projects/modelado3d.html" data-window-title="Modelado 3D"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <article class="simple-project" aria-labelledby="p-dancevr">
+                <h4 id="p-dancevr" data-translate="dance-vr-folder">Dance VR</h4>
+                <p class="simple-tags">Unity · C# · VR · Rhythm</p>
+                <p data-translate="dance-vr-description">Prototipo de juego de ritmo en realidad virtual que combina mecánicas de Beat Saber y Guitar Hero. El jugador puede cambiar el color de sus manos usando los botones del controlador y debe golpear notas del mismo color que aparecen en pantalla, poniendo a prueba reflejos rápidos en VR.</p>
+                <p><a class="simple-link" href="pages/projects/dancevr.html" data-open-window="pages/projects/dancevr.html" data-window-title="Dance VR"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+
+            <article class="simple-project" aria-labelledby="p-hospitalvr">
+                <h4 id="p-hospitalvr" data-translate="hospital-vr-folder">Hospital VR</h4>
+                <p class="simple-tags">Unity · C# · VR · Horror</p>
+                <p data-translate="hospital-vr-description">Experiencia de realidad virtual ambientada en un hospital abandonado con atmósfera de horror psicológico. El recorrido guiado incluye iluminación dinámica, ambientación sonora inmersiva e interacciones básicas para iniciar la experiencia, enfocándose en narrativa ambiental y creación de espacios tensos y atmosféricos en VR.</p>
+                <p><a class="simple-link" href="pages/projects/hospitalvr.html" data-open-window="pages/projects/hospitalvr.html" data-window-title="Hospital VR"><span data-translate="simple-open-project">Abrir el proyecto en el escritorio</span></a></p>
+            </article>
+        </section>
+
+        <section id="curriculum" class="simple-section" aria-labelledby="curriculum-title">
+            <h2 id="curriculum-title" data-translate="simple-cv-title">Curriculum</h2>
+            <p>
+                <a class="simple-link" href="cv/Diego-Mendoza-CV.pdf" download>
+                    <span data-translate="cv-download-pdf">Descargar CV (PDF)</span>
+                </a>
+            </p>
+            <p>
+                <a class="simple-link" href="cv/Diego-Mendoza-CV.pdf" target="_blank" rel="noopener">
+                    <span data-translate="simple-view-cv">Ver el CV en línea</span>
+                </a>
+            </p>
+        </section>
+
+        <section id="contacto" class="simple-section" aria-labelledby="contacto-title">
+            <h2 id="contacto-title" data-translate="simple-contact-title">Contacto</h2>
+            <p data-translate="contact-intro">¿Tienes una idea, propuesta o quieres colaborar? Escríbeme y te responderé pronto.</p>
+            <ul class="simple-contact-list">
+                <li><a class="simple-link" href="mailto:diegomendozadev@gmail.com">diegomendozadev@gmail.com</a></li>
+                <li><a class="simple-link" href="https://www.linkedin.com/in/diego-mendoza-207538263/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <!-- TODO (Diego): confirmar el usuario de GitHub (se dedujo del remoto del repositorio). -->
+                <li><a class="simple-link" href="https://github.com/diegoamendoza" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a class="simple-link" href="https://www.youtube.com/channel/UC7EQ0B187oybJOL8qTFvggg" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+            <p class="simple-note" data-translate="contact-detail">Respondo normalmente en 1–2 días hábiles.</p>
+        </section>
+
+        <p class="simple-footer">
+            <button type="button" class="hero-btn hero-btn--ghost" id="btn-desktop-view-footer" data-translate="simple-back-to-desktop">Volver al escritorio</button>
+        </p>
+    </main>
 
     <div class="taskbar">
-        <div class="start-button" data-translate="inicio">
-            <img src="img/logo.svg">
-            Inicio
+        <button type="button" class="start-button" id="start-button" data-translate-title="inicio" title="Inicio">
+            <img src="img/logo.svg" data-icon="start" width="20" height="20" alt="" decoding="async">
+            <span data-translate="inicio">Inicio</span>
+        </button>
+
+        <div class="opened-tabs" id="opened-tabs" role="list" aria-label="Ventanas abiertas"></div>
+
+        <div class="language-switcher" id="language-switcher">
+            <button type="button" class="language-switcher__button" id="language-switcher-button" aria-haspopup="listbox" aria-expanded="false" data-translate-title="lang-label" title="Idioma">
+                <span class="language-switcher__current" id="language-switcher-current">ESP</span>
+            </button>
+            <ul class="language-switcher__menu" id="language-switcher-menu" role="listbox" aria-label="Idioma" hidden>
+                <li role="option" aria-selected="true" data-lang="es" tabindex="-1">Español</li>
+                <li role="option" aria-selected="false" data-lang="en" tabindex="-1">English</li>
+            </ul>
         </div>
-        <div class="opened-tabs">
-            <div class="open-tab readme">
-                <img src="img/Notepad.png" alt="">
-                " ReadMe.txt"
-            </div>
-        </div>
-        <div id="language-switcher" class="language-switcher"></div>
-        <div class="time" title=""></div>
-        <div class="translation-bubble">
-            <button class="translation-bubble__close" aria-label="Cerrar aviso">×</button>
-            <strong class="translation-bubble__title">Traducción</strong><br>
-            <span class="translation-bubble__message">Presionando este botón puedes traducir la página.</span>
-        </div>
+
+        <div class="time" id="taskbar-time" title=""></div>
     </div>
 
-
-
-
-
+    <script src="js/icons.js"></script>
     <script src="js/language.js"></script>
-    <script src="desktop.js"></script>
     <script src="WindowManager.js"></script>
-    <script>
-        /* ---------- Inicialización WM ---------- */
-        const window_container = document.getElementById("window_container");
-        const window_template = document.getElementById("window_template");
-
-        let wm = new WindowManager(window_container, window_template, true);
-        wm.register_mouse_events(window);
-        wm.register_message_events();
-
-
-        /*Abrir ventana readme al cargar la pagina */
-
-        
-        openWithSize("pages/readme.html", {
-            title: "ReadMe.txt",
-            width: 550,
-            height: 540,
-            x: 700,
-            y: 60,
-            icon: "img/Notepad.png"
-        });
-
-
-        /* ---------- Helpers para abrir windows con tamaño explícito ---------- */
-        function openWithSize(url, opts = {}) {
-            const taskbarHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--taskbar-height')) || 0;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = Math.max(window.innerHeight - taskbarHeight, 320);
-            const isMobile = viewportWidth <= 768;
-
-            const maxWidth = viewportWidth * 0.95;
-            const maxHeight = viewportHeight * 0.9;
-
-            const width = Math.min(opts.width || maxWidth, maxWidth);
-            const height = Math.min(opts.height || maxHeight, maxHeight);
-
-            const x = Math.max(8, Math.min(opts.x ?? (viewportWidth - width) / 2, viewportWidth - width - 8));
-            const y = Math.max(8, Math.min(opts.y ?? (viewportHeight - height) / 2, viewportHeight - height - 8));
-
-            // opts: { title, width, height, x, y, ... }
-            const win = wm.add_window(url, { ...opts, width, height, x, y });
-
-            if (isMobile && win && !win.classList.contains("fixed-size")) {
-                wm.maximize_window(win);
-            }
-        }
-
-        /* ---------- Abrir iconos: doble clic en desktop, un toque en móvil ---------- */
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        const openEvent = isTouchDevice ? 'click' : 'dblclick';
-
-        function addOpenListener(el, callback) {
-            if (!el) return;
-            el.addEventListener(openEvent, callback);
-        }
-
-        /* ---------- Mapear iconos ---------- */
-        addOpenListener(document.querySelector(".proyectos"), () => {
-            openWithSize("pages/misproyectos.html", { title: "Mis Proyectos", width: 1024, height: 612, x: 276, y: 15, icon: "img/documents.png" });
-        });
-
-        addOpenListener(document.querySelector(".cv"), () => {
-            openWithSize("pages/cv.html", { title: "CV", width: 800, height: 600, icon: "img/Generic Text Document.png" });
-        });
-
-        addOpenListener(document.querySelector(".sobremi") || document.querySelector("#div2 .icon"), () => {
-            openWithSize("pages/aboutme.html", { title: "Sobre mí", width: 880, height: 580, icon: "img/Information.png" });
-        });
-
-        addOpenListener(document.querySelector(".contacto"), () => {
-            openWithSize("pages/contacto.html", { title: "Contacto", width: 820, height: 560, icon: "img/Windows Messenger.png" });
-        });
-
-        addOpenListener(document.querySelector(".note-pad"), () => {
-            openWithSize("pages/readme.html", { title: "ReadMe.txt", width: 550, height: 540, x: 500, y: 60, icon: "img/Notepad.png" });
-        });
-
-        addOpenListener(document.querySelector(".paint"), () => {
-            openWithSize("09-paint-win-95/paint.html", { title: "Paint", width: 550, height: 540, x: 500, y: 60, icon: "img/Paint.png" });
-        });
-
-        addOpenListener(document.querySelector(".meowjump"), () => {
-            openWithSize("meow-jump/index.html", { title: "Meow Jump!", width: 313, height: 692, x: 255, y: 9, icon: "img/LOGOMEOWJUMP.png", resizable: false });
-        });
-
-        addOpenListener(document.querySelector(".colorsort"), () => {
-            openWithSize("ColorSortWeb/index.html", { title: "Color Sort", width: 313, height: 692, x: 300, y: 9, icon: "img/color_sort_icon_light_512.png", resizable: false });
-        });
-
-        /* ---------- DEBUG: atajo para inspeccionar window_list ---------- */
-        window.__wm_inspect = () => {
-            console.log("wm.window_list:", wm.window_list);
-            console.log("wm.callbacks:", wm.callbacks);
-        };
-    </script>
-
-
-
-
-
+    <script src="desktop.js"></script>
 </body>
 </html>

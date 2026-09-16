@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  El portafolio es una sola página: todo el contenido (proyectos, sobre mí, CV y
+  contacto) está en index.html, tanto en el escritorio como en la versión simple.
+  Las páginas de pages/ son el contenido de las ventanas y llevan noindex, por eso
+  no se listan aquí.
+  TODO (Diego): actualiza <lastmod> cuando publiques cambios importantes.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mendoza.games/</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

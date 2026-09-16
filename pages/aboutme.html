@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex, follow">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="../css/style.css">
     <title>Sobre mí — Diego Mendoza</title>
@@ -123,7 +124,7 @@
             <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span> <span data-translate="nav-up">Subir</span>
         </button>
         <div class="xp-address-bar">
-            <img src="../img/Information.png" alt="" class="address-icon">
+            <img src="../img/information.png" alt="" class="address-icon">
             <input type="text" readonly value="C:\Usuarios\Diego\Sobre mí" class="address-input">
             <button class="xp-go-btn" data-translate="nav-go">Ir</button>
         </div>
@@ -196,49 +197,81 @@
     </div>
 
     <script src="../js/language.js"></script>
+    <script src="../js/window-frame.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const stackContainer = document.getElementById('stack-container');
 
+            // El nombre visible ya no se deduce del archivo: va explícito.
             const categories = [
                 {
                     label: 'Lenguajes',
                     tkey: 'stack-languages',
-                    files: ['C#.png', 'C++.png', 'CSS.png', 'HTML5.png', 'Java.png', 'Javascript.png', 'Kotlin.png', 'PHP.svg', 'Python.png', 'SQL.png'],
-                    key: 'lenguajes'
+                    key: 'lenguajes',
+                    items: [
+                        { file: 'c-sharp.png', label: 'C#' },
+                        { file: 'c-plus-plus.png', label: 'C++' },
+                        { file: 'css.png', label: 'CSS' },
+                        { file: 'html5.png', label: 'HTML5' },
+                        { file: 'java.png', label: 'Java' },
+                        { file: 'javascript.png', label: 'JavaScript' },
+                        { file: 'kotlin.png', label: 'Kotlin' },
+                        { file: 'php.svg', label: 'PHP' },
+                        { file: 'python.png', label: 'Python' },
+                        { file: 'sql.png', label: 'SQL' }
+                    ]
                 },
                 {
                     label: 'Motores',
                     tkey: 'stack-engines',
-                    files: ['Unity.png', 'Unreal.png'],
-                    key: 'motores'
+                    key: 'motores',
+                    items: [
+                        { file: 'unity.png', label: 'Unity' },
+                        { file: 'unreal.png', label: 'Unreal Engine' }
+                    ]
                 },
                 {
                     label: 'Herramientas',
                     tkey: 'stack-tools',
-                    files: ['Blender.png', 'GitHub.png', 'Jira.png', 'Photoshop.png', 'Premiere.png'],
-                    key: 'herramientas'
+                    key: 'herramientas',
+                    items: [
+                        { file: 'blender.png', label: 'Blender' },
+                        { file: 'github.png', label: 'GitHub' },
+                        { file: 'jira.png', label: 'Jira' },
+                        { file: 'photoshop.png', label: 'Photoshop' },
+                        { file: 'premiere.png', label: 'Premiere' }
+                    ]
                 },
             ];
 
             const basePath = '../img/logos/';
 
-            const createLogoCard = (fileName, url) => {
+            const createLogoCard = (item, url) => {
                 const card = document.createElement('div');
                 card.className = 'logo-card';
 
+                // WebP con respaldo al archivo original
+                const picture = document.createElement('picture');
+                if (url.endsWith('.png')) {
+                    const source = document.createElement('source');
+                    source.type = 'image/webp';
+                    source.srcset = url.replace(/\.png$/, '.webp');
+                    picture.appendChild(source);
+                }
+
                 const img = document.createElement('img');
                 img.src = url;
-                img.alt = fileName;
+                img.alt = 'Logo de ' + item.label;
+                img.width = 44;
+                img.height = 44;
                 img.loading = 'lazy';
+                img.decoding = 'async';
+                picture.appendChild(img);
 
                 const caption = document.createElement('span');
-                const cleanName = decodeURIComponent(fileName)
-                    .replace(/\.[^.]+$/, '')
-                    .replace(/[-_]+/g, ' ');
-                caption.textContent = cleanName;
+                caption.textContent = item.label;
 
-                card.appendChild(img);
+                card.appendChild(picture);
                 card.appendChild(caption);
 
                 return card;
@@ -250,7 +283,7 @@
 
                 const title = document.createElement('h3');
                 if (category.tkey) title.setAttribute('data-translate', category.tkey);
-                const translated = (typeof translations !== 'undefined' && translations[currentLanguage] && translations[currentLanguage][category.tkey]);
+                const translated = (typeof window.getTranslation === 'function') ? window.getTranslation(category.tkey) : null;
                 title.textContent = translated || category.label;
                 categoryDiv.appendChild(title);
 
@@ -258,8 +291,8 @@
                 grid.className = 'stack-grid';
                 categoryDiv.appendChild(grid);
 
-                category.files.forEach(file => {
-                    const card = createLogoCard(file, `${basePath}${category.key}/${encodeURIComponent(file)}`);
+                category.items.forEach(item => {
+                    const card = createLogoCard(item, `${basePath}${category.key}/${item.file}`);
                     grid.appendChild(card);
                 });
 

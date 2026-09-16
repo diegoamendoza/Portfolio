@@ -1,0 +1,11 @@
+{
+  "name": "mendoza-games-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portafolio de Diego Mendoza (mendoza.games): escritorio estilo Windows XP con el contenido en HTML estático.",
+  "scripts": {
+    "serve": "npx --yes serve . -l 8080",
+    "check:i18n": "node tools/check-i18n.mjs"
+  },
+  "license": "UNLICENSED"
+}

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (mobileBarName) mobileBarName.textContent = title;
             if (mobileBarBtn)  mobileBarBtn.disabled = false;
         } else {
-            if (mobileBarName) mobileBarName.textContent = getTranslation("preview-select");
+            if (mobileBarName) mobileBarName.textContent = getTranslation("preview-select-short", "Selecciona un proyecto");
             if (mobileBarBtn)  mobileBarBtn.disabled = true;
         }
     }
@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
     lightbox.id = "preview-lightbox";
     lightbox.innerHTML = `
         <div id="preview-lightbox-inner">
-            <button id="preview-lb-close" title="Cerrar">&times;</button>
-            <button id="preview-lb-prev" title="Anterior"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+            <button type="button" id="preview-lb-close" title="Cerrar" aria-label="Cerrar">&times;</button>
+            <button type="button" id="preview-lb-prev" title="Anterior" aria-label="Anterior"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
             <img id="preview-lb-img" src="" alt="">
-            <button id="preview-lb-next" title="Siguiente"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+            <button type="button" id="preview-lb-next" title="Siguiente" aria-label="Siguiente"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         </div>`;
     document.body.appendChild(lightbox);
 
@@ -103,6 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Single image + expand button
             const img = document.createElement("img");
             img.src = srcs[0];
+            img.alt = previewTitle.textContent ? ("Captura de " + previewTitle.textContent) : "";
+            img.loading = "lazy";
+            img.decoding = "async";
             img.className = "preview-media-img";
             previewMediaWrap.appendChild(img);
             appendExpandBtn(srcs, 0);
@@ -113,9 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const track = document.createElement("div");
         track.className = "preview-carousel-track";
 
-        srcs.forEach(function(src) {
+        srcs.forEach(function(src, i) {
             const img = document.createElement("img");
             img.src = src;
+            img.alt = previewTitle.textContent ? ("Captura " + (i + 1) + " de " + previewTitle.textContent) : "";
+            img.loading = i === 0 ? "eager" : "lazy";
+            img.decoding = "async";
             img.className = "preview-media-img";
             track.appendChild(img);
         });
@@ -126,12 +132,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const btnPrev = document.createElement("button");
         btnPrev.className = "preview-carousel-btn prev";
         btnPrev.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`;
-        btnPrev.title = "Anterior";
+        btnPrev.type = "button";
+        btnPrev.title = getTranslation("preview-prev", "Anterior");
+        btnPrev.setAttribute("aria-label", btnPrev.title);
 
         const btnNext = document.createElement("button");
         btnNext.className = "preview-carousel-btn next";
         btnNext.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
-        btnNext.title = "Siguiente";
+        btnNext.type = "button";
+        btnNext.title = getTranslation("preview-next", "Siguiente");
+        btnNext.setAttribute("aria-label", btnNext.title);
 
         previewMediaWrap.appendChild(btnPrev);
         previewMediaWrap.appendChild(btnNext);
@@ -168,7 +178,9 @@ document.addEventListener("DOMContentLoaded", function () {
         function appendExpandBtn(images, fixedIndex) {
             const btn = document.createElement("button");
             btn.className = "preview-expand-btn";
-            btn.title = "Ver imagen ampliada";
+            btn.type = "button";
+            btn.title = getTranslation("preview-expand", "Ver imagen ampliada");
+            btn.setAttribute("aria-label", btn.title);
             btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
             btn.addEventListener("click", function() {
                 openLightbox(images, fixedIndex !== null ? fixedIndex : currentCarouselIndex);
@@ -180,7 +192,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function appendExpandBtn(images, fixedIndex) {
         const btn = document.createElement("button");
         btn.className = "preview-expand-btn";
-        btn.title = "Ver imagen ampliada";
+        btn.type = "button";
+        btn.title = getTranslation("preview-expand", "Ver imagen ampliada");
+        btn.setAttribute("aria-label", btn.title);
         btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
         btn.addEventListener("click", function() {
             openLightbox(images, fixedIndex !== null ? fixedIndex : currentCarouselIndex);
@@ -189,16 +203,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // --- Language helpers ---
-    function getCurrentLang() {
-        return localStorage.getItem("language") || "es";
-    }
-
-    function getTranslation(key) {
-        if (typeof translations !== "undefined") {
-            const lang = getCurrentLang();
-            return (translations[lang] && translations[lang][key]) || key;
-        }
-        return key;
+    // El diccionario lo carga js/language.js desde i18n/<idioma>.json
+    function getTranslation(key, fallback) {
+        const value = (typeof window.getTranslation === "function") ? window.getTranslation(key) : null;
+        return (value === null || value === undefined) ? (fallback !== undefined ? fallback : key) : value;
     }
 
     function updatePreviewDescription() {
@@ -248,11 +256,16 @@ document.addEventListener("DOMContentLoaded", function () {
             video.autoplay = true;
             video.loop = true;
             video.className = "preview-media-img";
+            video.setAttribute("playsinline", "");
+            video.setAttribute("preload", "metadata");
+            video.setAttribute("aria-label", previewTitle.textContent || "");
             previewMediaWrap.appendChild(video);
 
             const fsBtn = document.createElement("button");
             fsBtn.className = "preview-expand-btn";
-            fsBtn.title = "Pantalla completa";
+            fsBtn.type = "button";
+            fsBtn.title = getTranslation("preview-fullscreen", "Pantalla completa");
+            fsBtn.setAttribute("aria-label", fsBtn.title);
             fsBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
             fsBtn.addEventListener("click", function() {
                 if (video.requestFullscreen) video.requestFullscreen();

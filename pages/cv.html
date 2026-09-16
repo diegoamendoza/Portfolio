@@ -1,7 +1,8 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex, follow">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="../css/style.css">
     <title>CV - Diego Mendoza</title>
@@ -75,35 +76,79 @@
             font-size: 12px;
             color: #666
         }
-        /* responsive: on very small screens hide toolbar extras */
+
+        /* Barra de acciones del visor */
+        .cv-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: #ece9d8;
+            border-bottom: 1px solid #b7b19f;
+        }
+
+        .cv-btn {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 8px 16px;
+            font-family: system-ui, 'Segoe UI', Tahoma, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #10395f;
+            text-decoration: none;
+            background: linear-gradient(180deg, #ffffff 0%, #e9f0f9 60%, #d3e0ef 100%);
+            border: 1px solid #7d9cbd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cv-btn:hover {
+            background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 60%, #dfeaf7 100%);
+        }
+
+        .cv-btn:focus-visible {
+            outline: 3px solid #f0a500;
+            outline-offset: 2px;
+        }
+
+        .cv-btn--primary {
+            color: #fff;
+            background: linear-gradient(180deg, #3b82d6 0%, #1e5aa8 100%);
+            border-color: #174a8c;
+        }
+
+        .cv-btn--primary:hover {
+            background: linear-gradient(180deg, #4b92e6 0%, #1f63bb 100%);
+        }
+
         @media (max-width:420px) {
-            .toolbar .title {
-                font-size: 14px
+            .cv-btn {
+                flex: 1 1 140px;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <script src="../js/language.js"></script>
     <div class="container">
-        <div class="menu-bar">
-            <span id="openBtn" title="Open in a new tab" data-translate="cv-open">Open</span>
-            <span id="dlBtn" title="Download CV" data-translate="cv-download">Download</span>
-
-            <div class="spacer"></div>
-
-
+        <div class="cv-actions">
+            <!-- TODO (Diego): confirma que cv/Diego-Mendoza-CV.pdf es tu CV actualizado
+                 (es el archivo que estaba en files/cv.pdf, sólo se renombró). -->
+            <a class="cv-btn cv-btn--primary" id="dlBtn" href="../cv/Diego-Mendoza-CV.pdf" download="Diego-Mendoza-CV.pdf" data-translate="cv-download-pdf">Descargar CV (PDF)</a>
+            <a class="cv-btn" id="openBtn" href="../cv/Diego-Mendoza-CV.pdf" target="_blank" rel="noopener" data-translate="cv-open">Abrir</a>
         </div>
 
         <div class="viewer" id="viewer">
             <!-- Embed principal (en navegadores compatibles mostrará el PDF) -->
-            <embed id="pdfEmbed" src="../files/cv.pdf" type="application/pdf">
+            <embed id="pdfEmbed" src="../cv/Diego-Mendoza-CV.pdf" type="application/pdf">
 
             <!-- fallback object -->
-            <object id="pdfObject" data="../files/cv.pdf" type="application/pdf" aria-label="CV" style="display:none;">
-                <p style="padding:12px" data-translate="cv-fallback">
-                    Tu navegador no puede mostrar PDFs dentro del visor.
-                    <a id="dlFallback" href="../files/cv.pdf" target="_blank" rel="noopener" data-translate="cv-fallback-link">Haz clic aquí para descargar el CV</a>
+            <object id="pdfObject" data="../cv/Diego-Mendoza-CV.pdf" type="application/pdf" aria-label="CV" style="display:none;">
+                <p style="padding:12px">
+                    <span data-translate="cv-fallback">Tu navegador no puede mostrar PDFs dentro del visor.</span>
+                    <a id="dlFallback" href="../cv/Diego-Mendoza-CV.pdf" target="_blank" rel="noopener" data-translate="cv-fallback-link">Haz clic aquí para descargar el CV</a>
                 </p>
             </object>
         </div>
@@ -111,7 +156,7 @@
 
     <script>
     // Ruta del PDF (ajusta si tu PDF está en otra carpeta)
-    const PDF_URL = '../files/cv.pdf';
+    const PDF_URL = '../cv/Diego-Mendoza-CV.pdf';
 
     const embed = document.getElementById('pdfEmbed');
     const obj = document.getElementById('pdfObject');
@@ -136,27 +181,8 @@
     }
 
     ensureViewer();
-
-    // Botón descargar
-    document.getElementById('dlBtn').addEventListener('click', () => {
-      const a = document.createElement('a');
-      a.href = PDF_URL;
-      a.download = 'CV-Diego-Mendoza.pdf';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    });
-
-    // Botón abrir en nueva pestaña (útil en móviles que no renderizan inline)
-    document.getElementById('openBtn').addEventListener('click', () => {
-      window.open(PDF_URL, '_blank', 'noopener');
-    });
-
-    // Si quieres forzar viewer en mobile a abrir en nueva pestaña:
-    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-      // opcional: comentar la siguiente línea si prefieres intentar mostrar inline en móviles
-      // window.open(PDF_URL, '_blank', 'noopener');
-    }
     </script>
+    <script src="../js/language.js"></script>
+    <script src="../js/window-frame.js"></script>
 </body>
 </html>

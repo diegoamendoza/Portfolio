@@ -1,236 +1,175 @@
-const translations = {
-    en: {
-        "mis-proyectos": "My Projects",
-        "sobre-mi": "About Me",
-        "cv": "CV",
-        "contacto": "Contact",
-        "readme": "ReadMe.txt",
-        "paint": "Paint",
-        "meow-jump": "Meow Jump!",
-        "inicio": "Start",
-        "portfolio": "Portfolio",
-        "linkedin": "Linkedin",
-        "estudio": "Diego Mendoza's Studio<br>Game Developer",
-        "contacto-info": "contacto@devmendoza.com<br>+56 972973085",
-        "sobre-mi-btn": "About Me",
-        "stack-btn": "Stack",
-        "sobre-mi-p1": "Hello, I'm Diego Mendoza, a passionate 22-year-old video game developer and programmer. From an early age, I've had a great fascination for technology and video games, which led me to specialize in this exciting industry. My experience covers both programming and design, allowing me to create immersive and engaging experiences for players.",
-        "sobre-mi-p2": "My love for programming is reflected in every project I undertake, where I combine creativity and technical skills to develop games that not only entertain but also challenge and excite players. I am always looking for new opportunities to learn, grow, and contribute to the world of video games.",
-        "contact-form-legend": "Contact Form",
-        "contact-form-name": "Name:",
-        "contact-form-subject": "Subject:",
-        "contact-form-message": "Message:",
-        "contact-form-submit": "Send",
-        "contact-intro": "Have an idea, proposal, or want to collaborate? Drop me a message and I'll get back to you soon.",
-        "contact-detail": "I usually reply within 1–2 business days.",
-        "sidebar-sections": "Sections",
-        "sidebar-details": "Details",
-        "sidebar-contact-details": "Contact details",
-        "about-details": "<strong>Diego Mendoza</strong><br>Game developer &amp; programmer",
-        "stack-languages": "Languages",
-        "stack-engines": "Engines",
-        "stack-tools": "Tools",
-        "cv-open": "Open",
-        "cv-download": "Download",
-        "cv-fallback": "Your browser cannot display PDFs in the viewer.",
-        "cv-fallback-link": "Click here to download the CV",
-        "readme-text": `Hello!
+/*
+ * Motor de traducción del sitio.
+ *
+ * Los textos viven en i18n/es.json e i18n/en.json (fuente única).
+ * El HTML conserva el texto en español escrito directamente en la marca
+ * (respaldo para SEO, para no-JS y para cuando el JSON aún no ha cargado).
+ *
+ * Uso en el HTML:
+ *   <p data-translate="clave">Texto en español</p>
+ *   <img data-translate-alt="clave" alt="Texto en español">
+ *   <button data-translate-title="clave" title="Texto en español">
+ *
+ * Este script se carga tanto en index.html como dentro de cada iframe de
+ * las ventanas, por eso resuelve la ruta de i18n/ de forma relativa al
+ * propio archivo (js/language.js -> ../i18n/).
+ */
+(function () {
+    "use strict";
 
-I am pleased to welcome you to this space where you can explore some of the projects I have been working on. I'm Diego Mendoza, a passionate video game developer.
+    var SUPPORTED = ["es", "en"];
+    var DEFAULT_LANG = "es";
+    var STORAGE_KEY = "language";
 
-In this portfolio, you will find a selection of projects that reflect my dedication, creativity, and technical skills. From web and mobile applications to graphic designs and software development, each project represents a unique challenge that I have approached with enthusiasm and commitment.
+    // Ruta absoluta a la carpeta i18n, deducida de la ubicación de este script.
+    var I18N_BASE = (function () {
+        var src = (document.currentScript && document.currentScript.src) || "";
+        if (!src) return "i18n/";
+        return src.replace(/js\/language\.js.*$/, "i18n/");
+    })();
 
-I invite you to explore each project and discover the process behind its creation, from the conception of the idea to its final implementation. If you have any questions or are interested in collaborating on future projects, do not hesitate to contact me.
+    var translations = { es: {}, en: {} };
+    var loaded = {};
 
-I hope you enjoy browsing my portfolio and find inspiration in the projects presented here!
-
-Thanks for visiting!`,
-        "nav-back": "Back",
-        "nav-forward": "Forward",
-        "nav-up": "Up",
-        "nav-go": "Go",
-        "sidebar-tasks": "File tasks",
-        "sidebar-all-projects": "All projects",
-        "sidebar-places": "Places",
-        "sidebar-desktop": "Desktop",
-        "sidebar-mydocs": "My documents",
-        "sidebar-categories": "Categories",
-        "sidebar-en-desarrollo": "In development",
-        "sidebar-laborales": "Work",
-        "sidebar-prototipos": "Prototypes",
-        "preview-select": "Select a project to view details",
-        "preview-view-project": "View project",
-        "work-projects": "Projects in development",
-        "personal-projects": "Professional projects",
-        "other-projects": "Prototypes and concepts",
-        "paranoide-folder": "Paranoide",
-        "meowjump-folder": "Meow Jump!",
-        "modelado3d-folder": "3D Modeling",
-        "missus-folder": "MISSUS",
-        "moira-folder": "Moira",
-        "profesor-mapu-folder": "Professor Mapu",
-        "dance-vr-folder": "Dance VR",
-        "hospital-vr-folder": "Hospital VR",
-        "poligono-folder": "Shooting Simulator",
-        "project-tab": "Project",
-        "what-i-did-tab": "What I did",
-        "moira-description": "Moira is an interactive prototype built to explore two main elements: reactive snow simulation based on player movement and the implementation of cinematics within a winter setting. The project focuses on experimenting with environmental interaction techniques and crafting a narrative atmosphere, using lighting, weather effects, and visual composition to reinforce the tone and immersion of the scene.",
-        "paranoide-description": "Paranoide immerses players in an intense first-person horror and survival experience. In this game, we enter the mind of a schizophrenia patient, who wakes up in an unknown and threatening place, without remembering how he got there. Our goal is to escape from this surreal environment, facing challenges and completing objectives in each level, while avoiding the hallucinations generated by the protagonist's illness.<br><br>This project is currently in development, with no set release date. It uniquely explores the protagonist's experience, challenging the conventions of the horror genre and immersing players in a world that defies reality. Paranoide transcends the screen to enter the player's mind, offering an immersive experience that challenges the limits between what is real and what is not.",
-        "meowjump-description": "Meow Jump! is a casual game originally released on Google Play where players guide a cat to jump between platforms, avoid obstacles, and collect coins to unlock new skins. While the original version is no longer available, a relaunch is in progress with updated content, optimizations, and new features to refresh the experience.",
-        "meowjump-google-play": "Link to Steam",
-        "profesor-mapu-description": "Prototype commissioned to create an interactive educational experience in Spatial focused on basic Mapudungun lessons. I built the environment, integrated the Spatial SDK, and added NPCs and interactive objects so users can explore the space and learn vocabulary in a simple, visual way.",
-        "dance-vr-description": "Rhythm game prototype for virtual reality that blends Beat Saber and Guitar Hero mechanics. Players switch the color of their hands with controller buttons and must hit notes of the matching color that appear on screen, testing quick reactions in VR.",
-        "hospital-vr-description": "Virtual reality experience set in an abandoned hospital with a psychological horror atmosphere. The guided tour features dynamic lighting, immersive sound design, and basic interactions to start the experience, focusing on environmental storytelling and tense, atmospheric VR spaces.",
-        "missus-description": "Missus is a collaboration between Telefónica and the Museum of Contemporary Arts, which creates an immersive experience in the metaverse. This virtual museum allows users to explore the history of telecommunications in Chile through an interactive tour that highlights key technological milestones, using advanced virtual reality and 3D rendering technologies.<br><br>I participated in most of the development and programming of the virtual museum, collaborating closely with designers and other developers. My work included creating virtual environments, integrating interactive elements, and optimizing the user experience.",
-        "poligono-description": "Pistol shooting training simulator developed in collaboration between Universidad Bernardo O'Higgins and the national defense industry, presented at FIDAE 2026. The system enables training one or two shooters simultaneously in split screen, integrating real laser impact detection through computer vision, three distinct simulation environments, and a real-time control interface for the instructor.<br><br>I led the technical development of the project, designing the complete system architecture and programming the main modules in Unreal Engine 5 and Python. My work included implementing the shot detection pipeline with OpenCV, UDP communication between systems, multiplayer session logic in C++, and developing the instructor interface embedded in the engine.",
-        "modelado3d-description": "This project merges conceptual art and 3D modeling to bring to life a fantastic creature inspired by the Pokémon Torterra. Initially, a detailed concept art was developed that captured the essence and visual style of this imaginary creature. The creative process involved exploring different designs and features, as well as integrating characteristic elements of Torterra to ensure a faithful representation.<br><br>Subsequently, Blender, a powerful 3D modeling tool, was used to transform the concept art into a three-dimensional representation. This step involved creating the basic structure, modeling details, and applying textures to give depth and realism to the model. The final result is a unique interpretation of the iconic creature, which merges the creativity of conceptual design with the technical precision of 3D modeling."
-    },
-    es: {
-        "mis-proyectos": "Mis proyectos",
-        "sobre-mi": "Sobre mí",
-        "cv": "CV",
-        "contacto": "Contacto",
-        "readme": "ReadMe.txt",
-        "paint": "Paint",
-        "meow-jump": "Meow Jump!",
-        "inicio": "Inicio",
-        "portfolio": "Portafolio",
-        "linkedin": "Linkedin",
-        "estudio": "Estudio de Diego Mendoza<br>Desarrollador de videojuegos",
-        "contacto-info": "contacto@devmendoza.com<br>+56 972973085",
-        "sobre-mi-btn": "Sobre mí",
-        "stack-btn": "Stack",
-        "sobre-mi-p1": "Hola, soy Diego Mendoza, un apasionado desarrollador y programador de videojuegos de 22 años. Desde temprana edad, he tenido una gran fascinación por la tecnología y los videojuegos, lo que me llevó a especializarme en esta emocionante industria. Mi experiencia abarca tanto la programación como el diseño, permitiéndome crear experiencias inmersivas y atractivas para los jugadores.",
-        "sobre-mi-p2": "Mi amor por la programación se refleja en cada proyecto que emprendo, donde combino creatividad y habilidades técnicas para desarrollar juegos que no solo entretienen, sino que también desafían y emocionan a los jugadores. Estoy siempre en busca de nuevas oportunidades para aprender, crecer y contribuir al mundo de los videojuegos.",
-        "contact-form-legend": "Formulario de contacto",
-        "contact-form-name": "Nombre:",
-        "contact-form-subject": "Asunto:",
-        "contact-form-message": "Mensaje:",
-        "contact-form-submit": "Enviar",
-        "contact-intro": "¿Tienes una idea, propuesta o quieres colaborar? Escríbeme y te responderé pronto.",
-        "contact-detail": "Respondo normalmente en 1–2 días hábiles.",
-        "sidebar-sections": "Secciones",
-        "sidebar-details": "Detalles",
-        "sidebar-contact-details": "Datos de contacto",
-        "about-details": "<strong>Diego Mendoza</strong><br>Desarrollador y programador de videojuegos",
-        "stack-languages": "Lenguajes",
-        "stack-engines": "Motores",
-        "stack-tools": "Herramientas",
-        "cv-open": "Abrir",
-        "cv-download": "Descargar",
-        "cv-fallback": "Tu navegador no puede mostrar PDFs dentro del visor.",
-        "cv-fallback-link": "Haz clic aquí para descargar el CV",
-        "readme-text": `¡Hola!
-
-Me complace darte la bienvenida a este espacio donde podrás explorar algunos de los proyectos en los que he estado trabajando. Soy Diego Mendoza, un apasionado desarrollador de videojuegos.
-
-En este portafolio, encontrarás una selección de proyectos que reflejan mi dedicación, creatividad y habilidades técnicas. Desde aplicaciones web y móviles hasta diseños gráficos y desarrollo de software, cada proyecto representa un desafío único que he abordado con entusiasmo y compromiso.
-
-Te invito a explorar cada proyecto y descubrir el proceso detrás de su creación, desde la concepción de la idea hasta su implementación final. Si tienes alguna pregunta o estás interesado en colaborar en futuros proyectos, no dudes en ponerte en contacto conmigo.
-
-¡Espero que disfrutes navegando por mi portafolio y que encuentres inspiración en los proyectos presentados aquí!
-
-¡Gracias por visitar!`,
-        "nav-back": "Atrás",
-        "nav-forward": "Adelante",
-        "nav-up": "Subir",
-        "nav-go": "Ir",
-        "sidebar-tasks": "Tareas de archivos",
-        "sidebar-all-projects": "Todos los proyectos",
-        "sidebar-places": "Lugares",
-        "sidebar-desktop": "Escritorio",
-        "sidebar-mydocs": "Mis documentos",
-        "sidebar-categories": "Categorías",
-        "sidebar-en-desarrollo": "En desarrollo",
-        "sidebar-laborales": "Laborales",
-        "sidebar-prototipos": "Prototipos",
-        "preview-select": "Selecciona un proyecto para ver los detalles",
-        "preview-view-project": "Ver proyecto",
-        "work-projects": "Proyectos en desarrollo",
-        "personal-projects": "Proyectos laborales",
-        "other-projects": "Prototipos y conceptos",
-        "paranoide-folder": "Paranoide",
-        "meowjump-folder": "Meow Jump!",
-        "modelado3d-folder": "Modelado 3D",
-        "missus-folder": "MISSUS",
-        "moira-folder": "Moira",
-        "profesor-mapu-folder": "Profesor Mapu",
-        "dance-vr-folder": "Dance VR",
-        "hospital-vr-folder": "Hospital VR",
-        "poligono-folder": "Polígono de Tiro",
-        "project-tab": "Proyecto",
-        "what-i-did-tab": "Qué realicé",
-        "moira-description": "Moira es una experiencia interactiva desarrollada como prototipo para explorar dos elementos principales: la simulación de nieve reactiva al movimiento del jugador y la implementación de cinemáticas dentro de un entorno invernal. El proyecto se centra en experimentar con técnicas de interacción ambiental y en la creación de una atmósfera narrativa, utilizando iluminación, efectos climáticos y composición visual para reforzar el tono y la inmersión de la escena.",
-        "paranoide-description": "Paranoide sumerge a los jugadores en una experiencia intensa de terror y supervivencia en primera persona. En este juego, nos adentramos en la mente de un paciente de esquizofrenia, quien se despiesta en un lugar desconocido y amenazante, sin recordar cómo llegó allí. Nuestro objetivo es escapar de este entorno surrealista, enfrentando desafíos y cumpliendo objetivos en cada nivel, mientras evitamos las alucinaciones generadas por la enfermedad del protagonista.<br><br>Este proyecto se encuentra en desarrollo, sin una fecha de lanzamiento establecida. Explora de manera única la experiencia del protagonista, desafiando las convenciones del género de terror y sumergiendo a los jugadores en un mundo que desafía la realidad. Paranoide trasciende la pantalla para adentrarse en la mente del jugador, ofreciendo una experiencia inmersiva que desafía los límites entre lo que es real y lo que no lo es.",
-        "meowjump-description": "Meow Jump! es un juego casual originalmente publicado en Google Play donde los jugadores guían a un gato para saltar entre plataformas, esquivar obstáculos y recolectar monedas para desbloquear nuevos aspectos. Aunque la versión original ya no está disponible, actualmente estoy trabajando en un relanzamiento con contenido actualizado, optimizaciones y nuevas características para renovar la experiencia.",
-        "meowjump-google-play": "Link a Steam",
-        "profesor-mapu-description": "Prototipo creado como encargo para desarrollar una experiencia educativa interactiva en Spatial, orientada a la enseñanza básica de Mapudungun. Construí el entorno, integré el SDK de Spatial y añadí NPCs y objetos interactivos que permiten al usuario explorar el espacio y aprender vocabulario de manera sencilla y visual.",
-        "dance-vr-description": "Prototipo de juego de ritmo en realidad virtual que combina mecánicas de Beat Saber y Guitar Hero. El jugador puede cambiar el color de sus manos usando los botones del controlador y debe golpear notas del mismo color que aparecen en pantalla, poniendo a prueba reflejos rápidos en VR.",
-        "hospital-vr-description": "Experiencia de realidad virtual ambientada en un hospital abandonado con atmósfera de horror psicológico. El recorrido guiado incluye iluminación dinámica, ambientación sonora inmersiva e interacciones básicas para iniciar la experiencia, enfocándose en narrativa ambiental y creación de espacios tensos y atmosféricos en VR.",
-        "missus-description": "Missus es una colaboración entre Telefónica y el Museo de Artes Contemporáneas, que crea una experiencia inmersiva en el metaverso. Este museo virtual permite a los usuarios explorar la historia de las telecomunicaciones en Chile mediante un recorrido interactivo que destaca hitos tecnológicos clave, utilizando tecnologías avanzadas de realidad virtual y renderizado 3D.<br><br>Participé en la mayor parte del desarrollo y programación del museo virtual, colaborando estrechamente con diseñadores y otros desarrolladores. Mi trabajo incluyó la creación de entornos virtuales, la integración de elementos interactivos y la optimización de la experiencia del usuario.",
-        "poligono-description": "Simulador de entrenamiento de tiro con pistola desarrollado en colaboración entre la Universidad Bernardo O'Higgins y la industria de defensa nacional, presentado en la FIDAE 2026. El sistema permite entrenar a uno o dos tiradores simultáneamente en pantalla dividida, integrando detección de impactos láser reales mediante visión computacional, tres entornos de simulación distintos y una interfaz de control en tiempo real para el instructor.<br><br>Lideré el desarrollo técnico del proyecto, diseñando la arquitectura completa del sistema y programando los módulos principales en Unreal Engine 5 y Python. Mi trabajo incluyó la implementación del pipeline de detección de disparos con OpenCV, la comunicación UDP entre sistemas, la lógica de sesión multijugador en C++ y el desarrollo de la interfaz del instructor embebida en el motor.",
-        "modelado3d-description": "Este proyecto fusiona el arte conceptual y la modelización 3D para dar vida a una criatura fantástica inspirada en el Pokémon Torterra. Inicialmente, se desarrolló un concept art detallado que capturaba la esencia y el estilo visual de esta criatura imaginaria. El proceso creativo involucró la exploración de diferentes diseños y características, así como la integración de elementos característicos de Torterra para garantizar una representación fiel.<br><br>Posteriormente, se utilizó Blender, una potente herramienta de modelado 3D, para transformar el concept art en una representación tridimensional. Este paso implicó la creación de la estructura básica, el modelado de detalles y la aplicación de texturas para darle profundidad y realismo al modelo. El resultado final es una interpretación única de la icónica criatura, que fusiona la creatividad del diseño conceptual con la precisión técnica del modelado 3D."
-    }
-};
-
-function detectUserLanguage() {
-    const browserLanguages = navigator.languages && navigator.languages.length
-        ? navigator.languages
-        : [navigator.language || navigator.userLanguage || ""];
-
-    const primaryLanguage = (browserLanguages[0] || "").toLowerCase();
-
-    if (primaryLanguage.startsWith('es')) {
-        return 'es';
+    function detectUserLanguage() {
+        var list = (navigator.languages && navigator.languages.length)
+            ? navigator.languages
+            : [navigator.language || navigator.userLanguage || ""];
+        var primary = (list[0] || "").toLowerCase();
+        return primary.indexOf("es") === 0 ? "es" : "en";
     }
 
-    return 'en';
-}
+    function readStoredLanguage() {
+        try {
+            var stored = localStorage.getItem(STORAGE_KEY);
+            if (stored && SUPPORTED.indexOf(stored) !== -1) return stored;
+        } catch (e) { /* localStorage bloqueado */ }
+        return null;
+    }
 
-let currentLanguage = localStorage.getItem('language') || detectUserLanguage();
+    var currentLanguage = readStoredLanguage() || detectUserLanguage();
 
-function setLanguage(lang) {
-    if (!lang) return;
-    currentLanguage = lang;
-    localStorage.setItem('language', lang);
-    document.querySelectorAll("[data-translate]").forEach(element => {
-        const key = element.getAttribute("data-translate");
-        if (translations[currentLanguage] && translations[currentLanguage][key]) {
-            if (element.tagName === 'TEXTAREA') {
-                element.value = translations[currentLanguage][key];
+    function getTranslation(key) {
+        var dict = translations[currentLanguage];
+        if (dict && Object.prototype.hasOwnProperty.call(dict, key)) return dict[key];
+        var fallback = translations[DEFAULT_LANG];
+        if (fallback && Object.prototype.hasOwnProperty.call(fallback, key)) return fallback[key];
+        return null;
+    }
+
+    function applyTranslations(root) {
+        var scope = root || document;
+
+        scope.querySelectorAll("[data-translate]").forEach(function (el) {
+            var value = getTranslation(el.getAttribute("data-translate"));
+            if (value === null) return;
+            if (el.tagName === "TEXTAREA" || el.tagName === "INPUT") {
+                el.value = value;
             } else {
-                element.innerHTML = translations[currentLanguage][key];
+                el.innerHTML = value;
             }
+        });
+
+        scope.querySelectorAll("[data-translate-alt]").forEach(function (el) {
+            var value = getTranslation(el.getAttribute("data-translate-alt"));
+            if (value !== null) el.setAttribute("alt", value);
+        });
+
+        scope.querySelectorAll("[data-translate-title]").forEach(function (el) {
+            var value = getTranslation(el.getAttribute("data-translate-title"));
+            if (value !== null) {
+                el.setAttribute("title", value);
+                if (el.hasAttribute("aria-label")) el.setAttribute("aria-label", value);
+            }
+        });
+
+        scope.querySelectorAll("[data-translate-aria-label]").forEach(function (el) {
+            var value = getTranslation(el.getAttribute("data-translate-aria-label"));
+            if (value !== null) el.setAttribute("aria-label", value);
+        });
+    }
+
+    function updateDocumentLanguage() {
+        document.documentElement.setAttribute("lang", currentLanguage);
+        var title = getTranslation("site-title");
+        if (title && document.documentElement.hasAttribute("data-translate-title-tag")) {
+            document.title = title;
+        }
+    }
+
+    function fetchLanguage(lang) {
+        if (loaded[lang]) return Promise.resolve(translations[lang]);
+        return fetch(I18N_BASE + lang + ".json", { cache: "no-cache" })
+            .then(function (response) {
+                if (!response.ok) throw new Error("HTTP " + response.status);
+                return response.json();
+            })
+            .then(function (data) {
+                translations[lang] = data;
+                loaded[lang] = true;
+                return data;
+            })
+            .catch(function (error) {
+                // Sin JSON el sitio sigue funcionando: queda el texto en español
+                // escrito en el HTML. Pasa, por ejemplo, al abrir el sitio con
+                // file:// en vez de servirlo por HTTP.
+                console.warn("[i18n] No se pudo cargar " + lang + ".json:", error.message);
+                loaded[lang] = true;
+                return translations[lang];
+            });
+    }
+
+    function setLanguage(lang, options) {
+        if (!lang || SUPPORTED.indexOf(lang) === -1) return Promise.resolve();
+        var silent = options && options.silent;
+        currentLanguage = lang;
+        window.currentLanguage = lang;
+
+        if (!silent) {
+            try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignorado */ }
+        }
+
+        return fetchLanguage(lang).then(function () {
+            applyTranslations(document);
+            updateDocumentLanguage();
+            window.dispatchEvent(new CustomEvent("languageChanged", {
+                detail: { language: currentLanguage }
+            }));
+        });
+    }
+
+    function toggleLanguage() {
+        return setLanguage(currentLanguage === "es" ? "en" : "es");
+    }
+
+    // API pública (compatible con el código anterior).
+    window.translations = translations;
+    window.currentLanguage = currentLanguage;
+    window.setLanguage = setLanguage;
+    window.toggleLanguage = toggleLanguage;
+    window.applyTranslations = applyTranslations;
+    window.getTranslation = getTranslation;
+    window.getCurrentLanguage = function () { return currentLanguage; };
+    window.SUPPORTED_LANGUAGES = SUPPORTED;
+
+    // Carga inicial: el español siempre, para poder usarlo como respaldo.
+    var initial = fetchLanguage(DEFAULT_LANG).then(function () {
+        return setLanguage(currentLanguage, { silent: true });
+    });
+    window.i18nReady = initial;
+
+    // Sincroniza el idioma entre pestañas y entre los iframes de las ventanas.
+    window.addEventListener("storage", function (event) {
+        if (event.key === STORAGE_KEY && event.newValue && event.newValue !== currentLanguage) {
+            setLanguage(event.newValue, { silent: true });
         }
     });
-    const switcher = document.getElementById("language-switcher");
-    if (switcher) {
-        if (currentLanguage === 'es') {
-            switcher.textContent = 'ESP';
-        } else {
-            switcher.textContent = 'EN';
+
+    // El escritorio avisa a las ventanas (iframes) cuando cambia el idioma.
+    window.addEventListener("message", function (event) {
+        var data = event.data;
+        if (data && data.command === "set_language" && data.language) {
+            setLanguage(data.language, { silent: true });
         }
-    }
-    if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('languageChanged', {
-            detail: { language: currentLanguage }
-        }));
-    }
-}
-
-function toggleLanguage() {
-    const newLang = currentLanguage === "es" ? "en" : "es";
-    setLanguage(newLang);
-}
-
-// Set the initial language when the script loads
-document.addEventListener('DOMContentLoaded', () => {
-    setLanguage(currentLanguage);
-});
-
-// Listen for changes in localStorage from other windows/iframes
-window.addEventListener('storage', (event) => {
-    if (event.key === 'language' && event.newValue) {
-        setLanguage(event.newValue);
-    }
-});
+    });
+})();

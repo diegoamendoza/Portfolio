@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="noindex, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Proyectos</title>
     <link rel="stylesheet" href="../css/style.css">
@@ -21,7 +22,7 @@
             <span class="nav-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span> <span data-translate="nav-up">Subir</span>
         </button>
         <div class="xp-address-bar">
-            <img src="../img/documents.png" alt="" class="address-icon">
+            <img src="../img/documents.png" alt="" width="16" height="16" class="address-icon">
             <input type="text" readonly value="C:\Usuarios\Diego\Mis Proyectos" class="address-input">
             <button class="xp-go-btn" data-translate="nav-go">Ir</button>
         </div>
@@ -40,7 +41,10 @@
                 </div>
                 <div class="xp-sidebar-links">
                     <a class="xp-sidebar-link" id="link-all" href="#">
-                        <img src="../img/documents.png" alt=""> <span data-translate="sidebar-all-projects">Todos los proyectos</span>
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="">
+                        </picture> <span data-translate="sidebar-all-projects">Todos los proyectos</span>
                     </a>
                 </div>
             </div>
@@ -99,7 +103,10 @@
                          data-preview-src="https://i.gyazo.com/d10d32dcf3f371ea268552708d44f48f.png"
                          data-preview-srcs="https://i.gyazo.com/d10d32dcf3f371ea268552708d44f48f.png|https://i.gyazo.com/100e45f5c364d05810ab265dd62dee30.png|https://i.gyazo.com/99d20f9254faf06d2acb96a586c7641e.png|https://i.gyazo.com/99c086d25b0563dddc55e30f9b398c1b.png"
                          data-desc-key="paranoide-description">
-                        <img src="../img/documents.png" alt="Paranoide">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Paranoide">
+                        </picture>
                         <div class="carpeta-name" data-translate="paranoide-folder">Paranoide</div>
                     </div>
                     <div class="carpeta-item"
@@ -111,7 +118,10 @@
                          data-preview-src="https://i.gyazo.com/2dd3adf353d47b060dac59c743874f84.png"
                          data-preview-srcs="https://i.gyazo.com/2dd3adf353d47b060dac59c743874f84.png|https://i.gyazo.com/452924ef2f9d82ede1688a6e88e0b365.png|https://i.gyazo.com/daec524cd68ee0b22d6d50b4d6115771.png"
                          data-desc-key="meowjump-description">
-                        <img src="../img/documents.png" alt="Meow Jump!">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Meow Jump!">
+                        </picture>
                         <div class="carpeta-name" data-translate="meowjump-folder">Meow Jump!</div>
                     </div>
                 </div>
@@ -130,9 +140,12 @@
                          data-category-key="personal-projects"
                          data-tags="Unreal Engine 5,C++,Python,OpenCV,Simulación"
                          data-preview-type="video"
-                         data-preview-src="../video/Presentacion_Poligono.mp4"
+                         data-preview-src="../video/poligono-presentacion.mp4"
                          data-desc-key="poligono-description">
-                        <img src="../img/documents.png" alt="Polígono de Tiro">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Polígono de Tiro">
+                        </picture>
                         <div class="carpeta-name" data-translate="poligono-folder">Polígono de Tiro</div>
                     </div>
                     <div class="carpeta-item"
@@ -144,7 +157,10 @@
                          data-preview-src="https://i.gyazo.com/c1045dd8285fabd72c815de60795c0f6.jpg"
                          data-preview-srcs="https://i.gyazo.com/c1045dd8285fabd72c815de60795c0f6.jpg|https://i.gyazo.com/0c1e2f8b3b58f610b3aa8b232b975e08.jpg|https://i.gyazo.com/6bd4d2de10913843e51a19b8ddfab018.jpg"
                          data-desc-key="missus-description">
-                        <img src="../img/documents.png" alt="MISSUS">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="MISSUS">
+                        </picture>
                         <div class="carpeta-name" data-translate="missus-folder">MISSUS</div>
                     </div>
                     <div class="carpeta-item"
@@ -153,10 +169,13 @@
                          data-category-key="personal-projects"
                          data-tags="Unity,C#,VR,Education"
                          data-preview-type="image"
-                         data-preview-src="../img/Profesor Mapu/1.jpg"
-                         data-preview-srcs="../img/Profesor Mapu/1.jpg|../img/Profesor Mapu/2.jpg|../img/Profesor Mapu/3.jpg|../img/Profesor Mapu/4.jpg"
+                         data-preview-src="../img/profesor-mapu/1.webp"
+                         data-preview-srcs="../img/profesor-mapu/1.webp|../img/profesor-mapu/2.webp|../img/profesor-mapu/3.webp|../img/profesor-mapu/4.webp"
                          data-desc-key="profesor-mapu-description">
-                        <img src="../img/documents.png" alt="Profesor Mapu">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Profesor Mapu">
+                        </picture>
                         <div class="carpeta-name" data-translate="profesor-mapu-folder">Profesor Mapu</div>
                     </div>
                 </div>
@@ -175,9 +194,12 @@
                          data-category-key="other-projects"
                          data-tags="Unity,C#,Snow,Cinematic"
                          data-preview-type="video"
-                         data-preview-src="../video/Gameplay Moira(1).mp4"
+                         data-preview-src="../video/moira-gameplay.mp4"
                          data-desc-key="moira-description">
-                        <img src="../img/documents.png" alt="Moira">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Moira">
+                        </picture>
                         <div class="carpeta-name" data-translate="moira-folder">Moira</div>
                     </div>
                     <div class="carpeta-item"
@@ -189,7 +211,10 @@
                          data-preview-src="https://i.gyazo.com/2781309a47b4ed95ced3e5c54a37acc1.png"
                          data-preview-srcs="https://i.gyazo.com/2781309a47b4ed95ced3e5c54a37acc1.png|https://i.gyazo.com/f39db0aa25f3c629afdcf108fecf039d.png|https://i.gyazo.com/6bd580991beb8f60fc90ec078bd34892.jpg"
                          data-desc-key="modelado3d-description">
-                        <img src="../img/documents.png" alt="Modelado 3D">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Modelado 3D">
+                        </picture>
                         <div class="carpeta-name" data-translate="modelado3d-folder">Modelado 3D</div>
                     </div>
                     <div class="carpeta-item"
@@ -198,9 +223,12 @@
                          data-category-key="other-projects"
                          data-tags="Unity,C#,VR,Rhythm"
                          data-preview-type="video"
-                         data-preview-src="../video/lukaluka.mp4"
+                         data-preview-src="../video/dance-vr.mp4"
                          data-desc-key="dance-vr-description">
-                        <img src="../img/documents.png" alt="Dance VR">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Dance VR">
+                        </picture>
                         <div class="carpeta-name" data-translate="dance-vr-folder">Dance VR</div>
                     </div>
                     <div class="carpeta-item"
@@ -209,9 +237,12 @@
                          data-category-key="other-projects"
                          data-tags="Unity,C#,VR,Horror"
                          data-preview-type="video"
-                         data-preview-src="../video/horrorVR.mp4"
+                         data-preview-src="../video/hospital-vr.mp4"
                          data-desc-key="hospital-vr-description">
-                        <img src="../img/documents.png" alt="Hospital VR">
+                        <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="Hospital VR">
+                        </picture>
                         <div class="carpeta-name" data-translate="hospital-vr-folder">Hospital VR</div>
                     </div>
                 </div>
@@ -225,7 +256,7 @@
         <!-- Right preview panel -->
         <div class="xp-preview" id="xp-preview">
             <div class="preview-empty" id="preview-empty">
-                <img src="../img/documents.png" alt="" style="width:48px;opacity:0.3;">
+                <img src="../img/documents.png" alt="" width="48" height="48" style="width:48px;opacity:0.3;">
                 <p data-translate="preview-select">Selecciona un proyecto para ver los detalles</p>
             </div>
             <div class="preview-filled" id="preview-filled" style="display:none;">
@@ -247,13 +278,17 @@
     <!-- Mobile action bar: visible only on small screens when a project is selected -->
     <div class="mobile-project-bar" id="mobile-project-bar">
         <div class="mobile-project-bar-title">
-            <img src="../img/documents.png" alt="">
-            <span id="mobile-project-bar-name" data-translate="preview-select">Selecciona un proyecto</span>
+            <picture>
+                            <source type="image/webp" srcset="../img/documents.webp">
+                            <img src="../img/documents.png" width="48" height="48" loading="lazy" decoding="async" alt="">
+                        </picture>
+            <span id="mobile-project-bar-name" data-translate="preview-select-short">Selecciona un proyecto</span>
         </div>
         <button class="mobile-project-bar-btn" id="mobile-project-bar-btn" disabled data-translate="preview-view-project">Ver proyecto</button>
     </div>
 
     <script src="../js/folders.js"></script>
     <script src="../js/language.js"></script>
+    <script src="../js/window-frame.js"></script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Demo de terceros que no forma parte del portafolio
+Disallow: /particles.js-master/
+# Formulario suelto sin contenido indexable
+Disallow: /form.html
+
+Sitemap: https://mendoza.games/sitemap.xml

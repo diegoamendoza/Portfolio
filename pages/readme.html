@@ -1,12 +1,11 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ReadMe</title>
-
+    <title>ReadMe.txt — Diego Mendoza</title>
+    <meta name="robots" content="noindex, follow">
     <style>
-        /* Aseguramos que todo el árbol ocupe el 100% del iframe */
         html, body {
             height: 100%;
             margin: 0;
@@ -14,75 +13,110 @@
             box-sizing: border-box;
             font-family: system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
             background: #fff;
-            color: #111;
+            color: #16212c;
         }
 
-        /* contenedor principal */
-        .window-content {
+        *, *::before, *::after { box-sizing: inherit; }
+
+        .readme {
             height: 100%;
-            padding: 8px; /* espacio interior opcional */
-            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-        }
-
-        /* textarea ocupa todo el contenedor */
-        textarea {
-            width: 100%;
-            height: 100%;
-            min-height: 0; /* para que flex funcione correctamente */
-            resize: none; /* evita que el usuario lo redimensione manualmente */
-            box-sizing: border-box;
-            padding: 12px;
-            font-family: monospace;
-            font-size: 14px;
-            line-height: 1.4;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background: #fafafa;
-            color: #111;
+            padding: 18px 20px 16px;
             overflow: auto;
             -webkit-overflow-scrolling: touch;
         }
 
+        .readme h1 {
+            margin: 0 0 4px;
+            font-size: 21px;
+            line-height: 1.25;
+            color: #10395f;
+        }
+
+        .readme .role {
+            margin: 0 0 14px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e5aa8;
+        }
+
+        .readme p {
+            margin: 0 0 12px;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .readme-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .readme-btn {
+            min-height: 44px;
+            padding: 10px 18px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            color: #10395f;
+            background: linear-gradient(180deg, #ffffff 0%, #e9f0f9 60%, #d3e0ef 100%);
+            border: 1px solid #7d9cbd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .readme-btn:hover {
+            background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 60%, #dfeaf7 100%);
+        }
+
+        .readme-btn:focus-visible {
+            outline: 3px solid #f0a500;
+            outline-offset: 2px;
+        }
+
+        .readme-btn--primary {
+            color: #fff;
+            background: linear-gradient(180deg, #3b82d6 0%, #1e5aa8 100%);
+            border-color: #174a8c;
+        }
+
+        .readme-btn--primary:hover {
+            background: linear-gradient(180deg, #4b92e6 0%, #1f63bb 100%);
+        }
+
+        .readme-signature {
+            margin: 14px 0 0;
+            font-size: 13px;
+            color: #5a6b7c;
+        }
+
         @media (max-width: 640px) {
-            textarea {
-                font-size: 15px;
-                line-height: 1.6;
-                padding: 14px;
-                cursor: default;
-            }
+            .readme { padding: 16px; }
+            .readme p { font-size: 15px; }
+            .readme-actions .readme-btn { flex: 1 1 140px; }
         }
     </style>
 </head>
 <body>
+    <main class="readme">
+        <h1 data-translate="readme-title">Hola, soy Diego Mendoza</h1>
+        <p class="role" data-translate="hero-role">Desarrollador de videojuegos y XR</p>
+
+        <p data-translate="readme-p1">Desarrollador de videojuegos y XR. Diseño y programo juegos, experiencias de realidad virtual y mixta y simuladores interactivos con Unreal Engine 5 y Unity, desde Santiago de Chile.</p>
+        <p data-translate="readme-p2">Este portafolio funciona como un escritorio: cada icono abre una ventana. En «Mis proyectos» están los trabajos profesionales, los prototipos y los juegos en desarrollo, con video o capturas de cada uno.</p>
+        <p data-translate="readme-p3">Si quieres trabajar conmigo o tienes una propuesta, escríbeme: respondo normalmente en 1–2 días hábiles.</p>
+
+        <div class="readme-actions">
+            <button type="button" class="readme-btn readme-btn--primary" data-open-desktop-window="proyectos" data-translate="readme-btn-projects">Ver proyectos</button>
+            <button type="button" class="readme-btn" data-open-desktop-window="contacto" data-translate="readme-btn-contact">Contacto</button>
+        </div>
+    </main>
+
     <script src="../js/language.js"></script>
-    <div class="window-content">
-        <textarea id="readme-textarea" data-translate="readme-text" readonly>
-¡Hola!
-
-Me complace darte la bienvenida a este espacio donde podrás explorar algunos de los proyectos en los que he estado trabajando. Soy Diego Mendoza, un apasionado desarrollador de videojuegos.
-
-En este portafolio, encontrarás una selección de proyectos que reflejan mi dedicación, creatividad y habilidades técnicas. Desde aplicaciones web y móviles hasta diseños gráficos y desarrollo de software, cada proyecto representa un desafío único que he abordado con entusiasmo y compromiso.
-
-Te invito a explorar cada proyecto y descubrir el proceso detrás de su creación, desde la concepción de la idea hasta su implementación final. Si tienes alguna pregunta o estás interesado en colaborar en futuros proyectos, no dudes en ponerte en contacto conmigo.
-
-¡Espero que disfrutes navegando por mi portafolio y que encuentres inspiración en los proyectos presentados aquí!
-
-¡Gracias por visitar!
-    </textarea>
-    </div>
-
-    <script>
-    // Opcional: si quieres que el contenido se adapte si tu WindowManager cambia tamaño dinámicamente,
-    // forzamos que el textarea haga focus/resice correctamente.
-    (function(){
-      const ta = document.getElementById('readme-textarea');
-      // Si quieres que sea read-only, descomenta:
-      // ta.setAttribute('readonly','');
-      // Opcional: seleccionar todo cuando se abre
-      // ta.addEventListener('focus', () => ta.select());
-    })();
-    </script>
+    <script src="../js/window-frame.js"></script>
 </body>
 </html>

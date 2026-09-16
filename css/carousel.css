@@ -19,8 +19,16 @@
     transition: transform 0.5s ease;
 }
 
-.carousel-inner img {
+/* Cada diapositiva puede ser <img> o <picture> (WebP con respaldo PNG/JPG) */
+.carousel-inner > img,
+.carousel-inner > picture {
     flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.carousel-inner img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -34,8 +42,25 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
+    /* Área táctil de 44x44 px alrededor de la flecha */
+    padding: 6px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 2;
+}
+
+.carousel-control:focus-visible,
+.carousel-preview-btn:focus-visible,
+.carousel-lightbox button:focus-visible {
+    outline: 3px solid #f0a500;
+    outline-offset: 2px;
+}
+
+.carousel-control picture {
+    display: block;
 }
 
 .carousel-control img {
@@ -179,4 +204,15 @@
     .project-panel .carousel-inner img {
         object-fit: cover;
     }
+}
+
+@media (max-width: 767px) {
+    .carousel-preview-btn,
+    .carousel-lightbox-close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .carousel-lightbox-prev { left: 4px; }
+    .carousel-lightbox-next { right: 4px; }
 }
