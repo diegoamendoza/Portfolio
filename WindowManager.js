@@ -112,7 +112,7 @@ function WindowManager(window_container, window_template, log_enable) {
 	}
 	this.onmousemove = (e) => {
 		if (unmaximize_drag_state) {
-			let dist = Math.sqrt(Math.pow(2, e.clientX-unmaximize_drag_state.x)+Math.pow(2, e.clientY-unmaximize_drag_state.y))
+			let dist = Math.hypot(e.clientX-unmaximize_drag_state.x, e.clientY-unmaximize_drag_state.y)
 			if (dist>50) {
 				this.restore_window(unmaximize_drag_state.win)
 				unmaximize_drag_state.win.style.left = e.clientX + "px"
@@ -147,7 +147,7 @@ function WindowManager(window_container, window_template, log_enable) {
 						drag_state.win.restore_state.x = 0
 					} else if (e.clientX > window.innerWidth-this.snap_range) {
 						drag_state.win.classList.add("snapped-right")
-						let cw = drag_state.win.style.width.substring(0, drag_state.win.style.top.length-2)
+						let cw = parseInt(drag_state.win.style.width)
 						this.maximize_window(drag_state.win)
 						drag_state.win.style.left = "50%"
 						drag_state.win.style.width = "50%"
@@ -408,11 +408,6 @@ function WindowManager(window_container, window_template, log_enable) {
 		win_elem.querySelector(".win-btn-maximize").addEventListener("click", () => this.maximize_window(win_elem))
 		win_elem.querySelector(".win-btn-close").addEventListener("click", () => this.remove_window(win_elem))
 
-		// Escape cierra la ventana enfocada (también desde su contenido, ver js/window-frame.js)
-		win_elem.addEventListener("keydown", (e) => {
-			if (e.key === "Escape") { this.remove_window(win_elem) }
-		})
-
 		if (window_arg) {
             if (window_arg.title) {
                 win_elem.title_text.innerText = window_arg.title;
@@ -484,7 +479,7 @@ function WindowManager(window_container, window_template, log_enable) {
             }
 
 			// resize the window to fit the document inside the iframe
-			if (!win_elem.classList.contains("fixed-size")) {
+			if (!win_elem.classList.contains("fixed-size") && !(window_arg && window_arg.width)) {
 			let win_w = parseInt(win_elem.style.width.substring(0, win_elem.style.width.length-2))
 			let win_h = parseInt(win_elem.style.height.substring(0, win_elem.style.height.length-2))
 			let if_w = win_elem.iframe.clientWidth

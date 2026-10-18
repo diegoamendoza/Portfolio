@@ -318,9 +318,8 @@
         const mailto = `mailto:diegomendozadev@gmail.com?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
 
         window.location.href = mailto;
-        form.reset();
-        status.style.color = '#1a6b2a';
-        status.textContent = t('contact-status-done', '¡Cliente de correo abierto. Gracias!');
+        // No hay forma de saber si se abrió el correo: no se borra el mensaje y se deja la dirección a mano.
+        status.textContent = t('contact-status-done', 'Si no se abrió tu programa de correo, escríbeme directamente a diegomendozadev@gmail.com.');
       });
     })();
     </script>

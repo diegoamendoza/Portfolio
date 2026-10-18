@@ -82,8 +82,22 @@ html.no-js body {
     }
 }
 
+/* Las ventanas se posicionan contra .desktop: el contenedor no debe ocupar
+   un hueco en el flex (si no, empuja los iconos hacia el centro). */
+#window_container {
+    display: contents;
+}
+
+/* En la versión simple sólo queda la cabecera, que pasa a ser la de la página. */
 html.simple-mode .desktop,
 html.no-js .desktop {
+    display: contents;
+}
+
+html.simple-mode .desktop-icons,
+html.no-js .desktop-icons,
+html.simple-mode #window_container,
+html.no-js #window_container {
     display: none;
 }
 
@@ -255,7 +269,13 @@ html.no-js .desktop {
 }
 
 /* Qué se ve en cada modo */
-html.js:not(.simple-mode) .simple-only { display: none; }
+html.js:not(.simple-mode) .simple-only,
+html.no-js .simple-only { display: none; }
+
+/* En pantallas táctiles basta un toque: el aviso de "doble clic" sobra. */
+@media (hover: none) {
+    .hero-hint { display: none; }
+}
 html.simple-mode .desktop-only,
 html.no-js .desktop-only { display: none; }
 
@@ -287,7 +307,7 @@ textarea {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100vw;
+    right: 0;
     height: var(--taskbar-height);
     padding: 4px 8px;
     z-index: 1001;
@@ -295,7 +315,6 @@ textarea {
     align-items: center;
     gap: 8px;
     flex-wrap: nowrap;
-    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -471,6 +490,13 @@ textarea {
    pero no tiene sentido mostrar las pestañas de ventanas. */
 html.simple-mode .opened-tabs {
     display: none;
+}
+
+/* La página hace scroll: la barra se queda fija abajo en vez de flotar a media página.
+   El texto de la página es oscuro: el reloj necesita su propio color. */
+html.simple-mode .taskbar {
+    position: fixed;
+    color: #fff;
 }
 
 html.no-js .taskbar {
@@ -653,6 +679,7 @@ html.no-js .desktop-hero {
     .desktop {
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
         gap: 12px;
     }
 
@@ -810,6 +837,7 @@ html.no-js .desktop-hero {
 .window-body {
     display: flex;
     height: 100%;
+    min-height: 100vh;
     width: 100%;
     background: #ece9d8;
     justify-content: center;
@@ -1831,6 +1859,11 @@ h3 {
 .xp-folders-grid .carpeta-item.selected {
     background: #C5D8F7;
     border-color: #6B8FCF;
+}
+
+.xp-folders-grid .carpeta-item:focus-visible {
+    outline: 2px solid #316AC5;
+    outline-offset: 1px;
 }
 
 .xp-folders-grid .carpeta-item img {
