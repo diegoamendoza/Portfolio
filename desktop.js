@@ -282,20 +282,6 @@
     }
 
     /* ------------------------------------------------------------------ *
-     * Mensajes desde las ventanas (iframes)
-     * ------------------------------------------------------------------ */
-    function setupFrameMessages() {
-        window.addEventListener("message", function (event) {
-            var data = event.data;
-            if (!data || typeof data !== "object") return;
-
-            if (data.command === "open_desktop_window" && data.window) {
-                openWindowByKey(data.window);
-            }
-        });
-    }
-
-    /* ------------------------------------------------------------------ *
      * Teclado global
      * ------------------------------------------------------------------ */
     function setupKeyboard() {
@@ -333,7 +319,6 @@
         setupIcons();
         setupSimpleViewLinks();
         setupLanguageSwitcher();
-        setupFrameMessages();
         setupKeyboard();
         startClock();
 

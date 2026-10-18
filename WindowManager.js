@@ -338,8 +338,7 @@ function WindowManager(window_container, window_template, log_enable) {
 		} else if (e.data.command == "set_icon") {
 			// TODO
 		} else {
-			// otros mensajes (por ejemplo los del escritorio, como open_desktop_window)
-			// los atiende desktop.js: aquí no son un error.
+			// otros mensajes (por ejemplo set_language) no son para el gestor: no son un error.
 			this.log("wm: mensaje no manejado por el gestor de ventanas", e.data)
 		}
 	}
