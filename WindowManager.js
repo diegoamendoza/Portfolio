@@ -220,7 +220,10 @@ function WindowManager(window_container, window_template, log_enable) {
             img.width = 18;
             img.height = 18;
             tab.appendChild(img);
-            tab.appendChild(document.createTextNode(" " + title));
+            const label = document.createElement("span");
+            label.className = "open-tab-label";
+            label.textContent = title;
+            tab.appendChild(label);
             tab.setAttribute("aria-label", title);
             tab.onclick = () => {
                 if (win_elem.classList.contains("focused") && !win_elem.classList.contains("minimized")) {

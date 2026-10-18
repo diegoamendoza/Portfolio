@@ -21,7 +21,7 @@
         sobremi:   { url: "pages/aboutme.html",      titleKey: "sobre-mi",      title: "Sobre mí",      width: 880,  height: 580, icon: "about" },
         cv:        { url: "pages/cv.html",           titleKey: "cv",            title: "CV",            width: 800,  height: 600, icon: "cv" },
         contacto:  { url: "pages/contacto.html",     titleKey: "contacto",      title: "Contacto",      width: 820,  height: 560, icon: "contact" },
-        readme:    { url: "pages/readme.html",       titleKey: "readme",        title: "ReadMe.txt",    width: 560,  height: 520, x: 244, y: 16, icon: "readme" },
+        readme:    { url: "pages/readme.html",       titleKey: "readme-window-title", title: "ReadMe.txt - Bloc de notas", width: 560,  height: 520, x: 244, y: 16, icon: "readme" },
         paint:     { url: "09-paint-win-95/paint.html", titleKey: "paint",      title: "Paint",         width: 700,  height: 560, x: 420, y: 60, icon: "paint" },
         meowjump:  { url: "meow-jump/index.html",    titleKey: "meow-jump",     title: "Meow Jump!",    width: 313,  height: 692, x: 255, y: 9, icon: "meowjump", resizable: false },
         colorsort: { url: "ColorSortWeb/index.html", titleKey: "color-sort",    title: "Color Sort",    width: 313,  height: 692, x: 300, y: 9, icon: "colorsort", resizable: false }
@@ -93,7 +93,7 @@
                 window.scrollTo(0, 0);
             }
         } else {
-            var trigger = document.getElementById("btn-simple-view");
+            var trigger = document.querySelector("#desktop-icons .icon");
             if (trigger) trigger.focus({ preventScroll: true });
         }
     }
@@ -225,12 +225,7 @@
         }
 
         function activate(icon) {
-            var key = icon.getAttribute("data-window");
-            if (key === "simple") {
-                setSimpleMode(true);
-                return;
-            }
-            openWindowByKey(key);
+            openWindowByKey(icon.getAttribute("data-window"));
         }
 
         icons.forEach(function (icon) {
@@ -284,9 +279,6 @@
             var button = document.getElementById(id);
             if (button) button.addEventListener("click", function () { setSimpleMode(false); });
         });
-
-        var simpleBtn = document.getElementById("btn-simple-view");
-        if (simpleBtn) simpleBtn.addEventListener("click", function () { setSimpleMode(true); });
     }
 
     /* ------------------------------------------------------------------ *

@@ -32,7 +32,6 @@
         paint:      { png: "img/paint.png",                  webp: "img/paint.webp",                  width: 192, height: 192, origin: "microsoft", note: "Paint (Microsoft)" },
         meowjump:   { png: "img/logo-meow-jump.png",         webp: "img/logo-meow-jump.webp",         width: 192, height: 192, origin: "propio",    note: "Logo de Meow Jump!" },
         colorsort:  { png: "img/color-sort.png",             webp: "img/color-sort.webp",             width: 192, height: 192, origin: "propio",    note: "Logo de Color Sort" },
-        simple:     { png: "img/icons/simple-view.svg",      webp: "img/icons/simple-view.svg",       width: 64,  height: 64,  origin: "propio",    note: "Versión simple (SVG propio)" },
         start:      { png: "img/logo.svg",                   webp: "img/logo.svg",                    width: 20,  height: 20,  origin: "propio",    note: "Logo del botón Inicio" }
     };
 
