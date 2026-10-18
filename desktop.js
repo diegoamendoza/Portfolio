@@ -93,7 +93,7 @@
                 window.scrollTo(0, 0);
             }
         } else {
-            var trigger = document.querySelector('.icon[data-window="simple"]');
+            var trigger = document.querySelector("#desktop-icons .icon");
             if (trigger) trigger.focus({ preventScroll: true });
         }
     }
@@ -225,12 +225,7 @@
         }
 
         function activate(icon) {
-            var key = icon.getAttribute("data-window");
-            if (key === "simple") {
-                setSimpleMode(true);
-                return;
-            }
-            openWindowByKey(key);
+            openWindowByKey(icon.getAttribute("data-window"));
         }
 
         icons.forEach(function (icon) {
@@ -284,9 +279,6 @@
             var button = document.getElementById(id);
             if (button) button.addEventListener("click", function () { setSimpleMode(false); });
         });
-
-        var simpleBtn = document.getElementById("btn-simple-view");
-        if (simpleBtn) simpleBtn.addEventListener("click", function () { setSimpleMode(true); });
     }
 
     /* ------------------------------------------------------------------ *
