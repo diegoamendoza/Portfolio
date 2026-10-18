@@ -21,7 +21,7 @@
         sobremi:   { url: "pages/aboutme.html",      titleKey: "sobre-mi",      title: "Sobre mí",      width: 880,  height: 580, icon: "about" },
         cv:        { url: "pages/cv.html",           titleKey: "cv",            title: "CV",            width: 800,  height: 600, icon: "cv" },
         contacto:  { url: "pages/contacto.html",     titleKey: "contacto",      title: "Contacto",      width: 820,  height: 560, icon: "contact" },
-        readme:    { url: "pages/readme.html",       titleKey: "readme",        title: "ReadMe.txt",    width: 560,  height: 520, x: 700, y: 60, icon: "readme" },
+        readme:    { url: "pages/readme.html",       titleKey: "readme",        title: "ReadMe.txt",    width: 560,  height: 520, x: 244, y: 16, icon: "readme" },
         paint:     { url: "09-paint-win-95/paint.html", titleKey: "paint",      title: "Paint",         width: 700,  height: 560, x: 420, y: 60, icon: "paint" },
         meowjump:  { url: "meow-jump/index.html",    titleKey: "meow-jump",     title: "Meow Jump!",    width: 313,  height: 692, x: 255, y: 9, icon: "meowjump", resizable: false },
         colorsort: { url: "ColorSortWeb/index.html", titleKey: "color-sort",    title: "Color Sort",    width: 313,  height: 692, x: 300, y: 9, icon: "colorsort", resizable: false }
@@ -34,9 +34,9 @@
         return value === null || value === undefined ? fallback : value;
     }
 
-    function openWindowByKey(key) {
-        var def = WINDOWS[key];
-        if (!def || !wm) return null;
+    // Abre una ventana con el tamaño pedido, pero siempre dentro de la pantalla.
+    function openWindow(def) {
+        if (!wm) return null;
 
         var taskbarHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--taskbar-height"), 10) || 0;
         var viewportWidth = window.innerWidth;
@@ -51,7 +51,7 @@
 
         var iconPath = (window.ICONS && window.ICONS[def.icon]) ? window.ICONS[def.icon].png : undefined;
 
-        var win = wm.add_window(def.url, {
+        return wm.add_window(def.url, {
             title: translate(def.titleKey, def.title),
             titleKey: def.titleKey,
             width: width,
@@ -61,17 +61,15 @@
             icon: iconPath,
             resizable: def.resizable
         });
-
-        if (win && isMobile()) wm.maximize_window(win, true);
-        return win;
     }
 
-    // Abre una ventana desde una URL cualquiera (lo usan la versión simple y los iframes).
+    function openWindowByKey(key) {
+        return WINDOWS[key] ? openWindow(WINDOWS[key]) : null;
+    }
+
+    // Abre una ventana desde una URL cualquiera (lo usa la versión simple).
     function openWindowByUrl(url, title) {
-        if (!wm) return null;
-        var win = wm.add_window(url, { title: title || url, width: 900, height: 600 });
-        if (win && isMobile()) wm.maximize_window(win, true);
-        return win;
+        return openWindow({ url: url, title: title || url, width: 900, height: 600 });
     }
 
     /* ------------------------------------------------------------------ *
@@ -167,6 +165,7 @@
             var index = options.indexOf(document.activeElement);
 
             if (event.key === "Escape") {
+                event.stopPropagation(); // que no cierre también la ventana activa
                 closeMenu();
                 button.focus();
             } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -195,8 +194,9 @@
             menu.querySelectorAll("[data-lang]").forEach(function (option) {
                 option.setAttribute("aria-selected", option.getAttribute("data-lang") === lang ? "true" : "false");
             });
-            // Propaga el idioma a las ventanas abiertas (iframes).
+            // Propaga el idioma a las ventanas abiertas (iframes) y a sus pestañas.
             if (wm) {
+                wm.update_taskbar();
                 wm.window_list.forEach(function (win) {
                     try {
                         win.iframe.contentWindow.postMessage({ command: "set_language", language: lang }, "*");
@@ -329,6 +329,10 @@
         var template = document.getElementById("window_template");
 
         wm = new WindowManager(container, template, false);
+        // En móvil toda ventana nueva (también las que piden los iframes) va a pantalla completa.
+        wm.callbacks.win_add = function (win) {
+            if (isMobile()) wm.maximize_window(win, true);
+        };
         wm.register_mouse_events(window);
         wm.register_message_events();
         window.wm = wm;

@@ -146,7 +146,7 @@
 
             <!-- fallback object -->
             <object id="pdfObject" data="../cv/Diego-Mendoza-CV.pdf" type="application/pdf" aria-label="CV" style="display:none;">
-                <p style="padding:12px">
+                <p style="padding:12px; color:#222">
                     <span data-translate="cv-fallback">Tu navegador no puede mostrar PDFs dentro del visor.</span>
                     <a id="dlFallback" href="../cv/Diego-Mendoza-CV.pdf" target="_blank" rel="noopener" data-translate="cv-fallback-link">Haz clic aquí para descargar el CV</a>
                 </p>
@@ -155,32 +155,13 @@
     </div>
 
     <script>
-    // Ruta del PDF (ajusta si tu PDF está en otra carpeta)
-    const PDF_URL = '../cv/Diego-Mendoza-CV.pdf';
-
-    const embed = document.getElementById('pdfEmbed');
-    const obj = document.getElementById('pdfObject');
-
-    // Detect basic support: si embed.error o no soportado -> mostrar fallback object
-    function ensureViewer() {
-      // Algunos navegadores (móviles) no muestran embed: si embed.height==0 o embedd failed, fallback.
-      // No hay un evento universal, así que probamos a detectar si el embed se renderiza.
-      setTimeout(() => {
-        const embedRect = embed.getBoundingClientRect ? embed.getBoundingClientRect() : null;
-        const embedVisible = embedRect && embedRect.width > 0 && embedRect.height > 0;
-        if (!embedVisible) {
-          // intenta mostrar object
-          embed.style.display = 'none';
-          obj.style.display = 'block';
-          obj.data = PDF_URL;
-        } else {
-          embed.style.display = 'block';
-          obj.style.display = 'none';
-        }
-      }, 200);
+    // Sin visor de PDF integrado (p. ej. Chrome en Android) el <embed> queda en blanco:
+    // en ese caso se muestra el aviso con el enlace de descarga.
+    if (navigator.pdfViewerEnabled === false) {
+      document.getElementById('pdfEmbed').remove();
+      const obj = document.getElementById('pdfObject');
+      obj.replaceWith(...obj.children);
     }
-
-    ensureViewer();
     </script>
     <script src="../js/language.js"></script>
     <script src="../js/window-frame.js"></script>

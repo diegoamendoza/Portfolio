@@ -87,119 +87,120 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.key === "ArrowRight") { lbIndex = (lbIndex + 1) % lbImages.length; lbImg.src = lbImages[lbIndex]; }
     });
 
-    // --- Mini-carousel state ---
-    let currentCarouselImages = [];
-    let currentCarouselIndex  = 0;
+    // --- Mini-carousel (imágenes o videos) ---
+    let currentCarouselIndex = 0;
 
-    function buildImagePreview(srcs) {
-        currentCarouselImages = srcs;
-        currentCarouselIndex  = 0;
+    function createMedia(src, isVideo, label, eager) {
+        const el = document.createElement(isVideo ? "video" : "img");
+        el.className = "preview-media-img";
+        el.src = src;
+        if (isVideo) {
+            el.muted = true;
+            el.loop = true;
+            el.setAttribute("playsinline", "");
+            el.setAttribute("preload", "metadata");
+            el.setAttribute("aria-label", label);
+        } else {
+            el.alt = label;
+            el.loading = eager ? "eager" : "lazy";
+            el.decoding = "async";
+        }
+        return el;
+    }
 
+    function buildMediaPreview(srcs, isVideo) {
+        currentCarouselIndex = 0;
         previewMediaWrap.innerHTML = "";
 
         if (srcs.length === 0) return;
 
-        if (srcs.length === 1) {
-            // Single image + expand button
-            const img = document.createElement("img");
-            img.src = srcs[0];
-            img.alt = previewTitle.textContent ? ("Captura de " + previewTitle.textContent) : "";
-            img.loading = "lazy";
-            img.decoding = "async";
-            img.className = "preview-media-img";
-            previewMediaWrap.appendChild(img);
-            appendExpandBtn(srcs, 0);
-            return;
-        }
-
-        // Multiple images → mini carousel
-        const track = document.createElement("div");
-        track.className = "preview-carousel-track";
-
-        srcs.forEach(function(src, i) {
-            const img = document.createElement("img");
-            img.src = src;
-            img.alt = previewTitle.textContent ? ("Captura " + (i + 1) + " de " + previewTitle.textContent) : "";
-            img.loading = i === 0 ? "eager" : "lazy";
-            img.decoding = "async";
-            img.className = "preview-media-img";
-            track.appendChild(img);
+        const title = previewTitle.textContent;
+        const items = srcs.map(function(src, i) {
+            let label = "";
+            if (title) label = isVideo ? title : (srcs.length > 1 ? "Captura " + (i + 1) + " de " + title : "Captura de " + title);
+            return createMedia(src, isVideo, label, i === 0);
         });
 
-        previewMediaWrap.appendChild(track);
-
-        // Arrows
-        const btnPrev = document.createElement("button");
-        btnPrev.className = "preview-carousel-btn prev";
-        btnPrev.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`;
-        btnPrev.type = "button";
-        btnPrev.title = getTranslation("preview-prev", "Anterior");
-        btnPrev.setAttribute("aria-label", btnPrev.title);
-
-        const btnNext = document.createElement("button");
-        btnNext.className = "preview-carousel-btn next";
-        btnNext.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
-        btnNext.type = "button";
-        btnNext.title = getTranslation("preview-next", "Siguiente");
-        btnNext.setAttribute("aria-label", btnNext.title);
-
-        previewMediaWrap.appendChild(btnPrev);
-        previewMediaWrap.appendChild(btnNext);
-
-        // Dots indicator
-        const dots = document.createElement("div");
-        dots.className = "preview-carousel-dots";
-        srcs.forEach(function(_, i) {
-            const dot = document.createElement("span");
-            dot.className = "preview-carousel-dot" + (i === 0 ? " active" : "");
-            dot.addEventListener("click", function() { goTo(i); });
-            dots.appendChild(dot);
-        });
-        previewMediaWrap.appendChild(dots);
-
-        function goTo(index) {
-            currentCarouselIndex = index;
-            track.style.transform = "translateX(-" + (index * 100) + "%)";
-            dots.querySelectorAll(".preview-carousel-dot").forEach(function(d, i) {
-                d.classList.toggle("active", i === index);
+        // Sólo se reproduce el video visible (en móvil el panel está oculto: no se descarga).
+        function playCurrent() {
+            if (!isVideo || !isPreviewVisible()) return;
+            items.forEach(function(video, i) {
+                if (i === currentCarouselIndex) video.play().catch(function() {});
+                else video.pause();
             });
         }
 
-        btnPrev.addEventListener("click", function() {
-            goTo((currentCarouselIndex - 1 + srcs.length) % srcs.length);
-        });
+        if (items.length === 1) {
+            previewMediaWrap.appendChild(items[0]);
+        } else {
+            const track = document.createElement("div");
+            track.className = "preview-carousel-track";
+            items.forEach(function(el) { track.appendChild(el); });
+            previewMediaWrap.appendChild(track);
 
-        btnNext.addEventListener("click", function() {
-            goTo((currentCarouselIndex + 1) % srcs.length);
-        });
+            // Arrows
+            const btnPrev = document.createElement("button");
+            btnPrev.className = "preview-carousel-btn prev";
+            btnPrev.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`;
+            btnPrev.type = "button";
+            btnPrev.title = getTranslation("preview-prev", "Anterior");
+            btnPrev.setAttribute("aria-label", btnPrev.title);
 
-        appendExpandBtn(srcs, null);
+            const btnNext = document.createElement("button");
+            btnNext.className = "preview-carousel-btn next";
+            btnNext.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+            btnNext.type = "button";
+            btnNext.title = getTranslation("preview-next", "Siguiente");
+            btnNext.setAttribute("aria-label", btnNext.title);
 
-        function appendExpandBtn(images, fixedIndex) {
-            const btn = document.createElement("button");
-            btn.className = "preview-expand-btn";
-            btn.type = "button";
-            btn.title = getTranslation("preview-expand", "Ver imagen ampliada");
-            btn.setAttribute("aria-label", btn.title);
-            btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
-            btn.addEventListener("click", function() {
-                openLightbox(images, fixedIndex !== null ? fixedIndex : currentCarouselIndex);
+            previewMediaWrap.appendChild(btnPrev);
+            previewMediaWrap.appendChild(btnNext);
+
+            // Dots indicator
+            const dots = document.createElement("div");
+            dots.className = "preview-carousel-dots";
+            srcs.forEach(function(_, i) {
+                const dot = document.createElement("span");
+                dot.className = "preview-carousel-dot" + (i === 0 ? " active" : "");
+                dot.addEventListener("click", function() { goTo(i); });
+                dots.appendChild(dot);
             });
-            previewMediaWrap.appendChild(btn);
-        }
-    }
+            previewMediaWrap.appendChild(dots);
 
-    function appendExpandBtn(images, fixedIndex) {
-        const btn = document.createElement("button");
-        btn.className = "preview-expand-btn";
-        btn.type = "button";
-        btn.title = getTranslation("preview-expand", "Ver imagen ampliada");
-        btn.setAttribute("aria-label", btn.title);
-        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
-        btn.addEventListener("click", function() {
-            openLightbox(images, fixedIndex !== null ? fixedIndex : currentCarouselIndex);
+            function goTo(index) {
+                currentCarouselIndex = index;
+                track.style.transform = "translateX(-" + (index * 100) + "%)";
+                dots.querySelectorAll(".preview-carousel-dot").forEach(function(d, i) {
+                    d.classList.toggle("active", i === index);
+                });
+                playCurrent();
+            }
+
+            btnPrev.addEventListener("click", function() {
+                goTo((currentCarouselIndex - 1 + srcs.length) % srcs.length);
+            });
+
+            btnNext.addEventListener("click", function() {
+                goTo((currentCarouselIndex + 1) % srcs.length);
+            });
+        }
+
+        // Ampliar: las imágenes van al lightbox y los videos a pantalla completa.
+        const expandBtn = document.createElement("button");
+        expandBtn.className = "preview-expand-btn";
+        expandBtn.type = "button";
+        expandBtn.title = isVideo ? getTranslation("preview-fullscreen", "Pantalla completa") : getTranslation("preview-expand", "Ver imagen ampliada");
+        expandBtn.setAttribute("aria-label", expandBtn.title);
+        expandBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
+        expandBtn.addEventListener("click", function() {
+            if (!isVideo) return openLightbox(srcs, currentCarouselIndex);
+            const video = items[currentCarouselIndex];
+            if (video.requestFullscreen) video.requestFullscreen();
+            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
         });
-        previewMediaWrap.appendChild(btn);
+        previewMediaWrap.appendChild(expandBtn);
+
+        playCurrent();
     }
 
     // --- Language helpers ---
@@ -246,38 +247,10 @@ document.addEventListener("DOMContentLoaded", function () {
         previewDescription.dataset.descKey = descKey;
         updatePreviewDescription();
 
-        previewMediaWrap.innerHTML = "";
-
-        if (previewType === "video" && previewSrc) {
-            const video = document.createElement("video");
-            video.src = previewSrc;
-            video.controls = false;
-            video.muted = true;
-            video.autoplay = true;
-            video.loop = true;
-            video.className = "preview-media-img";
-            video.setAttribute("playsinline", "");
-            video.setAttribute("preload", "metadata");
-            video.setAttribute("aria-label", previewTitle.textContent || "");
-            previewMediaWrap.appendChild(video);
-
-            const fsBtn = document.createElement("button");
-            fsBtn.className = "preview-expand-btn";
-            fsBtn.type = "button";
-            fsBtn.title = getTranslation("preview-fullscreen", "Pantalla completa");
-            fsBtn.setAttribute("aria-label", fsBtn.title);
-            fsBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><polyline points="0,4 0,0 4,0"/><polyline points="10,0 14,0 14,4"/><polyline points="14,10 14,14 10,14"/><polyline points="4,14 0,14 0,10"/></svg>';
-            fsBtn.addEventListener("click", function() {
-                if (video.requestFullscreen) video.requestFullscreen();
-                else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-            });
-            previewMediaWrap.appendChild(fsBtn);
-        } else if (previewType === "image") {
-            const srcs = previewSrcs
-                ? previewSrcs.split("|").map(function(s) { return s.trim(); }).filter(Boolean)
-                : (previewSrc ? [previewSrc] : []);
-            buildImagePreview(srcs);
-        }
+        const srcs = previewSrcs
+            ? previewSrcs.split("|").map(function(s) { return s.trim(); }).filter(Boolean)
+            : (previewSrc ? [previewSrc] : []);
+        buildMediaPreview(srcs, previewType === "video");
 
         previewEmpty.style.display  = "none";
         previewFilled.style.display = "flex";
@@ -307,6 +280,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.querySelectorAll(".carpeta-item").forEach(function(item) {
+        // Accesible con teclado: Tab llega a cada carpeta y Enter/Espacio la selecciona.
+        item.tabIndex = 0;
+        item.setAttribute("role", "button");
+        item.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                item.click();
+            }
+        });
+
         item.addEventListener("click", function () {
             if (isTouchDevice && this.classList.contains("selected")) {
                 openProject();
