@@ -61,9 +61,7 @@ html.no-js body {
     position: absolute;
     inset: 0 0 var(--taskbar-height) 0;
     display: flex;
-    flex-direction: row-reverse;
     align-items: flex-start;
-    justify-content: space-between;
     gap: 16px;
     padding: 16px;
     overflow: hidden;
@@ -272,9 +270,23 @@ html.no-js #window_container {
 html.js:not(.simple-mode) .simple-only,
 html.no-js .simple-only { display: none; }
 
-/* En pantallas táctiles basta un toque: el aviso de "doble clic" sobra. */
-@media (hover: none) {
-    .hero-hint { display: none; }
+/* En el escritorio no hay cartel: la presentación la hace el ReadMe. La cabecera
+   sigue ahí para lectores de pantalla y buscadores (h1), y es la cabecera visible
+   de la versión simple y de la página sin JS. */
+html.js:not(.simple-mode) .desktop-hero {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+html.js:not(.simple-mode) .hero-hint,
+html.js:not(.simple-mode) .hero-actions {
+    display: none;
 }
 html.simple-mode .desktop-only,
 html.no-js .desktop-only { display: none; }
@@ -318,30 +330,42 @@ textarea {
     box-sizing: border-box;
 }
 
+/* Botón Inicio de Windows XP: verde, pegado al borde y a toda la altura de la barra. */
 .start-button {
-    height: 100%;
+    align-self: stretch;
+    margin: -4px 6px -4px -8px;
     display: inline-flex;
     align-items: center;
-    column-gap: 8px;
-    font-size: 22px;
-    line-height: 22px;
+    column-gap: 6px;
+    padding: 0 24px 2px 12px;
+    font-family: 'Franklin Gothic Medium', 'Trebuchet MS', Tahoma, sans-serif;
+    font-size: 19px;
+    line-height: 1;
     font-weight: bold;
     font-style: italic;
-    background: radial-gradient(circle, #2c2c2c 0%, #424242 100%) center / cover no-repeat;
-    box-shadow: 0px 5px 10px #555 inset, 4px 0 8px #111;
-    padding: 4px 18px 6px 12px;
-    text-shadow: 1px 1px 3px #222;
-    border-radius: 0px 8px 8px 0px;
-    margin-right: 6px;
+    text-transform: lowercase;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(to bottom, #4fae4f 0%, #43a043 10%, #3a963a 45%, #2f852f 85%, #26702a 100%);
+    border: none;
+    border-radius: 0 12px 12px 0;
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.35), inset -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 0 5px rgba(0, 0, 0, 0.45);
     cursor: pointer;
+}
+
+.start-button:hover {
+    background: linear-gradient(to bottom, #5cbd5c 0%, #4fae4f 10%, #45a345 45%, #389438 85%, #2d7f30 100%);
+}
+
+.start-button:active {
+    background: linear-gradient(to bottom, #2b7d2b 0%, #2f852f 40%, #3a963a 100%);
 }
 
     .start-button img {
         width: 20px;
         height: 20px;
         display: block;
-        margin-right: 4px;
-        filter: drop-shadow(1px 1px 1px #222) brightness(1.6);
+        filter: brightness(0) invert(1) drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.6));
         object-fit: contain;
     }
 
@@ -350,6 +374,12 @@ textarea {
     display: flex;
     align-items: center;
     overflow: hidden;
+}
+
+.open-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .open-tab {
@@ -752,11 +782,11 @@ html.no-js .desktop-hero {
     }
 
     .start-button {
-        font-size: 15px;
-        padding: 4px 10px;
+        margin-left: -6px;
+        font-size: 16px;
+        padding: 0 16px 2px 10px;
         min-height: 44px;
         flex: 0 0 auto;
-        line-height: 16px;
     }
 
     .opened-tabs {
